@@ -1,8 +1,10 @@
 package logica;
 
+import java.io.Serializable;
+
 import logica.Boleto;
 
-public class Boletos{
+public class Boletos implements Serializable{
 	private Boleto arreglo[];
 	private int tope;
 	
@@ -44,7 +46,7 @@ public class Boletos{
 	/*Inserta un boleto al final en la siguiente posicion disponible.*/
 	public void insert(Boleto insertar){
 		this.arreglo[this.tope] = (Boleto)insertar;
-		this.arreglo[this.tope].nroBoleto = this.tope;
+		this.arreglo[this.tope].setNroBoleto(this.tope);
 		this.tope = this.tope + 1;
 	}
 	
