@@ -3,8 +3,8 @@ package logica;
 import logica.Boleto;
 
 public class Boletos{
-	Boleto arreglo[];
-	int tope;
+	private Boleto arreglo[];
+	private int tope;
 	
 	/*Constructores*/
 	public Boletos(int cantidadAsientos) {
