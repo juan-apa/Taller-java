@@ -1,10 +1,10 @@
 package logica;
 
-public class Boleto {
-	int nroBoleto;
-	String lugarPrecedencia;
-	int edadPasajero;
-	long nroCelular;
+public class Boleto{
+	private int nroBoleto;
+	private String lugarPrecedencia;
+	private int edadPasajero;
+	private long nroCelular;
 	
 	public Boleto(int NROBOLETO, String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR){
 		this.nroBoleto = NROBOLETO;
