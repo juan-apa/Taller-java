@@ -39,5 +39,11 @@ public class Boleto implements Serializable{
 	public void setNroCelular(long nroCelular) {
 		this.nroCelular = nroCelular;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Boleto [nroBoleto=" + nroBoleto + ", lugarPrecedencia=" + lugarPrecedencia + ", edadPasajero="
+				+ edadPasajero + ", nroCelular=" + nroCelular + "]";
+	}
+		
 }

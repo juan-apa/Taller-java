@@ -45,6 +45,7 @@ public class Buses {
 	}
 	
 	public boolean hayBusLibre(Date hpartida, Date hregreso){
+		/*TODO terminar funcion, no compara las fechas, porque falta implementar alguna funcion de Excursiones.*/
 		boolean busLibre = false;
 //		Set<Map.Entry<String, Bus>> setValores = this.diccionario.entrySet();
 //		Iterator<Entry<String, Bus>> ite = setValores.iterator();
