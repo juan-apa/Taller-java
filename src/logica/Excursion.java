@@ -1,6 +1,9 @@
 package logica;
 
 import java.util.Date;
+
+import logica.colecciones.Boletos;
+
 import java.io.Serializable;
 
 public class Excursion implements Serializable{
@@ -9,6 +12,7 @@ public class Excursion implements Serializable{
 	private Date hpartida;
 	private Date hllegada;
 	private double precioBase;
+	private Boletos boletos;
 	
 	public Excursion(String codigo, String destino, Date hpartida,
 			Date hllegada, double precioBase) {
@@ -18,6 +22,7 @@ public class Excursion implements Serializable{
 		this.hpartida = hpartida;
 		this.hllegada = hllegada;
 		this.precioBase = precioBase;
+		this.boletos = null;
 	}
 
 	public String getCodigo() {
@@ -58,6 +63,14 @@ public class Excursion implements Serializable{
 
 	public void setPrecioBase(double precioBase) {
 		this.precioBase = precioBase;
+	}
+
+	public Boletos getBoletos() {
+		return boletos;
+	}
+
+	public void setBoletos(Boletos boletos) {
+		this.boletos = boletos;
 	}
 	
 }

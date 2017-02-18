@@ -7,6 +7,7 @@ public class Boleto implements Serializable{
 	private String lugarPrecedencia;
 	private int edadPasajero;
 	private long nroCelular;
+	private static String tipo = "Comun";
 	
 	public Boleto(int NROBOLETO, String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR){
 		this.nroBoleto = NROBOLETO;
@@ -38,6 +39,14 @@ public class Boleto implements Serializable{
 	}
 	public void setNroCelular(long nroCelular) {
 		this.nroCelular = nroCelular;
+	}	
+	
+	public static String getTipo() {
+		return tipo;
+	}
+
+	public static void setTipo(String tipo) {
+		Boleto.tipo = tipo;
 	}
 
 	@Override
