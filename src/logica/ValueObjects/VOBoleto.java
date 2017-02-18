@@ -1,7 +1,7 @@
 /*VO utilizado para los requerimientos:
  *req. 7 */
 
-package logica;
+package logica.ValueObjects;
 
 public class VOBoleto {
 	private String codExcursion;

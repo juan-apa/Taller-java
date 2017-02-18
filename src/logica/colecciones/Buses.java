@@ -1,13 +1,14 @@
-package logica;
-
+package logica.colecciones;
 
 import java.util.Date;
 import java.util.TreeMap;
+
+import logica.objetos.Bus;
+
 import java.util.Iterator;
-import java.util.Map.Entry;
 import java.io.Serializable;
 
-public class Buses {
+public class Buses implements Serializable{
 	/*Atributos*/
 	private TreeMap<String, Bus> diccionario;
 	
@@ -47,15 +48,9 @@ public class Buses {
 	public boolean hayBusLibre(Date hpartida, Date hregreso){
 		/*TODO terminar funcion, no compara las fechas, porque falta implementar alguna funcion de Excursiones.*/
 		boolean busLibre = false;
-//		Set<Map.Entry<String, Bus>> setValores = this.diccionario.entrySet();
-//		Iterator<Entry<String, Bus>> ite = setValores.iterator();
-		
-		Iterator<Entry<String, Bus>> ite = this.diccionario.entrySet().iterator();
-		//Obtengo un iterador de entradas. Cada entrada esta compuesta por una clave:String y un valor:Bus
-		
-		while(!busLibre && (ite.hasNext())){
-			//De las entradas, quiero obtener el valor:Bus, eso lo hago usando la funcion getValue().
-			Bus busAux = ite.next().getValue();
+		Iterator<Bus> recorrida = this.diccionario.values().iterator();
+		while(!busLibre && (recorrida.hasNext())){
+			Bus busAux =recorrida.next();
 			//Aca va la comparacion que le quiero hacer a cada bus
 			System.out.println("Pasada\n"+ busAux.toString());
 			

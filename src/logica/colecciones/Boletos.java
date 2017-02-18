@@ -1,8 +1,8 @@
-package logica;
+package logica.colecciones;
 
 import java.io.Serializable;
 
-import logica.Boleto;
+import logica.objetos.Boleto;
 
 public class Boletos implements Serializable{
 	private Boleto arreglo[];
@@ -48,6 +48,28 @@ public class Boletos implements Serializable{
 		this.arreglo[this.tope] = (Boleto)insertar;
 		this.arreglo[this.tope].setNroBoleto(this.tope);
 		this.tope = this.tope + 1;
+	}
+	
+	/*Devuelve true si hay al menos un boleto con el tipo tipoBoleto.*/
+	/*Precondicion: tipoBoleto tiene que ser "Comun" o "Especial"*/
+	public boolean hayBoletoConTipo(String tipoBoleto){
+		boolean hayBoletoConTipo = false;
+		int i = 0;
+		while(!hayBoletoConTipo && i < this.tope){
+			if(arreglo[i].getTipo()== tipoBoleto){
+				hayBoletoConTipo = true;
+			}
+			else{
+				i++;
+			}
+		}
+		return hayBoletoConTipo;
+	}
+	
+	public Boleto getBoletoNro(int nroBoleto){
+		Boleto ret;
+		ret = this.arreglo[nroBoleto - 1];
+		return ret;
 	}
 	
 	/*Sobreescritura de metodos*/
