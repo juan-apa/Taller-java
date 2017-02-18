@@ -2,8 +2,10 @@ package logica.colecciones;
 
 import java.util.Date;
 import java.util.TreeMap;
+
+import logica.objetos.Bus;
+
 import java.util.Iterator;
-import logica.Bus;
 import java.io.Serializable;
 
 public class Buses implements Serializable{

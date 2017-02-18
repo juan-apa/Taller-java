@@ -1,8 +1,10 @@
 package logica.colecciones;
 
-import logica.Excursion;
 import java.util.Iterator;
 import java.util.TreeMap;
+
+import logica.objetos.Excursion;
+
 import java.io.Serializable;
 
 public class Excursiones implements Serializable{

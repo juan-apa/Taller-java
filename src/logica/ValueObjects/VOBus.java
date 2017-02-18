@@ -5,12 +5,12 @@
 package logica.ValueObjects;
 
 
-public class VOBusCompleto {
+public class VOBus {
 	private String matricula;
 	private String marca;
 	private int capPasajeros;
 	
-	public VOBusCompleto(String matricula, String marca, int capPasajeros) {
+	public VOBus(String matricula, String marca, int capPasajeros) {
 		super();
 		this.matricula = matricula;
 		this.marca = marca;

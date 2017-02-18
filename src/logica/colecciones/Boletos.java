@@ -1,7 +1,8 @@
 package logica.colecciones;
 
 import java.io.Serializable;
-import logica.Boleto;
+
+import logica.objetos.Boleto;
 
 public class Boletos implements Serializable{
 	private Boleto arreglo[];

@@ -1,6 +1,6 @@
-package logica;
+package logica.objetos;
 
-import logica.Boleto;
+import logica.objetos.Boleto;
 
 public class Especial extends Boleto{
 	double dtoAdicional;
