@@ -32,7 +32,7 @@ public class Bus implements Serializable {
 	public void setCapPasajeros(int capPasajeros) {
 		this.capPasajeros = capPasajeros;
 	}
-	@Override
+	
 	public String toString() {
 		return "Bus [matricula=" + matricula + ", marca=" + marca + ", capPasajeros=" + capPasajeros + "]";
 	}

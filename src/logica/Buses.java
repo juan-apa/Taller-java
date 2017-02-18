@@ -1,13 +1,12 @@
 package logica;
 
-
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.io.Serializable;
 
-public class Buses {
+public class Buses implements Serializable{
 	/*Atributos*/
 	private TreeMap<String, Bus> diccionario;
 	
