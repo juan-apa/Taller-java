@@ -1,16 +1,25 @@
 package logica;
 
-import java.util.TreeMap;
+import java.util.Date;
+
+import logica.Buses;
 
 public class Main {
 
 	public static void main(String[] args) {
 	
 		// TODO Auto-generated method stub
-		Bus b = new Bus("aaa111", "hola", 1);
-		TreeMap tm = new TreeMap();
+		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");
-		tm.put(1,b);
+		Buses bs = new Buses();
+		System.out.println("Antes de insertar.");
+		bs.imprimir();
+		bs.insert(busAux);
+		System.out.println("Despues de insertar");
+		bs.imprimir();
+		Date uno = new Date();
+		Date dos = new Date();
+		boolean aux = bs.hayBusLibre(uno, dos);
 	}
 
 }
