@@ -2,7 +2,7 @@ package logica;
 
 import java.util.Date;
 
-import logica.Buses;
+import logica.colecciones.Buses;
 
 public class Main {
 

@@ -1,7 +1,7 @@
 /*VO utilizado para los requerimientos:
  *req. 9 */
 
-package logica;
+package logica.ValueObjects;
 
 public class VOExcBol {
 	private String codigoExcursion;

@@ -3,7 +3,7 @@
  * req. 10
  * req. 11*/
 
-package logica;
+package logica.ValueObjects;
 
 import java.util.Date;
 

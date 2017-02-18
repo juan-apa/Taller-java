@@ -2,7 +2,7 @@
  * req. 1
  * req. 2*/
 
-package logica;
+package logica.ValueObjects;
 
 
 public class VOBusCompleto {

@@ -1,9 +1,12 @@
-package logica;
+package logica.colecciones;
 
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+
+import logica.Bus;
+
 import java.io.Serializable;
 
 public class Buses implements Serializable{

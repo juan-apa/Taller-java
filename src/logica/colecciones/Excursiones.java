@@ -1,4 +1,4 @@
-package logica;
+package logica.colecciones;
 
 import java.util.Set;
 
