@@ -1,10 +1,14 @@
 package logica;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import logica.Excepciones.colecciones.Exc_Buses;
+import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Bus;
 import logica.ValueObjects.VOBus;
+import logica.ValueObjects.VOBusExc;
+import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Boletos;
 import logica.colecciones.Buses;
 import logica.fachada.Fachada;
@@ -50,9 +54,20 @@ public class Main {
 			System.out.println("Mensaje de e: " + e);
 		}
 		
-		
+		/*Testeo requerimientos*/
 		Fachada f = new Fachada();
+		
+		/*Test Requerimiento 2*/
+		System.out.println("\n\nTest Requerimiento 2.");
 		VOBus vobus = new VOBus("aaa009", "Suzuki", 5);
+		try {
+			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+		} catch (Exc_Buses e) {
+			System.out.println("Advertencia: " + e.toString());
+		}
+		
+		/*Test Requerimiento 1*/
+		System.out.println("\n\nTest Requerimiento 1.");
 		try {
 			f.registroNuevoBus(vobus);
 			vobus.setMatricula("aaa010");
@@ -64,6 +79,36 @@ public class Main {
 		} catch (Exc_Buses e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		/*Test Requerimiento 2 (cont.)*/
+		System.out.println("\n\nTest Requerimiento 2.");
+		try {
+			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			while(itegenbus.hasNext()){
+				VOBusExc vobusexcaux = itegenbus.next();
+				System.out.println(vobusexcaux.toString());
+			}
+			System.out.println("Requerimiento 2 con exito.");
+		} catch (Exc_Buses e) {
+			System.out.println("Advertencia: " + e.toString());
+		}
+		
+		
+		/*Test Requerimiento 3*/
+		
+		System.out.println("\n\nTest Requerimiento 3.");
+		try{
+			Iterator<VOExcursionListado> itereq3= f.listadoExcursionesDeBus("aaa009");
+		}
+		catch(Exc_Bus ebus){
+			System.out.println(ebus.toString());
+		}
+		catch(Exc_Buses ebuses){
+			System.out.println(ebuses.toString());
+		}
+		catch(Exc_Excursiones eexcs){
+			System.out.println(eexcs.toString());
 		}
 	}
 

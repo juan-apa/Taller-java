@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.TreeMap;
 
 import logica.objetos.Bus;
+import logica.objetos.Excursion;
 
 import java.util.Iterator;
 import java.io.Serializable;
 
-public class Buses implements Serializable{
+public class Buses implements Diccionario, Serializable{
 	/*Atributos*/
 	private TreeMap<String, Bus> diccionario;
 	
@@ -29,21 +30,6 @@ public class Buses implements Serializable{
 	
 	
 	/*Funciones propias*/
-	public void insert(Bus insertar){
-		this.diccionario.put(insertar.getMatricula(), (Bus)insertar);
-	}
-	
-	public boolean existeBus(String matricula){
-		return this.diccionario.containsKey(matricula);
-	}
-	
-	public boolean esVacio(){
-		return this.diccionario.isEmpty();
-	}
-	
-	public Bus find(String matricula){
-		return this.diccionario.get(matricula);
-	}
 	
 	public boolean hayBusLibre(Date hpartida, Date hregreso){
 		/*TODO terminar funcion, no compara las fechas, porque falta implementar alguna funcion de Excursiones.*/
@@ -61,5 +47,36 @@ public class Buses implements Serializable{
 	public void imprimir(){
 		System.out.println(this.diccionario.toString());
 	}
+	
+	/*Metodos de la interface Diccionario sobreescritos*/
+	@Override
+	public boolean empty() {
+		return this.diccionario.isEmpty();
+	}
+
+	@Override
+	public void insert(Object insertar) {
+		this.diccionario.put(((Bus)insertar).getMatricula(), (Bus)insertar);
+	}
+
+	@Override
+	public int length() {
+		return this.diccionario.size();
+	}
+
+	@Override
+	public Iterator iterator() {
+		return (this.diccionario.values().iterator());
+	}
+	
+	@Override
+	public Object find(String codigo){
+		return this.diccionario.get(codigo);
+	}
+
+	@Override
+	public boolean exists(String clave) {
+		return this.diccionario.containsKey(clave);
+	}	
 	
 }

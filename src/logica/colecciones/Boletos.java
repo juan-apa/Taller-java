@@ -72,5 +72,9 @@ public class Boletos implements Serializable{
 		return ret;
 	}
 	
+	public int length(){
+		return this.tope;
+	}
+	
 	/*Sobreescritura de metodos*/
 }

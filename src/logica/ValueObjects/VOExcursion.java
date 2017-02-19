@@ -9,7 +9,7 @@ import java.util.Date;
 public class VOExcursion {
 	private String codigo;
 	private String destino;
-	private Date hPartia;
+	private Date hPartida;
 	private Date hLlegada;
 	private double precioBase;
 	
@@ -17,7 +17,7 @@ public class VOExcursion {
 		super();
 		this.codigo = codigo;
 		this.destino = destino;
-		this.hPartia = hPartia;
+		this.hPartida = hPartia;
 		this.hLlegada = hLlegada;
 		this.precioBase = precioBase;
 	}
@@ -38,12 +38,12 @@ public class VOExcursion {
 		this.destino = destino;
 	}
 	
-	public Date gethPartia() {
-		return hPartia;
+	public Date gethPartida() {
+		return hPartida;
 	}
 	
-	public void sethPartia(Date hPartia) {
-		this.hPartia = hPartia;
+	public void sethPartida(Date hPartida) {
+		this.hPartida = hPartida;
 	}
 	
 	public Date gethLlegada() {
