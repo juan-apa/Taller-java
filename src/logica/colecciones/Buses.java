@@ -3,6 +3,8 @@ package logica.colecciones;
 import java.util.Date;
 import java.util.TreeMap;
 
+import logica.Excepciones.colecciones.Exc_Buses;
+import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.objetos.Bus;
 import logica.objetos.Excursion;
 
@@ -31,18 +33,38 @@ public class Buses implements Diccionario, Serializable{
 	
 	/*Funciones propias*/
 	
-	public boolean hayBusLibre(Date hpartida, Date hregreso){
-		/*TODO terminar funcion, no compara las fechas, porque falta implementar alguna funcion de Excursiones.*/
+	public void asignarExcursionAUnBus(Excursion insertar) throws Exc_Buses{
+		/*TODO revisar para sacar el codigo que verifica si la excrusion entra en el diccionario y ponerlo en la clase excursiones.*/
 		boolean busLibre = false;
 		Iterator<Bus> recorrida = this.diccionario.values().iterator();
 		while(!busLibre && (recorrida.hasNext())){
 			Bus busAux =recorrida.next();
-			//Aca va la comparacion que le quiero hacer a cada bus
-			System.out.println("Pasada\n"+ busAux.toString());
-			
+			boolean entraEnBus = busAux.getExcuBus().entraExcursion(insertar);
+			/*Si cuando salgo de la recorrida de Excursiones entraEnBus==true, es porque no hay ninguna excursion que interfiera con la pasada por param.*/
+			if(entraEnBus){
+				/*Cambio el valor de busLibre a true y asigno la excursion al bus.*/
+				busLibre = true;
+				busAux.insertarExcursion(insertar);
+			}
 		}
-		return busLibre;
+		if(!busLibre){
+			throw new Exc_Buses("No hay ningun bus con un horario disponible para insertar la Excursion");
+		}
 	}
+	
+	public Bus obtenerBusConExcursion(String buscar){
+		Bus busAux = null;
+		boolean encontrado = false;
+		Iterator<Bus> iteBus = this.iterator();
+		while(iteBus.hasNext() && !encontrado){
+			busAux = iteBus.next();
+			encontrado = busAux.getExcuBus().exists(buscar);
+		}
+		return busAux;
+	}
+	
+	
+
 	
 	public void imprimir(){
 		System.out.println(this.diccionario.toString());
@@ -77,6 +99,17 @@ public class Buses implements Diccionario, Serializable{
 	@Override
 	public boolean exists(String clave) {
 		return this.diccionario.containsKey(clave);
+	}
+
+	@Override
+	public String toString() {
+		return "Buses [diccionario=" + diccionario.toString() + "]";
+	}
+
+	@Override
+	public void remove(Object borrar) {
+		this.diccionario.remove(borrar);
+		
 	}	
 	
 }

@@ -1,14 +1,13 @@
 package logica.colecciones;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeMap;
 import logica.objetos.Excursion;
 import java.io.Serializable;
 
 public class Excursiones implements Diccionario, Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -2831930180831747756L;
 	private TreeMap<String, Excursion> diccionario;
 	
@@ -26,9 +25,6 @@ public class Excursiones implements Diccionario, Serializable{
 	}
 	
 	/*Funciones propias*/
-	public void insert(Excursion insertar){
-		this.diccionario.put(insertar.getCodigo(), insertar);
-	}
 	
 	public boolean member(String codigo){
 		return this.diccionario.containsKey(codigo);
@@ -77,6 +73,20 @@ public class Excursiones implements Diccionario, Serializable{
 		return hayExcursionEnRango;
 	}
 	
+	public boolean entraExcursion(Excursion insertar){
+		boolean entra = true;
+		Iterator<Excursion> iteExc = this.iterator();
+		while(iteExc.hasNext()){
+			Excursion excAux = iteExc.next();
+			if(!((insertar.getHllegada().before(excAux.getHpartida()))||(insertar.getHllegada().equals(excAux.getHpartida()))  
+					|| ((insertar.getHpartida().after(excAux.getHllegada()))||(insertar.getHpartida().equals(excAux.getHllegada()))) ))
+			{
+				entra = false;
+			}
+		}
+		return entra;
+	}
+	
 	
 	/*Metodos de la interface Diccionario sobreescritos*/
 	@Override
@@ -107,5 +117,17 @@ public class Excursiones implements Diccionario, Serializable{
 	@Override
 	public boolean exists(String clave) {
 		return this.diccionario.containsKey(clave);
+	}
+
+	@Override
+	public String toString() {
+		return "Excursiones [diccionario=" + diccionario.toString() + "]";
+	}
+
+	@Override
+	public void remove(Object borrar) {
+		this.diccionario.remove(borrar);
 	}	
+	
+	
 }

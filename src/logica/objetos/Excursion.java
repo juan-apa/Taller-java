@@ -72,5 +72,11 @@ public class Excursion implements Serializable{
 	public void setBoletos(Boletos boletos) {
 		this.boletos = boletos;
 	}
+
+	@Override
+	public String toString() {
+		return "Excursion [codigo=" + codigo + ", destino=" + destino + ", hpartida=" + hpartida + ", hllegada="
+				+ hllegada + ", precioBase=" + precioBase + ", boletos=" + boletos + "]";
+	}
 	
 }
