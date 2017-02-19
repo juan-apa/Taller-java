@@ -8,4 +8,5 @@ public interface Diccionario {
 	public Object find(String clave);
 	public int length();
 	public Iterator iterator();
+	public boolean exists(String clave);
 }

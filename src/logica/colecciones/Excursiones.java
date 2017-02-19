@@ -102,5 +102,10 @@ public class Excursiones implements Diccionario, Serializable{
 	@Override
 	public Excursion find(String codigo){
 		return this.diccionario.get(codigo);
+	}
+
+	@Override
+	public boolean exists(String clave) {
+		return this.diccionario.containsKey(clave);
 	}	
 }

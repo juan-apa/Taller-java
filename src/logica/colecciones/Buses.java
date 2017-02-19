@@ -31,10 +31,6 @@ public class Buses implements Diccionario, Serializable{
 	
 	/*Funciones propias*/
 	
-	public boolean existeBus(String matricula){
-		return this.diccionario.containsKey(matricula);
-	}
-	
 	public boolean hayBusLibre(Date hpartida, Date hregreso){
 		/*TODO terminar funcion, no compara las fechas, porque falta implementar alguna funcion de Excursiones.*/
 		boolean busLibre = false;
@@ -76,6 +72,11 @@ public class Buses implements Diccionario, Serializable{
 	@Override
 	public Object find(String codigo){
 		return this.diccionario.get(codigo);
+	}
+
+	@Override
+	public boolean exists(String clave) {
+		return this.diccionario.containsKey(clave);
 	}	
 	
 }

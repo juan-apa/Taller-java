@@ -40,6 +40,17 @@ public class Bus implements Serializable {
 		return this.excuBus.length();
 	}
 	
+	public Excursiones getExcuBus() {
+		return excuBus;
+	}
+	
+	public int asientosDisponiblesParaExcursion(String codigoExcursion){
+		int cantAsientosDisp = 0;
+		cantAsientosDisp = this.getCapPasajeros() - this.getExcuBus().find(codigoExcursion).getBoletos().length();
+		return cantAsientosDisp;
+	}
+	
+	@Override
 	public String toString() {
 		return "Bus [matricula=" + matricula + ", marca=" + marca + ", capPasajeros=" + capPasajeros + "]";
 	}
