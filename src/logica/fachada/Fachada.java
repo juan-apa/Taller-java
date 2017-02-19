@@ -22,7 +22,12 @@ public class Fachada {
 		excursiones = new Excursiones();
 		buses = new Buses();
 	}
-	/*Requerimiento 1*/
+	/**Requerimiento 1
+	 * @param entrada: entrada: VOBus.
+	 * @return vacio.
+	 * @exception Exc_Bus una excepcion que se genera en el caso de que la cantidad de pasajeros no es valida o la matricula no tiene un formato alfanumerico.
+	 * @exception Exc_Buses una excepcion que se genera en el caso de que ya haya un bus ingresado en buses: Buses con la misma matricula que entrada: VOBus.
+	 * */
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses {
 		/*Es alfanumerico*/
 		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
@@ -46,22 +51,29 @@ public class Fachada {
 			throw new Exc_Bus("La matricula " + entrada.getMatricula() + " no tiene un formato alfanumerico.");
 		}
 	}
-	/*Requerimiento 2*/
+	/**Requerimiento 2
+	 * @param entrada: vacio.
+	 * @return vacio.
+	 * @exception Exc_Buses una excepcion que se genera en el caso de que no hay ningun bus ingresado en el sistema.
+	 * */
 	public Iterator<VOBusExc> listadoGeneralBuses() throws Exc_Buses{
-		/**/
+		/*Creo una nueva lista de VOBusExc que es la que voy a devolver.*/
 		List<VOBusExc> ret = new ArrayList();
+		/*Si buses se encuentra vacio, tiro un error.*/
 		if(this.buses.empty()){
 			throw new Exc_Buses("No hay buses registrados en el sistema.");
 		}
 		else{
+			/*Obtengo un iterador con el contenido de buse.s*/
 			Iterator<Object> iteradorBus = this.buses.iterator();
-			
+			/*convierto los datos de tipo Bus a VOBusExc y los aniado a la lista ret.*/
 			while(iteradorBus.hasNext()){
 				Bus aux = (Bus) iteradorBus.next();
 				VOBusExc vobusexcAux = new VOBusExc(aux.getMatricula(), aux.getMarca(), aux.getCapPasajeros(), aux.cantidadExcursionesAsignadas());
 				ret.add(vobusexcAux);
 			}
 		}
+		/*convierto la lista ret a un iterador y la devuelvo.*/
 		return ret.iterator();
 	}
 }

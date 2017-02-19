@@ -45,5 +45,11 @@ public class VOBusExc {
 	public void setExcursionesAsignadas(int excursionesAsignadas) {
 		this.excursionesAsignadas = excursionesAsignadas;
 	}
+
+	@Override
+	public String toString() {
+		return "VOBusExc [matricula=" + matricula + ", marca=" + marca + ", capPasajeros=" + capPasajeros
+				+ ", excursionesAsignadas=" + excursionesAsignadas + "]";
+	}
 	
 }

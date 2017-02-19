@@ -80,6 +80,10 @@ public class Main {
 		/*Test Requerimiento 2 (cont.)*/
 		try {
 			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			while(itegenbus.hasNext()){
+				VOBusExc vobusexcaux = itegenbus.next();
+				System.out.println(vobusexcaux.toString());
+			}
 			System.out.println("Requerimiento 2 con exito.");
 		} catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
