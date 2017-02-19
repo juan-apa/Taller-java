@@ -23,6 +23,16 @@ public class Fachada {
 		excursiones = new Excursiones();
 		buses = new Buses();
 	}
+	
+	public Buses getBuses(){
+		return this.buses;
+	}
+	
+	public Excursiones getExcursiones(){
+		return this.excursiones;
+	}
+	
+	
 	/**Requerimiento 1
 	 * @param entrada: VOBus.
 	 * @return vacio.
@@ -116,11 +126,28 @@ public class Fachada {
 		}
 		return ret.iterator(); /*Convierto la lista a un iterador y la devuelvo.*/
 	}
+	
+	/**Requerimiento 4
+	 * @param entrada: VOExcursion
+	 * @return vacio
+	 * @exception Exc_Excursiones una excepcion que se genera si ya hay una excursion ingresda con el codigo de entrada
+	 * @exception Exc_Buses una excepcion que se genera si no hay buses registrados en el sistema o si no hay ningun bus con un espacio lo suficientemente grande para que entre la excursion pasada por param.
+	 * @exception Exc_Excursion una excepcion que se genera si el precio base de entrada es menor a 0 o si la hora de partida es despues o igual que la hora de llegada.
+	 * */
 	public void registroNuevaExcursion(VOExcursion entrada) throws Exc_Excursiones, Exc_Buses, Exc_Excursion{
 		if(! excursiones.exists(entrada.getCodigo())){
-			if(entrada.gethPartida().before(entrada.gethLlegada())){
-				if(entrada.getPrecioBase() > 0){
-					if(buses.empty()){
+			if(entrada.gethPartida().before(entrada.gethLlegada()) || entrada.gethPartida().equals(entrada.gethLlegada())){
+				if(entrada.getPrecioBase() >= 0){
+					if(!buses.empty()){
+						Excursion insertar = new Excursion(entrada.getCodigo(), entrada.getDestino(), entrada.gethPartida(), entrada.gethLlegada(), entrada.getPrecioBase());
+						buses.asignarExcursionAUnBus(insertar); 
+						System.out.println("Asignando Excursion al diccionario global...");
+						excursiones.insert(insertar);
+						System.out.println("Asignacion al dicc global de Excursiones exitoso.");
+
+						
+					}
+					else{
 						throw new Exc_Buses("No hay buses registrados en el sistema.");
 					}
 				}
@@ -129,11 +156,11 @@ public class Fachada {
 				}
 			}
 			else{
-				throw new Exc_Excursion("La hora ");
+				throw new Exc_Excursion("La hora de partida ("+entrada.gethPartida().getTime()+") tiene que ser menor que la hora de llegada("+entrada.gethLlegada().getTime()+").");
 			}
 		}
 		else{
-			throw new Exc_Excursiones("Ya hay una excursion con el codio " + entrada.getCodigo() + " registrada en el sistema.");
+			throw new Exc_Excursiones("Ya hay una excursion con el codigo " + entrada.getCodigo() + " registrada en el sistema.");
 		}
 	}
 	

@@ -6,18 +6,20 @@ import java.util.Iterator;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Bus;
+import logica.Excepciones.objetos.Exc_Excursion;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
+import logica.ValueObjects.VOExcursion;
 import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Boletos;
 import logica.colecciones.Buses;
 import logica.fachada.Fachada;
 import logica.objetos.Boleto;
 import logica.objetos.Bus;
-import logica.objetos.Especial;;
+import logica.objetos.Especial;
+import logica.objetos.Excursion;;
 
 public class Main {
-
 	public static void main(String[] args) {
 	
 		// TODO Auto-generated method stub
@@ -31,7 +33,6 @@ public class Main {
 		bs.imprimir();
 		Date uno = new Date();
 		Date dos = new Date();
-		boolean aux = bs.hayBusLibre(uno, dos);
 		
 		
 		
@@ -62,6 +63,7 @@ public class Main {
 		VOBus vobus = new VOBus("aaa009", "Suzuki", 5);
 		try {
 			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			
 		} catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		}
@@ -90,13 +92,22 @@ public class Main {
 				System.out.println(vobusexcaux.toString());
 			}
 			System.out.println("Requerimiento 2 con exito.");
+			System.out.println("Termine el try.");
 		} catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		}
 		
+		/*Test random*/
+		System.out.println("\n\nTest random.");
+		try{
+			System.out.println("Antes del throw.");
+			throw new Exception();
+		}
+		catch(Exception e){
+			System.out.println("Adentro del catch");
+		}
 		
 		/*Test Requerimiento 3*/
-		
 		System.out.println("\n\nTest Requerimiento 3.");
 		try{
 			Iterator<VOExcursionListado> itereq3= f.listadoExcursionesDeBus("aaa009");
@@ -109,6 +120,26 @@ public class Main {
 		}
 		catch(Exc_Excursiones eexcs){
 			System.out.println(eexcs.toString());
+		}
+		
+		/*Test Requerimiento 4*/
+		System.out.println("\n\nTest Requerimiento 4.");
+		VOBus bus3 = new VOBus("aaa011", "marcaRandom", 15);
+		try {
+			f.registroNuevoBus(bus3);
+		} catch (Exc_Bus | Exc_Buses e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		VOExcursion exc1 = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
+		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 200);
+		try {
+			f.registroNuevaExcursion(exc1);
+			System.out.println(f.getBuses().toString());
+			f.registroNuevaExcursion(exc2);
+			System.out.println("\n\nExcursiones global: "+ f.getExcursiones().toString());
+		} catch (Exc_Excursiones | Exc_Buses | Exc_Excursion e) {
+			System.out.println(e.toString());
 		}
 	}
 

@@ -50,9 +50,13 @@ public class Bus implements Serializable {
 		return cantAsientosDisp;
 	}
 	
+	public void insertarExcursion(Excursion insertar){
+		this.excuBus.insert(insertar);
+	}
+	
 	@Override
 	public String toString() {
-		return "Bus [matricula=" + matricula + ", marca=" + marca + ", capPasajeros=" + capPasajeros + "]";
+		return "Bus [matricula=" + matricula + ", marca=" + marca + ", capPasajeros=" + capPasajeros + ", " + excuBus.toString()+ "]";
 	}
 	
 }

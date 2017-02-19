@@ -26,9 +26,6 @@ public class Excursiones implements Diccionario, Serializable{
 	}
 	
 	/*Funciones propias*/
-	public void insert(Excursion insertar){
-		this.diccionario.put(insertar.getCodigo(), insertar);
-	}
 	
 	public boolean member(String codigo){
 		return this.diccionario.containsKey(codigo);
@@ -107,5 +104,12 @@ public class Excursiones implements Diccionario, Serializable{
 	@Override
 	public boolean exists(String clave) {
 		return this.diccionario.containsKey(clave);
+	}
+
+	@Override
+	public String toString() {
+		return "Excursiones [diccionario=" + diccionario.toString() + "]";
 	}	
+	
+	
 }
