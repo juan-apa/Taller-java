@@ -127,9 +127,8 @@ public class Main {
 		VOBus bus3 = new VOBus("aaa011", "marcaRandom", 15);
 		try {
 			f.registroNuevoBus(bus3);
-		} catch (Exc_Bus | Exc_Buses e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (Exception e) {
+			System.out.println(e.toString());
 		}
 		VOExcursion exc1 = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
 		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 200);
