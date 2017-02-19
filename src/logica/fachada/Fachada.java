@@ -1,5 +1,9 @@
 package logica.fachada;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.regex.Pattern;
 
 import com.sun.xml.internal.ws.util.StringUtils;
@@ -18,7 +22,7 @@ public class Fachada {
 		excursiones = new Excursiones();
 		buses = new Buses();
 	}
-	
+	/*Requerimiento 1*/
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses {
 		/*Es alfanumerico*/
 		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
@@ -41,5 +45,23 @@ public class Fachada {
 		else{
 			throw new Exc_Bus("La matricula " + entrada.getMatricula() + " no tiene un formato alfanumerico.");
 		}
+	}
+	/*Requerimiento 2*/
+	public Iterator<VOBusExc> listadoGeneralBuses() throws Exc_Buses{
+		/**/
+		List<VOBusExc> ret = new ArrayList();
+		if(this.buses.empty()){
+			throw new Exc_Buses("No hay buses registrados en el sistema.");
+		}
+		else{
+			Iterator<Object> iteradorBus = this.buses.iterator();
+			
+			while(iteradorBus.hasNext()){
+				Bus aux = (Bus) iteradorBus.next();
+				VOBusExc vobusexcAux = new VOBusExc(aux.getMatricula(), aux.getMarca(), aux.getCapPasajeros(), aux.cantidadExcursionesAsignadas());
+				ret.add(vobusexcAux);
+			}
+		}
+		return ret.iterator();
 	}
 }
