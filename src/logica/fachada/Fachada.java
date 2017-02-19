@@ -144,8 +144,6 @@ public class Fachada {
 						System.out.println("Asignando Excursion al diccionario global...");
 						excursiones.insert(insertar);
 						System.out.println("Asignacion al dicc global de Excursiones exitoso.");
-
-						
 					}
 					else{
 						throw new Exc_Buses("No hay buses registrados en el sistema.");
@@ -162,6 +160,15 @@ public class Fachada {
 		else{
 			throw new Exc_Excursiones("Ya hay una excursion con el codigo " + entrada.getCodigo() + " registrada en el sistema.");
 		}
+	}
+	
+	public void reasignacionExcursion(String codigo) throws Exc_Buses{
+		/*TODO terminar funcion.*/
+		/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
+		Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo);
+		/*Antes de borrar la excursion verifico si puedo insertar la excursion en otro bus.*/
+		
+		
 	}
 	
 }

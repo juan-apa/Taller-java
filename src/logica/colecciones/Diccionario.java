@@ -9,4 +9,5 @@ public interface Diccionario {
 	public int length();
 	public Iterator iterator();
 	public boolean exists(String clave);
+	public void remove(Object borrar);
 }
