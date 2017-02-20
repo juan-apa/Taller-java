@@ -6,8 +6,8 @@ public class Especial extends Boleto{
 	double dtoAdicional;
 	
 	
-	public Especial(int NROBOLETO, String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR, double DTOADICIONAL) {
-		super(NROBOLETO, LUGARPRECEDENCIA, EDADPASAJERO, NROCELULAR);
+	public Especial(String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR, double DTOADICIONAL) {
+		super(LUGARPRECEDENCIA, EDADPASAJERO, NROCELULAR);
 		// TODO Auto-generated constructor stub
 		this.dtoAdicional = DTOADICIONAL;
 		Especial.setTipo("Especial");

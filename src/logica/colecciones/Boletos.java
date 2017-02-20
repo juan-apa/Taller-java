@@ -1,8 +1,8 @@
 package logica.colecciones;
 
 import java.io.Serializable;
-
 import logica.objetos.Boleto;
+import logica.objetos.Especial;
 
 public class Boletos implements Serializable{
 	private Boleto arreglo[];
@@ -46,7 +46,6 @@ public class Boletos implements Serializable{
 	/*Inserta un boleto al final en la siguiente posicion disponible.*/
 	public void insert(Boleto insertar){
 		this.arreglo[this.tope] = (Boleto)insertar;
-		this.arreglo[this.tope].setNroBoleto(this.tope);
 		this.tope = this.tope + 1;
 	}
 	
@@ -76,5 +75,15 @@ public class Boletos implements Serializable{
 		return this.tope;
 	}
 	
-	/*Sobreescritura de metodos*/
+	public double recaudado(double precioBase){
+		double ret = 0.0;
+		for(int i = 0; i < this.tope; i++){
+			if(arreglo[i].getTipo().equals("Especial")){
+				ret = ret + (precioBase*(((Especial) arreglo[i]).getDtoAdicional()));
+			}
+			else
+				ret = ret + precioBase;
+		}
+		return ret;
+	}
 }

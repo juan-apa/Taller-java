@@ -8,16 +8,16 @@ public class VOBoleto {
 	private String lugarPrecedencia;
 	private int edadPasajero;
 	private long nroCelular;
-	private String tipoBoleto;
+	private double dtoAdicional;
 	
 	public VOBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular,
-			String tipoBoleto) {
+			String tipoBoleto, double dtoAdicioal) {
 		super();
 		this.codExcursion = codExcursion;
 		this.lugarPrecedencia = lugarPrecedencia;
 		this.edadPasajero = edadPasajero;
 		this.nroCelular = nroCelular;
-		this.tipoBoleto = tipoBoleto;
+		this.dtoAdicional = dtoAdicioal;
 	}
 
 	public String getCodExcursion() {
@@ -52,12 +52,12 @@ public class VOBoleto {
 		this.nroCelular = nroCelular;
 	}
 
-	public String getTipoBoleto() {
-		return tipoBoleto;
+	public double getDtoAdicional() {
+		return dtoAdicional;
 	}
 
-	public void setTipoBoleto(String tipoBoleto) {
-		this.tipoBoleto = tipoBoleto;
+	public void setDtoAdicional(double dtoAdicional) {
+		this.dtoAdicional = dtoAdicional;
 	}
 	
 }

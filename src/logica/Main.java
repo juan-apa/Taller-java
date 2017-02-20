@@ -2,22 +2,12 @@ package logica;
 
 import java.util.Date;
 import java.util.Iterator;
-
-import logica.Excepciones.colecciones.Exc_Buses;
-import logica.Excepciones.colecciones.Exc_Excursiones;
-import logica.Excepciones.objetos.Exc_Bus;
-import logica.Excepciones.objetos.Exc_Excursion;
-import logica.ValueObjects.VOBus;
-import logica.ValueObjects.VOBusExc;
-import logica.ValueObjects.VOExcursion;
-import logica.ValueObjects.VOExcursionListado;
-import logica.colecciones.Boletos;
-import logica.colecciones.Buses;
+import logica.colecciones.*;
+import logica.Excepciones.colecciones.*;
+import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
-import logica.objetos.Boleto;
-import logica.objetos.Bus;
-import logica.objetos.Especial;
-import logica.objetos.Excursion;;
+import logica.objetos.*;
+import logica.ValueObjects.*;
 
 public class Main {
 	public static void main(String[] args) {
@@ -36,10 +26,10 @@ public class Main {
 		
 		
 		
-		Boleto bcomun = new Boleto(0, "Comun", 0, 0);
+		Boleto bcomun = new Boleto("Comun", 0, 0);
 		System.out.println("Tipo boleto comun: " + bcomun.getTipo());
 		
-		Especial bespecial = new Especial(0, "Especial", 0, 0, 0);
+		Especial bespecial = new Especial("Especial", 0, 0, 0);
 		System.out.println("Tipo boleto especial: " + bespecial.getTipo());
 		
 		//System.out.println("Casteo Comun --> Especial: " + (Especial)bcomun);
@@ -137,7 +127,7 @@ public class Main {
 			System.out.println(f.getBuses().toString());
 			f.registroNuevaExcursion(exc2);
 			System.out.println("\n\nExcursiones global: "+ f.getExcursiones().toString());
-		} catch (Exc_Excursiones | Exc_Buses | Exc_Excursion e) {
+		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
 	}
