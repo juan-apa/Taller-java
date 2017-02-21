@@ -4,8 +4,13 @@
 
 package logica.ValueObjects;
 
+import java.io.Serializable;
 
-public class VOBus {
+public class VOBus implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String matricula;
 	private String marca;
 	private int capPasajeros;

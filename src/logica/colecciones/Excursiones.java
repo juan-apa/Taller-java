@@ -74,6 +74,7 @@ public class Excursiones implements Diccionario, Serializable{
 	}
 	
 	public boolean entraExcursion(Excursion insertar){
+		/*TODO Agregar en excursion un metodo para mostrar solo la hora y no la date entera.*/
 		boolean entra = true;
 		Iterator<Excursion> iteExc = this.iterator();
 		while(iteExc.hasNext()){
@@ -105,7 +106,7 @@ public class Excursiones implements Diccionario, Serializable{
 	}
 
 	@Override
-	public Iterator iterator() {
+	public Iterator<Excursion> iterator() {
 		return diccionario.values().iterator();
 	}
 	
@@ -129,5 +130,10 @@ public class Excursiones implements Diccionario, Serializable{
 		this.diccionario.remove(borrar);
 	}	
 	
-	
+	@Override
+	public boolean equals(Object otro){
+		Iterator<Excursion> iteOtro= ((Excursiones) otro).iterator();
+		Iterator<Excursion> iteThis = this.iterator();
+		return iteThis.equals(iteOtro);
+	}
 }

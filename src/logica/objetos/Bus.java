@@ -63,4 +63,5 @@ public class Bus implements Serializable {
 		return "Bus [matricula=" + matricula + ", marca=" + marca + ", capPasajeros=" + capPasajeros + ", " + excuBus.toString()+ "]";
 	}
 	
+	
 }

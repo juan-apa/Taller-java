@@ -9,9 +9,9 @@ import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
 
+
 public class Main {
 	public static void main(String[] args) {
-	
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");

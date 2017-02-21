@@ -1,5 +1,6 @@
 package logica.fachada;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +10,12 @@ import logica.objetos.*;
 import logica.colecciones.*;
 import logica.ValueObjects.*;
 
-public class Fachada {
+public class Fachada implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4670089808545963151L;
+	/*TODO implementar con singleton*/
 	private Excursiones excursiones;
 	private Buses buses;
 	
@@ -226,7 +232,7 @@ public class Fachada {
 	 * @return double
 	 * @throws Exc_Boletos 
 	 * @throws Exc_Excursiones
-	 * @exception  */
+	 * @exception */
 	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones{
 		double ret = 0.0;
 		if(excursiones.exists(codigo)){
