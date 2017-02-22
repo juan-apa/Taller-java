@@ -18,10 +18,22 @@ public class Fachada implements Serializable{
 	/*TODO implementar con singleton*/
 	private Excursiones excursiones;
 	private Buses buses;
+	private Datos datos;
+	private static Fachada instancia;
 	
-	public Fachada(){
+
+	
+	public static Fachada getInstancia(){
+		if(instancia == null){
+			instancia = new Fachada();
+		}
+		return instancia;
+	}
+	
+	private Fachada(){
 		excursiones = new Excursiones();
 		buses = new Buses();
+		datos = new Datos();
 	}
 	
 	public Buses getBuses(){
@@ -175,16 +187,28 @@ public class Fachada implements Serializable{
 	 * @param String codigo
 	 * @return void
 	 * @throws Exc_Buses
-	 * @exception Exc_Buses uian excepcion que se genera si no hay un bus con un espacio disponible para mover*/
-	public void reasignacionExcursion(String codigo) throws Exc_Buses{
+	 * @exception Exc_Buses uian excepcion que se genera si no hay un bus con un espacio disponible para mover
+	 * @throws Exc_Excursiones */
+	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones{
 		/*TODO esta funcion puede tener errores (algo con punteros debe ser).*/
-		/*TODO hay que verificar que el nuevo bus tenga la >= cantidad de asientos y actualizar el tamanio del arreglo Boletos*/
-		/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
-		Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo); 
-		/*Antes de borrar la excursion verifico si puedo insertar la excursion en otro bus.*/
-		Excursion aux = excursiones.find(codigo);
-		buses.asignarExcursionAUnBus(aux);/*Si esta operacion no tira una excepcion, continua la ejecucion.*/
-		busConExcursion.sacarExcursion(aux); /*Le desasigno la excursion al bus*/
+		
+		
+		/*Verifico que la matricula tenga formato alfanumerico*/
+		if(this.excursiones.exists(codigo)){
+			/*Obtengo la excursion con el codigo ingresado*/
+			Excursion aux = excursiones.find(codigo);
+			/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
+			Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo); 
+			/*Antes de borrar la excursion del diccionario global tengo que estar seguro que la puedo
+			 * reasignar a otro.*/
+			buses.reasignarExcursion(busConExcursion, aux);
+			/*Si llego a esta parte del codigo es porque la pude reasignar a otro bus.*/
+			/*Actualizo la cantidad de boletos de la excursion en el dicc global y en el dicc del bus al que le acabo de asignar la excursion*/
+			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros());
+		}
+		else{
+			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema");
+		}
 	}
 	
 	/*TODO hacer requerimiento 6*/

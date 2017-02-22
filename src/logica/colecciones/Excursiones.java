@@ -132,8 +132,22 @@ public class Excursiones implements Diccionario, Serializable{
 	
 	@Override
 	public boolean equals(Object otro){
+		boolean iguales = true;
+		
 		Iterator<Excursion> iteOtro= ((Excursiones) otro).iterator();
 		Iterator<Excursion> iteThis = this.iterator();
-		return iteThis.equals(iteOtro);
+		
+		while(iguales && iteOtro.hasNext() && iteThis.hasNext()){
+			Excursion excOtro = iteOtro.next();
+			Excursion excThis = iteThis.next();
+			if(!excOtro.equals(excThis)){
+				iguales = false;
+			}
+		}
+		
+		if((iteThis.hasNext() && !iteOtro.hasNext()) || (!iteThis.hasNext() && iteOtro.hasNext())){
+			iguales = false;
+		}
+		return iguales;
 	}
 }

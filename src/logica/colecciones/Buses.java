@@ -63,6 +63,29 @@ public class Buses implements Diccionario, Serializable{
 		return busAux;
 	}
 	
+	public void reasignarExcursion(Bus original, Excursion reasignar) throws Exc_Buses{
+		boolean reasignado = false;
+		Iterator <Bus> recorrida = this.iterator();
+		while(recorrida.hasNext() && !reasignado){
+			Bus aux = recorrida.next();
+			if(!original.equals(aux) && !reasignado){ /*Si el bus no es el que le quiero sacar la excursion*/
+				if(aux.entraAsientosEnBus(original.getCapPasajeros())){ /*Si tiene  mayor o igual cantidad de asientos*/
+					if(aux.getExcuBus().entraExcursion(reasignar)){ /*Si tiene un horario disponible para la reasignar la excursion*/
+						/*Cumple todos los requisitos*/
+						aux.insertarExcursion(reasignar); /*Le asigno la excursion al bus que cumple los requsitos*/
+						/*Tengo que actualizar la cantidad de boletos maximos para la excursion.*/
+						aux.getExcuBus().find(reasignar.getCodigo()).actualizarCantBoletos(aux.getCapPasajeros());
+						original.sacarExcursion(reasignar); /*Le saco la excursion al bus original*/
+					}
+				}
+			}
+		}
+		/*Si termine la recorrida y no pude reasignarle la excursion a nadie (reasignado == false)*/
+		if(!reasignado){
+			throw new Exc_Buses("La excursion no pudo ser reasignada.");
+		}
+	}
+	
 
 	
 

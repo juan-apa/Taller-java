@@ -72,11 +72,45 @@ public class Excursion implements Serializable{
 	public void setBoletos(Boletos boletos) {
 		this.boletos = boletos;
 	}
+	
+	public void actualizarCantBoletos(int nuevaCap){
+		this.boletos.actualizarMax(nuevaCap);
+	}
 
 	@Override
 	public String toString() {
 		return "Excursion [codigo=" + codigo + ", destino=" + destino + ", hpartida=" + hpartida + ", hllegada="
 				+ hllegada + ", precioBase=" + precioBase + ", boletos=" + boletos + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = true;
+		if(this.codigo != ((Excursion) obj).getCodigo()){
+			iguales = false;
+		}
+		if(!this.destino.equals(((Excursion) obj).getDestino())){
+			iguales = false;
+		}
+		if(!this.boletos.equals(((Excursion) obj).getBoletos())){
+			iguales = false;
+		}
+		if(!this.hllegada.equals(((Excursion) obj).getCodigo())){
+			iguales = false;
+		}
+		if(this.hpartida.equals(((Excursion) obj).getCodigo())){
+			iguales = false;
+		}
+		if(this.precioBase != ((Excursion) obj).getPrecioBase()){
+			iguales = false;
+		}
+		
+		
+		// TODO Auto-generated method stub
+		return iguales;
+		
+	}
+	
+	
 	
 }

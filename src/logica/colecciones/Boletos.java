@@ -1,6 +1,10 @@
 package logica.colecciones;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
@@ -86,4 +90,42 @@ public class Boletos implements Serializable{
 		}
 		return ret;
 	}
+	
+	public Iterator<Boleto> iterator(){
+		List<Boleto> ret = new ArrayList<Boleto>();
+		for(int i = 0; i < this.tope; i++){
+			ret.add(this.arreglo[i]);
+		}
+		return ret.iterator();
+	}
+	/*nuevaCap tiene que ser mayor a la capacidad maxima del arreglo anterior*/
+	public void actualizarMax(int nuevaCap) {
+		Boleto[] nuevoArr = new Boleto[nuevaCap];
+		
+		for(int i = 0 ; i < this.tope; i++){
+			nuevoArr[i] = arreglo[i];
+		}
+		this.setArreglo(nuevoArr);
+	}
+
+	@Override
+	public boolean equals(Object obj) {	
+		boolean iguales = true;
+		Iterator<Boleto> iteOther = ((Boletos) obj).iterator();
+		Iterator<Boleto> iteThis = this.iterator();
+		while(iguales && iteOther.hasNext() && iteThis.hasNext()){
+			Boleto bolOther = iteOther.next();
+			Boleto bolThis = iteThis.next();
+			
+			if(!bolThis.equals(bolOther)){
+				iguales = false;
+			}
+		}
+		if((iteThis.hasNext() && !iteOther.hasNext()) || (!iteThis.hasNext() && iteOther.hasNext())){
+			iguales = false;
+		}
+		return iguales;
+	}
+
+
 }

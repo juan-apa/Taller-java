@@ -46,7 +46,7 @@ public class Main {
 		}
 		
 		/*Testeo requerimientos*/
-		Fachada f = new Fachada();
+		Fachada f = Fachada.getInstancia();
 		
 		/*Test Requerimiento 2*/
 		System.out.println("\n\nTest Requerimiento 2.");

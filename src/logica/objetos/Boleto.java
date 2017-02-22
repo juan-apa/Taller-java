@@ -46,5 +46,20 @@ public class Boleto implements Serializable{
 		return "Boleto [lugarPrecedencia=" + lugarPrecedencia + ", edadPasajero="
 				+ edadPasajero + ", nroCelular=" + nroCelular + "]";
 	}
-		
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = true;
+		if(this.edadPasajero != ((Boleto) obj).getEdadPasajero()){
+			iguales = false;
+		}
+		if(!this.lugarPrecedencia.equals(((Boleto) obj).getEdadPasajero())){
+			iguales = false;
+		}
+		if(this.nroCelular != ((Boleto) obj).getNroCelular()){
+			iguales = false;
+		}
+		return iguales;
+	}
+	
 }
