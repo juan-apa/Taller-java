@@ -3,25 +3,17 @@ package logica.objetos;
 import java.io.Serializable;
 
 public class Boleto implements Serializable{
-	private int nroBoleto;
 	private String lugarPrecedencia;
 	private int edadPasajero;
 	private long nroCelular;
 	private static String tipo = "Comun";
 	
-	public Boleto(int NROBOLETO, String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR){
-		this.nroBoleto = NROBOLETO;
+	public Boleto(String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR){
 		this.lugarPrecedencia = LUGARPRECEDENCIA;
 		this.edadPasajero = EDADPASAJERO;
 		this.nroCelular = NROCELULAR;
 	}
 	
-	public int getNroBoleto() {
-		return nroBoleto;
-	}
-	public void setNroBoleto(int nroBoleto) {
-		this.nroBoleto = nroBoleto;
-	}
 	public String getLugarPrecedencia() {
 		return lugarPrecedencia;
 	}
@@ -51,8 +43,23 @@ public class Boleto implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Boleto [nroBoleto=" + nroBoleto + ", lugarPrecedencia=" + lugarPrecedencia + ", edadPasajero="
+		return "Boleto [lugarPrecedencia=" + lugarPrecedencia + ", edadPasajero="
 				+ edadPasajero + ", nroCelular=" + nroCelular + "]";
 	}
-		
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = true;
+		if(this.edadPasajero != ((Boleto) obj).getEdadPasajero()){
+			iguales = false;
+		}
+		if(!this.lugarPrecedencia.equals(((Boleto) obj).getEdadPasajero())){
+			iguales = false;
+		}
+		if(this.nroCelular != ((Boleto) obj).getNroCelular()){
+			iguales = false;
+		}
+		return iguales;
+	}
+	
 }

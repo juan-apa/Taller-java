@@ -1,27 +1,39 @@
 package logica.fachada;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.regex.Pattern;
-
-import com.sun.xml.internal.ws.util.StringUtils;
-
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
 import logica.objetos.*;
 import logica.colecciones.*;
 import logica.ValueObjects.*;
 
-public class Fachada {
+public class Fachada implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4670089808545963151L;
+	/*TODO implementar con singleton*/
 	private Excursiones excursiones;
 	private Buses buses;
+	private Datos datos;
+	private static Fachada instancia;
 	
-	public Fachada(){
+
+	
+	public static Fachada getInstancia(){
+		if(instancia == null){
+			instancia = new Fachada();
+		}
+		return instancia;
+	}
+	
+	private Fachada(){
 		excursiones = new Excursiones();
 		buses = new Buses();
+		datos = new Datos();
 	}
 	
 	public Buses getBuses(){
@@ -34,8 +46,10 @@ public class Fachada {
 	
 	
 	/**Requerimiento 1
-	 * @param entrada: VOBus.
-	 * @return vacio.
+	 * @param VOBus entrada
+	 * @return void
+	 * @throws Exc_Bus
+	 * @throws Exc_Buses
 	 * @exception Exc_Bus una excepcion que se genera en el caso de que la cantidad de pasajeros no es valida o la matricula no tiene un formato alfanumerico.
 	 * @exception Exc_Buses una excepcion que se genera en el caso de que ya haya un bus ingresado en buses: Buses con la misma matricula que entrada: VOBus.
 	 * */
@@ -63,8 +77,9 @@ public class Fachada {
 		}
 	}
 	/**Requerimiento 2
-	 * @param vacio.
-	 * @return Iterador<VOBusExc>.
+	 * @param void
+	 * @return Iterador<VOBusExc>
+	 * @throws Exc_Buses
 	 * @exception Exc_Buses una excepcion que se genera en el caso de que no hay ningun bus ingresado en el sistema.
 	 * */
 	public Iterator<VOBusExc> listadoGeneralBuses() throws Exc_Buses{
@@ -89,8 +104,11 @@ public class Fachada {
 	}
 	
 	/**Requerimiento 3
-	 * @param matricula: String
+	 * @param String matricula
 	 * @return Iterator<VOExcursionListado>
+	 * @throws Exc_Bus
+	 * @throws Exc_Buses
+	 * @throws Exc_Excursiones
 	 * @exception Exc_Bus una Excepcion que se genera si la matricula pasada por param no tiene un formato alfanumerico
 	 * @exception Exc_Buses una excepcion que se genera si no hay un bus ingresado en buses con la matricula pasada por param
 	 * @exception Exc_Excursiones una excepcion que se genera si no hay ninguna excursion asignada al bus con la matricula pasada por param
@@ -128,8 +146,11 @@ public class Fachada {
 	}
 	
 	/**Requerimiento 4
-	 * @param entrada: VOExcursion
-	 * @return vacio
+	 * @param VOExcursion entrada
+	 * @return void
+	 * @throws Exc_Excursiones
+	 * @throws Exc_Buses
+	 * @throws Exc_Excursion
 	 * @exception Exc_Excursiones una excepcion que se genera si ya hay una excursion ingresda con el codigo de entrada
 	 * @exception Exc_Buses una excepcion que se genera si no hay buses registrados en el sistema o si no hay ningun bus con un espacio lo suficientemente grande para que entre la excursion pasada por param.
 	 * @exception Exc_Excursion una excepcion que se genera si el precio base de entrada es menor a 0 o si la hora de partida es despues o igual que la hora de llegada.
@@ -162,13 +183,95 @@ public class Fachada {
 		}
 	}
 	
-	public void reasignacionExcursion(String codigo) throws Exc_Buses{
-		/*TODO terminar funcion.*/
-		/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
-		Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo);
-		/*Antes de borrar la excursion verifico si puedo insertar la excursion en otro bus.*/
+	/**Requerimiento 5
+	 * @param String codigo
+	 * @return void
+	 * @throws Exc_Buses
+	 * @exception Exc_Buses uian excepcion que se genera si no hay un bus con un espacio disponible para mover
+	 * @throws Exc_Excursiones */
+	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones{
+		/*TODO esta funcion puede tener errores (algo con punteros debe ser).*/
 		
 		
+		/*Verifico que la matricula tenga formato alfanumerico*/
+		if(this.excursiones.exists(codigo)){
+			/*Obtengo la excursion con el codigo ingresado*/
+			Excursion aux = excursiones.find(codigo);
+			/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
+			Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo); 
+			/*Antes de borrar la excursion del diccionario global tengo que estar seguro que la puedo
+			 * reasignar a otro.*/
+			buses.reasignarExcursion(busConExcursion, aux);
+			/*Si llego a esta parte del codigo es porque la pude reasignar a otro bus.*/
+			/*Actualizo la cantidad de boletos de la excursion en el dicc global y en el dicc del bus al que le acabo de asignar la excursion*/
+			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros());
+		}
+		else{
+			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema");
+		}
 	}
 	
+	/*TODO hacer requerimiento 6*/
+	
+	/**Requerimiento 7
+	 * @param VOBoleto entrada
+	 * @return void
+	 * @throws Exc_Boleto
+	 * @throws Exc_Boletos
+	 * @throws Exc_Excursiones
+	 * @exception Exc_Boleto una excepcion que se genera si alguno de los datos del pasajero es incorrecto.
+	 * @exception Exc_Boletos una excepcion que se genera si todos los boletos de la excursion ya estan vendidos.
+	 * @exception Exc_Excursiones uan excepcion que se genera si no hay una excursion registrada con el codigo pasado por param
+	 * */
+	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones{
+		if(excursiones.exists(entrada.getCodExcursion())){
+			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() >= 0.0)){
+				throw new Exc_Boleto("Alguno de los datos del psajero ingresados no es valido.");
+			}
+			else{
+				Excursion excAux = excursiones.find(entrada.getCodExcursion());
+				Boletos boletosAux = excAux.getBoletos();
+				if(!boletosAux.full()){
+					Boleto insertar = null;
+					if(entrada.getDtoAdicional() != 0.0){
+						insertar = new Especial(entrada.getLugarPrecedencia(), entrada.getEdadPasajero(), entrada.getNroCelular(), entrada.getDtoAdicional());
+					}
+					else{
+						insertar = new Boleto(entrada.getLugarPrecedencia(), entrada.getEdadPasajero(), entrada.getNroCelular());
+					}
+					boletosAux.insert(insertar);
+				}
+				else{
+					throw new Exc_Boletos("Todos los boletos para esta excursion ya estan vendidos.");
+				}
+			}
+		}
+		else{
+			throw new Exc_Excursiones("La excursion con el codigo " + entrada.getCodExcursion() + " no se encuentra ingresada en el sistema.");
+		}
+	}
+	
+	/**Requerimiento 8
+	 * @param String codigo
+	 * @return double
+	 * @throws Exc_Boletos 
+	 * @throws Exc_Excursiones
+	 * @exception */
+	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones{
+		double ret = 0.0;
+		if(excursiones.exists(codigo)){
+			Excursion excAux = excursiones.find(codigo);
+			Boletos bolsAux = excAux.getBoletos();
+			if(!bolsAux.empty()){
+				ret = bolsAux.recaudado(excAux.getPrecioBase());
+			}
+			else{
+				throw new Exc_Boletos("No hay boletos vendidos para la excursion con el codigo "+codigo);
+			}
+		}
+		else{
+			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.");
+		}
+		return ret;
+	}
 }
