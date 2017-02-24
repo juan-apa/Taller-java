@@ -32,6 +32,7 @@ public class Monitor {
 	}
 	
 	public synchronized void startWrite(){
+		while(cantLectores > 0 && cantEscritores > 0){
 			try {
 				this.wait(5);
 			} catch (InterruptedException e) {
