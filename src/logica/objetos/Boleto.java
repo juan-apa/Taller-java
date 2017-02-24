@@ -33,7 +33,7 @@ public class Boleto implements Serializable{
 		this.nroCelular = nroCelular;
 	}	
 	
-	public static String getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 

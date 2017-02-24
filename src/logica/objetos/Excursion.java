@@ -110,6 +110,14 @@ public class Excursion implements Serializable{
 		return iguales;
 		
 	}
+
+	public boolean dentroRango(double precioMin, double precioMax) {
+		boolean dentroRango = false;
+		if(precioMax <= this.precioBase && this.precioBase <= precioMax){
+			dentroRango = true;
+		}
+		return dentroRango;
+	}
 	
 	
 	
