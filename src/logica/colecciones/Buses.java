@@ -12,6 +12,10 @@ import java.util.Iterator;
 import java.io.Serializable;
 
 public class Buses implements Diccionario, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*Atributos*/
 	private TreeMap<String, Bus> diccionario;
 	
@@ -34,7 +38,6 @@ public class Buses implements Diccionario, Serializable{
 	/*Funciones propias*/
 	
 	public void asignarExcursionAUnBus(Excursion insertar) throws Exc_Buses{
-		/*TODO revisar para sacar el codigo que verifica si la excrusion entra en el diccionario y ponerlo en la clase excursiones.*/
 		boolean busLibre = false;
 		Iterator<Bus> recorrida = this.diccionario.values().iterator();
 		while(!busLibre && (recorrida.hasNext())){

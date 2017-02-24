@@ -3,10 +3,15 @@
 
 package logica.ValueObjects;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class VOExcursion {
+public class VOExcursion implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String destino;
 	private Date hPartida;

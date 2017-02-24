@@ -7,6 +7,10 @@ import logica.colecciones.Boletos;
 import java.io.Serializable;
 
 public class Excursion implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String destino;
 	private Date hpartida;
@@ -109,6 +113,14 @@ public class Excursion implements Serializable{
 		// TODO Auto-generated method stub
 		return iguales;
 		
+	}
+
+	public boolean dentroRango(double precioMin, double precioMax) {
+		boolean dentroRango = false;
+		if(precioMax <= this.precioBase && this.precioBase <= precioMax){
+			dentroRango = true;
+		}
+		return dentroRango;
 	}
 	
 	

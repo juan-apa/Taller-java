@@ -3,6 +3,10 @@ package logica.objetos;
 import java.io.Serializable;
 
 public class Boleto implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String lugarPrecedencia;
 	private int edadPasajero;
 	private long nroCelular;
@@ -33,7 +37,7 @@ public class Boleto implements Serializable{
 		this.nroCelular = nroCelular;
 	}	
 	
-	public static String getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
