@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Date;
 import java.util.Iterator;
+
+import vistaGrafica.principal;
 import logica.colecciones.*;
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
@@ -23,6 +25,7 @@ public class Main {
 		bs.imprimir();
 		Date uno = new Date();
 		Date dos = new Date();
+
 		
 		
 		
