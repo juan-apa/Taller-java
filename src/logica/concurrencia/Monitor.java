@@ -9,19 +9,19 @@ public class Monitor {
 		leyendo = false;
 	}
 	
-	public void startRead(){
+	public synchronized void startRead(){
 		
 	}
 	
-	public void endRead(){
+	public synchronized void endRead(){
 		
 	}
 	
-	public void startWrite(){
+	public synchronized void startWrite(){
 		
 	}
 	
-	public void endWrite(){
+	public synchronized void endWrite(){
 		
 	}
 }

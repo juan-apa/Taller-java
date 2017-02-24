@@ -3,7 +3,13 @@
 
 package logica.ValueObjects;
 
-public class VOBoleto {
+import java.io.Serializable;
+
+public class VOBoleto implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codExcursion;
 	private String lugarPrecedencia;
 	private int edadPasajero;

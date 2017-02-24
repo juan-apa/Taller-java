@@ -66,10 +66,8 @@ public class Main {
 			vobus.setCapPasajeros(0);
 			f.registroNuevoBus(vobus);
 		} catch (Exc_Bus e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Buses e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

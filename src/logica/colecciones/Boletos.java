@@ -9,6 +9,10 @@ import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
 public class Boletos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Boleto arreglo[];
 	private int tope;
 	

@@ -15,7 +15,6 @@ public class Fachada implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4670089808545963151L;
-	/*TODO implementar con singleton*/
 	private Excursiones excursiones;
 	private Buses buses;
 	private Datos datos;
@@ -283,7 +282,7 @@ public class Fachada implements Serializable{
 	 * @return Iterator<VOBoleto2>*/
 	/*TODO testear requerimiento.*/
 	public Iterator<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones{
-		List<VOBoleto2> ret = new ArrayList();
+		List<VOBoleto2> ret = new ArrayList<VOBoleto2>();
 		if(excursiones.exists(codigo)){
 			Excursion excAux = excursiones.find(codigo);
 			if(! excAux.getBoletos().empty()){
@@ -309,16 +308,16 @@ public class Fachada implements Serializable{
 	
 	/**Requerimiento 10
 	 * @throws Exc_Excursiones */
-	/*TODO terminar funcion.*/
 	public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones{
-		List<VOExcursionListado> ret = new ArrayList();
+		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
 		if(! excursiones.empty()){
 			Iterator<Excursion> ite = this.excursiones.iterator();
 			while(ite.hasNext()){
 				Excursion excAux = ite.next();
 				if(excAux.getDestino().equals(destino)){
 					int asientosDisp = 0;
-					/*TODO Asientos disponibles hay que calcularlo.*/
+					Bus busAux = this.buses.obtenerBusConExcursion(excAux.getCodigo());
+					asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
 					ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
 				}
 			}
@@ -333,14 +332,15 @@ public class Fachada implements Serializable{
 	 * @throws Exc_Excursiones 
 	 * */
 	public Iterator<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones{
-		List<VOExcursionListado> ret = new ArrayList();
+		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
 		if(!excursiones.empty()){
 			Iterator<Excursion> ite = this.excursiones.iterator();
 			while(ite.hasNext()){
 				Excursion aux = ite.next();
 				if(((Excursion) aux).dentroRango(precioMin, precioMax)){
-					/*TODO Asientos disponibles hay que calcularlo.*/
 					int asientosDisp = 0;
+					Bus busAux = this.buses.obtenerBusConExcursion(aux.getCodigo());
+					asientosDisp = busAux.asientosDisponiblesParaExcursion(aux.getCodigo());
 					ret.add(new VOExcursionListado(aux.getCodigo(), aux.getDestino(), aux.getHpartida(), aux.getHllegada(), aux.getPrecioBase(), asientosDisp));
 				}
 			}
@@ -348,7 +348,6 @@ public class Fachada implements Serializable{
 		else{
 			throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
 		}
-		
 		return ret.iterator();
 	}
 }

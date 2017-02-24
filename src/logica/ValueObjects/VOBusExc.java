@@ -1,6 +1,12 @@
 package logica.ValueObjects;
 
-public class VOBusExc {
+import java.io.Serializable;
+
+public class VOBusExc implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String matricula;
 	private String marca;
 	private int capPasajeros;
