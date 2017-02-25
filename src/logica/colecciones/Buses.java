@@ -1,10 +1,8 @@
 package logica.colecciones;
 
-import java.util.Date;
 import java.util.TreeMap;
 
 import logica.Excepciones.colecciones.Exc_Buses;
-import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.objetos.Bus;
 import logica.objetos.Excursion;
 
@@ -114,7 +112,7 @@ public class Buses implements Diccionario, Serializable{
 	}
 
 	@Override
-	public Iterator iterator() {
+	public Iterator<Bus> iterator() {
 		return (this.diccionario.values().iterator());
 	}
 	

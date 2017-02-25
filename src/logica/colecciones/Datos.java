@@ -1,9 +1,15 @@
 package logica.colecciones;
 
+import java.io.Serializable;
+
 import logica.colecciones.Buses;
 import logica.colecciones.Excursiones;
 
-public class Datos {
+public class Datos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Buses _buses;
 	private Excursiones _excursiones;
 	

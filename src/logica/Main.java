@@ -10,6 +10,9 @@ import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
+import java.util.Properties;
+
+
 
 
 public class Main {
@@ -25,9 +28,6 @@ public class Main {
 		bs.imprimir();
 		Date uno = new Date();
 		Date dos = new Date();
-
-		
-		
 		
 		Boleto bcomun = new Boleto("Comun", 0, 0);
 		System.out.println("Tipo boleto comun: " + bcomun.getTipo());
