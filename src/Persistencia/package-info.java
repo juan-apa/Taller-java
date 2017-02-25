@@ -1,8 +1,1 @@
-/**
- * 
- */
-/**
- * @author Guille
- *
- */
 package Persistencia;
