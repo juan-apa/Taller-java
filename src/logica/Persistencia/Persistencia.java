@@ -1,4 +1,4 @@
-package Persistencia;
+package logica.Persistencia;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

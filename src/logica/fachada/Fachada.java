@@ -43,7 +43,33 @@ public class Fachada implements Serializable{
 		return this.excursiones;
 	}
 	
+	public Datos getDatos(){
+		return this.datos;
+	}
 	
+	public void actualizarDatos(){
+		this.datos.setBuses(buses);
+		this.datos.setExcursiones(excursiones);
+	}
+	
+	
+	
+	public void setExcursiones(Excursiones excursiones) {
+		this.excursiones = excursiones;
+	}
+
+	public void setBuses(Buses buses) {
+		this.buses = buses;
+	}
+
+	public void setDatos(Datos datos) {
+		this.datos = datos;
+	}
+
+	public static void setInstancia(Fachada instancia) {
+		Fachada.instancia = instancia;
+	}
+
 	/**Requerimiento 1
 	 * @param VOBus entrada
 	 * @return void

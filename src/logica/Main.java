@@ -1,5 +1,6 @@
 package logica;
 
+import java.io.File;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -10,17 +11,20 @@ import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
+
 import java.util.Properties;
 
+import logica.Persistencia.*;
 
 
 
 public class Main {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exc_Persistencia, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");
 		Buses bs = new Buses();
+		Datos d;
 		System.out.println("Antes de insertar.");
 		bs.imprimir();
 		bs.insert(busAux);
@@ -50,6 +54,7 @@ public class Main {
 		
 		/*Testeo requerimientos*/
 		Fachada f = Fachada.getInstancia();
+		
 		
 		/*Test Requerimiento 2*/
 		System.out.println("\n\nTest Requerimiento 2.");
@@ -131,6 +136,34 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		
+		/*Test Requerimiento 6*/
+		System.out.println("\n\nTest Requerimiento 6.");
+		f.actualizarDatos();
+		String nombreArch = "objeto.obj";
+		Persistencia p = new Persistencia();
+		p.respaldar(nombreArch, f.getDatos());
+		System.out.println("\n\nGuardo");
+		Datos dat = p.recuperar(nombreArch);
+		Fachada f1 = Fachada.getInstancia();
+		f1.setDatos(dat);
+		f1.setBuses(dat.get_buses());
+		f1.setExcursiones(dat.get_excursiones());
+		try{
+		Iterator<VOBusExc> itegenbus = f1.listadoGeneralBuses();
+		while(itegenbus.hasNext()){
+			VOBusExc vobusexcaux = itegenbus.next();
+			System.out.println(vobusexcaux.toString());
+		}
+		System.out.println("\n\nRecupero");
+		}catch (Exc_Buses e) {
+			System.out.println("Advertencia: " + e.toString());
+		}
+		
+		
+		
+		
+		
 	}
 
 }

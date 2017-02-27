@@ -18,6 +18,18 @@ public class Datos implements Serializable{
 		_excursiones = new Excursiones();
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Buses get_buses() {
+		return _buses;
+	}
+
+	public Excursiones get_excursiones() {
+		return _excursiones;
+	}
+
 	public Buses buses() {
 		return _buses;
 	}

@@ -5,4 +5,4 @@
  * @author Guille
  *
  */
-package Persistencia;
+package logica.Persistencia;
