@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/logica/Persistencia/package-info.java
 /**
  * 
  */
@@ -6,3 +7,6 @@
  *
  */
 package logica.Persistencia;
+=======
+package Persistencia;
+>>>>>>> origin/desarrollo:src/Persistencia/package-info.java
