@@ -9,13 +9,12 @@ import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
-
 import logica.Persistencia.*;
 
 
 
 public class Main {
-	public static void main(String[] args) throws Exc_Persistencia, ClassNotFoundException {
+	public static void main(String[] args) throws Exc_Persistencia, ClassNotFoundException, Exc_Buses, Exc_Excursiones {
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");
@@ -64,8 +63,9 @@ public class Main {
 		try {
 			f.registroNuevoBus(vobus);
 			vobus.setMatricula("aaa010");
-			vobus.setCapPasajeros(0);
-			f.registroNuevoBus(vobus);
+			vobus.setCapPasajeros(30);
+			VOBus vobus1 = new VOBus("aaa008", "Chino", 5);
+			f.registroNuevoBus(vobus1);
 		} catch (Exc_Bus e) {
 			e.printStackTrace();
 		} catch (Exc_Buses e) {
@@ -130,8 +130,28 @@ public class Main {
 			System.out.println(e.toString());
 		}
 		
+		/*Test Requerimiento 5*/
+		try {
+			System.out.println("\n\nTest Requerimiento 5.");
+			String Bus1 = new String();
+			Bus1 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
+			//ACA SE CAGAAAAA!!!
+			f.reasignacionExcursion("001");
+			String Bus2 = new String();
+			Bus2 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
+			System.out.println(Bus1);
+			if(Bus1 == Bus2){
+				System.out.println("\nSe cambio correctamente de bus");
+			}else{
+				System.out.println("\nNo se cambio de bus");
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+		
+		
 		/*Test Requerimiento 6*/
-		System.out.println("\n\nTest Requerimiento 6.");
+		System.out.println("\nTest Requerimiento 6.");
 		f.actualizarDatos();
 		String nombreArch = "objeto.obj";
 		Persistencia p = new Persistencia();
@@ -144,11 +164,12 @@ public class Main {
 		f1.setExcursiones(dat.get_excursiones());
 		try{
 		Iterator<VOBusExc> itegenbus = f1.listadoGeneralBuses();
+		System.out.println("\n");
 		while(itegenbus.hasNext()){
 			VOBusExc vobusexcaux = itegenbus.next();
 			System.out.println(vobusexcaux.toString());
 		}
-		System.out.println("\n\nRecupero");
+		System.out.println("\nRecupero");
 		}catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		}

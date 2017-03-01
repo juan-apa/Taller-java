@@ -29,6 +29,10 @@ public class Excursion implements Serializable{
 		this.boletos = null;
 	}
 
+	public Excursion() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getCodigo() {
 		return codigo;
 	}

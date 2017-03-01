@@ -21,6 +21,9 @@ public class Bus implements Serializable {
 		this.capPasajeros = capPasajeros;
 		this.excuBus = new Excursiones();
 	}
+	public Bus() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getMatricula() {
 		return matricula;
 	}

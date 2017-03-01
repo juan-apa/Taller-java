@@ -221,12 +221,12 @@ public class Fachada implements Serializable{
 		/*Verifico que la matricula tenga formato alfanumerico*/
 		if(this.excursiones.exists(codigo)){
 			/*Obtengo la excursion con el codigo ingresado*/
-			Excursion aux = excursiones.find(codigo);
+			Excursion aux = this.excursiones.find(codigo);
 			/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
 			Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo); 
 			/*Antes de borrar la excursion del diccionario global tengo que estar seguro que la puedo
 			 * reasignar a otro.*/
-			buses.reasignarExcursion(busConExcursion, aux);
+			this.buses.reasignarExcursion(busConExcursion, aux);
 			/*Si llego a esta parte del codigo es porque la pude reasignar a otro bus.*/
 			/*Actualizo la cantidad de boletos de la excursion en el dicc global y en el dicc del bus al que le acabo de asignar la excursion*/
 			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros());
