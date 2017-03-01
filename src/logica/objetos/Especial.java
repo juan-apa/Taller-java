@@ -3,6 +3,10 @@ package logica.objetos;
 import logica.objetos.Boleto;
 
 public class Especial extends Boleto{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	double dtoAdicional;
 	
 	

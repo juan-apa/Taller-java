@@ -1,18 +1,14 @@
 package logica;
 
-import java.io.File;
 import java.util.Date;
 import java.util.Iterator;
 
-import vistaGrafica.principal;
 import logica.colecciones.*;
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
-
-import java.util.Properties;
 
 import logica.Persistencia.*;
 
@@ -24,14 +20,11 @@ public class Main {
 		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");
 		Buses bs = new Buses();
-		Datos d;
 		System.out.println("Antes de insertar.");
 		bs.imprimir();
 		bs.insert(busAux);
 		System.out.println("Despues de insertar");
 		bs.imprimir();
-		Date uno = new Date();
-		Date dos = new Date();
 		
 		Boleto bcomun = new Boleto("Comun", 0, 0);
 		System.out.println("Tipo boleto comun: " + bcomun.getTipo());
