@@ -16,8 +16,7 @@ public class VOBoleto implements Serializable{
 	private long nroCelular;
 	private double dtoAdicional;
 	
-	public VOBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular,
-			String tipoBoleto, double dtoAdicioal) {
+	public VOBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular, String tipoBoleto, double dtoAdicioal) {
 		super();
 		this.codExcursion = codExcursion;
 		this.lugarPrecedencia = lugarPrecedencia;

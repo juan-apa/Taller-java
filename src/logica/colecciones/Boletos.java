@@ -2,6 +2,7 @@ package logica.colecciones;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +10,12 @@ import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
 public class Boletos implements Serializable{
+	@Override
+	public String toString() {
+		return "Boletos [arreglo=" + Arrays.toString(arreglo) + ", tope="
+				+ tope + "]";
+	}
+
 	/**
 	 * 
 	 */

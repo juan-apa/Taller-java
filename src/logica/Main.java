@@ -14,6 +14,9 @@ import logica.Persistencia.*;
 
 
 public class Main {
+	private static double total;
+	private static String cod;
+
 	public static void main(String[] args) throws Exc_Persistencia, ClassNotFoundException, Exc_Buses, Exc_Excursiones {
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
@@ -119,7 +122,9 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+		@SuppressWarnings("deprecation")
 		VOExcursion exc1 = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
+		@SuppressWarnings("deprecation")
 		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 200);
 		try {
 			f.registroNuevaExcursion(exc1);
@@ -173,11 +178,38 @@ public class Main {
 		}catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		}
+		/*Test Requerimiento 7*/
+		try {
+			System.out.println("\nTest Requerimiento 7.");
+			VOBoleto boleto = new VOBoleto("001", "Montevideo", 20, 20000000, "Comun", 1);
+			Excursion ex = f.getExcursiones().find("001");
+			VOBoleto boleto1 = new VOBoleto("001", "Atlantida",19, 94755770, "Comun", 2);
+			Boletos bolet = new Boletos(10);
+			ex.setBoletos(bolet);
+			f.ventaBoleto(boleto);
+			f.ventaBoleto(boleto1);
+			System.out.println("\n"+ f.getExcursiones().find("001").getBoletos().toString());
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}	
+		
+		/*Test Requerimiento 8*/
+		try {
+			System.out.println("\nTest Requerimiento 8.");
+			double total;
+			total = f.recaudadoEnExcursion("001");
+			System.out.println("\nEl total recaudado es: "+total);
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 		
 		
-		
-		
-		
+	}
+
+	private static String String(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

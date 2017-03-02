@@ -250,11 +250,11 @@ public class Fachada implements Serializable{
 	 * */
 	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones{
 		if(excursiones.exists(entrada.getCodExcursion())){
-			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() >= 0.0)){
+			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() < 0.0)){
 				throw new Exc_Boleto("Alguno de los datos del psajero ingresados no es valido.");
 			}
 			else{
-				Excursion excAux = excursiones.find(entrada.getCodExcursion());
+				Excursion excAux = this.excursiones.find(entrada.getCodExcursion());
 				Boletos boletosAux = excAux.getBoletos();
 				if(!boletosAux.full()){
 					Boleto insertar = null;
@@ -284,8 +284,8 @@ public class Fachada implements Serializable{
 	 * @exception */
 	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones{
 		double ret = 0.0;
-		if(excursiones.exists(codigo)){
-			Excursion excAux = excursiones.find(codigo);
+		if(this.excursiones.exists(codigo)){
+			Excursion excAux = this.excursiones.find(codigo);
 			Boletos bolsAux = excAux.getBoletos();
 			if(!bolsAux.empty()){
 				ret = bolsAux.recaudado(excAux.getPrecioBase());
