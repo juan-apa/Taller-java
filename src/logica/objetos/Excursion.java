@@ -26,7 +26,8 @@ public class Excursion implements Serializable{
 		this.hpartida = hpartida;
 		this.hllegada = hllegada;
 		this.precioBase = precioBase;
-		this.boletos = null;
+		/* TODO Agregarle la capMaxima de boletos*/
+		this.boletos = new Boletos(0);
 	}
 
 	public Excursion() {
