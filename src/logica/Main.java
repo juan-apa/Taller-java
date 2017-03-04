@@ -9,13 +9,10 @@ import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
-import logica.Persistencia.*;
 
 
 
 public class Main {
-	private static double total;
-	private static String cod;
 
 	public static void main(String[] args) throws Exc_Persistencia, ClassNotFoundException, Exc_Buses, Exc_Excursiones {
 		// TODO Auto-generated method stub
@@ -102,7 +99,7 @@ public class Main {
 		/*Test Requerimiento 3*/
 		System.out.println("\n\nTest Requerimiento 3.");
 		try{
-			Iterator<VOExcursionListado> itereq3= f.listadoExcursionesDeBus("aaa009");
+			Iterator<VOExcursionListado> itereq3 = f.listadoExcursionesDeBus("aaa009");
 		}
 		catch(Exc_Bus ebus){
 			System.out.println(ebus.toString());
@@ -157,18 +154,15 @@ public class Main {
 		
 		/*Test Requerimiento 6*/
 		System.out.println("\nTest Requerimiento 6.");
-		f.actualizarDatos();
-		String nombreArch = "objeto.obj";
-		Persistencia p = new Persistencia();
-		p.respaldar(nombreArch, f.getDatos());
+		f.respaldar();
 		System.out.println("\n\nGuardo");
-		Datos dat = p.recuperar(nombreArch);
-		Fachada f1 = Fachada.getInstancia();
-		f1.setDatos(dat);
-		f1.setBuses(dat.get_buses());
-		f1.setExcursiones(dat.get_excursiones());
+		//Vacio la fachada para luego recuperar los datos del disco
+		f.setBuses(null);
+		f.setDatos(null);
+		f.setExcursiones(null);
+		f.recuperar();
 		try{
-		Iterator<VOBusExc> itegenbus = f1.listadoGeneralBuses();
+		Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
 		System.out.println("\n");
 		while(itegenbus.hasNext()){
 			VOBusExc vobusexcaux = itegenbus.next();
@@ -205,11 +199,6 @@ public class Main {
 		}
 		
 		
-	}
-
-	private static String String(String string) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

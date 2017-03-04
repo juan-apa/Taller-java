@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
 import logica.objetos.*;
 import logica.colecciones.*;
 import logica.ValueObjects.*;
+import logica.Persistencia.*;
 
 public class Fachada implements Serializable{
 	/**
@@ -236,7 +238,30 @@ public class Fachada implements Serializable{
 		}
 	}
 	
-	/*TODO hacer requerimiento 6*/
+	//Hacer requerimiento 6
+	public void respaldar() throws Exc_Persistencia{
+		try {
+			this.actualizarDatos();
+			String nombreArch = "objeto.obj";
+			Persistencia p = new Persistencia();
+			p.respaldar(nombreArch, this.getDatos());
+		}catch (Exception e){ 
+			e.printStackTrace();
+		throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
+		}	
+	}
+	public void recuperar() throws Exc_Persistencia{
+		try {
+			String nombreArch = "objeto.obj";
+			Persistencia p = new Persistencia();
+			this.setDatos(p.recuperar(nombreArch));
+			this.setExcursiones(this.getDatos().get_excursiones());
+			this.setBuses(this.getDatos().get_buses());
+		}catch (Exception e){ 
+			e.printStackTrace();
+		throw new Exc_Persistencia("Hubo un error al recuperar la informacion");
+		}
+	}
 	
 	/**Requerimiento 7
 	 * @param VOBoleto entrada
