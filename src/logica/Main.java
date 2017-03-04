@@ -16,6 +16,7 @@ import logica.ValueObjects.*;
 public class Main {
 
 	public static void main(String[] args){
+		//comentario pc emi
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");
