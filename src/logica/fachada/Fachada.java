@@ -1,16 +1,21 @@
 package logica.fachada;
 
-import java.io.Serializable;
+import java.io.*;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
 import logica.objetos.*;
 import logica.colecciones.*;
 import logica.ValueObjects.*;
-
-public class Fachada implements Serializable{
+import logica.Persistencia.*;
+ 
+//extends UnicastRemoteObject |
+//                            V
+public class Fachada implements Serializable, IFachada{
 	/**
 	 * 
 	 */
@@ -35,15 +40,41 @@ public class Fachada implements Serializable{
 		datos = new Datos();
 	}
 	
-	public Buses getBuses(){
+	public Buses getBuses() throws RemoteException {
 		return this.buses;
 	}
 	
-	public Excursiones getExcursiones(){
+	public Excursiones getExcursiones() throws RemoteException{
 		return this.excursiones;
 	}
 	
+	public Datos getDatos() throws RemoteException{
+		return this.datos;
+	}
 	
+	public void actualizarDatos() throws RemoteException{
+		this.datos.setBuses(buses);
+		this.datos.setExcursiones(excursiones);
+	}
+	
+	
+	
+	public void setExcursiones(Excursiones excursiones) throws RemoteException{
+		this.excursiones = excursiones;
+	}
+
+	public void setBuses(Buses buses) throws RemoteException{
+		this.buses = buses;
+	}
+
+	public void setDatos(Datos datos) throws RemoteException{
+		this.datos = datos;
+	}
+
+	public static void setInstancia(Fachada instancia) throws RemoteException{
+		Fachada.instancia = instancia;
+	}
+
 	/**Requerimiento 1
 	 * @param VOBus entrada
 	 * @return void
@@ -52,7 +83,7 @@ public class Fachada implements Serializable{
 	 * @exception Exc_Bus una excepcion que se genera en el caso de que la cantidad de pasajeros no es valida o la matricula no tiene un formato alfanumerico.
 	 * @exception Exc_Buses una excepcion que se genera en el caso de que ya haya un bus ingresado en buses: Buses con la misma matricula que entrada: VOBus.
 	 * */
-	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses {
+	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
 		/*Es alfanumerico*/
 		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
 		 												  *solo tiene minusculas y numeros.*/
@@ -81,7 +112,7 @@ public class Fachada implements Serializable{
 	 * @throws Exc_Buses
 	 * @exception Exc_Buses una excepcion que se genera en el caso de que no hay ningun bus ingresado en el sistema.
 	 * */
-	public Iterator<VOBusExc> listadoGeneralBuses() throws Exc_Buses{
+	public Iterator<VOBusExc> listadoGeneralBuses() throws Exc_Buses, RemoteException{
 		/*Creo una nueva lista de VOBusExc que es la que voy a devolver.*/
 		List<VOBusExc> ret = new ArrayList<VOBusExc>();
 		/*Si buses se encuentra vacio, tiro un error.*/
@@ -112,7 +143,7 @@ public class Fachada implements Serializable{
 	 * @exception Exc_Buses una excepcion que se genera si no hay un bus ingresado en buses con la matricula pasada por param
 	 * @exception Exc_Excursiones una excepcion que se genera si no hay ninguna excursion asignada al bus con la matricula pasada por param
 	 * */
-	public Iterator<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones{
+	public Iterator<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
 		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>(); /*Creo una lista donde oy a guardar los VO que voy a devolver*/
 		
 		if(matricula.matches("[a-z09]+")){ /*Si la matricula tiene un formato alfanumerico.*/
@@ -154,7 +185,7 @@ public class Fachada implements Serializable{
 	 * @exception Exc_Buses una excepcion que se genera si no hay buses registrados en el sistema o si no hay ningun bus con un espacio lo suficientemente grande para que entre la excursion pasada por param.
 	 * @exception Exc_Excursion una excepcion que se genera si el precio base de entrada es menor a 0 o si la hora de partida es despues o igual que la hora de llegada.
 	 * */
-	public void registroNuevaExcursion(VOExcursion entrada) throws Exc_Excursiones, Exc_Buses, Exc_Excursion{
+	public void registroNuevaExcursion(VOExcursion entrada) throws Exc_Excursiones, Exc_Buses, Exc_Excursion, RemoteException{
 		if(! excursiones.exists(entrada.getCodigo())){
 			if(entrada.gethPartida().before(entrada.gethLlegada()) || entrada.gethPartida().equals(entrada.gethLlegada())){
 				if(entrada.getPrecioBase() >= 0){
@@ -188,19 +219,19 @@ public class Fachada implements Serializable{
 	 * @throws Exc_Buses
 	 * @exception Exc_Buses uian excepcion que se genera si no hay un bus con un espacio disponible para mover
 	 * @throws Exc_Excursiones */
-	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones{
+	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones, RemoteException{
 		/*TODO esta funcion puede tener errores (algo con punteros debe ser).*/
 		
 		
 		/*Verifico que la matricula tenga formato alfanumerico*/
 		if(this.excursiones.exists(codigo)){
 			/*Obtengo la excursion con el codigo ingresado*/
-			Excursion aux = excursiones.find(codigo);
+			Excursion aux = this.excursiones.find(codigo);
 			/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
 			Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo); 
 			/*Antes de borrar la excursion del diccionario global tengo que estar seguro que la puedo
 			 * reasignar a otro.*/
-			buses.reasignarExcursion(busConExcursion, aux);
+			this.buses.reasignarExcursion(busConExcursion, aux);
 			/*Si llego a esta parte del codigo es porque la pude reasignar a otro bus.*/
 			/*Actualizo la cantidad de boletos de la excursion en el dicc global y en el dicc del bus al que le acabo de asignar la excursion*/
 			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros());
@@ -210,7 +241,34 @@ public class Fachada implements Serializable{
 		}
 	}
 	
-	/*TODO hacer requerimiento 6*/
+	//Hacer requerimiento 6
+	public void respaldar() throws Exc_Persistencia, RemoteException{
+		try {
+			//Properties p = new Properties();
+			this.actualizarDatos();
+			//String nombreArch = ".setting/datos.properties";
+			//p.load(new FileInputStream(nombreArch));
+			//String Archivo = p.getProperty("rutaArchivo");
+			String Archivo = new String("objeto.obj");
+			Persistencia pers = new Persistencia();
+			pers.respaldar(Archivo, this.getDatos());
+		}catch (Exception e){ 
+			e.printStackTrace();
+		throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
+		}	
+	}
+	public void recuperar() throws Exc_Persistencia, RemoteException{
+		try {
+			String nombreArch = "objeto.obj";
+			Persistencia p = new Persistencia();
+			this.setDatos(p.recuperar(nombreArch));
+			this.setExcursiones(this.getDatos().get_excursiones());
+			this.setBuses(this.getDatos().get_buses());
+		}catch (Exception e){ 
+			e.printStackTrace();
+		throw new Exc_Persistencia("Hubo un error al recuperar la informacion");
+		}
+	}
 	
 	/**Requerimiento 7
 	 * @param VOBoleto entrada
@@ -222,13 +280,13 @@ public class Fachada implements Serializable{
 	 * @exception Exc_Boletos una excepcion que se genera si todos los boletos de la excursion ya estan vendidos.
 	 * @exception Exc_Excursiones uan excepcion que se genera si no hay una excursion registrada con el codigo pasado por param
 	 * */
-	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones{
+	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{
 		if(excursiones.exists(entrada.getCodExcursion())){
-			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() >= 0.0)){
+			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() < 0.0)){
 				throw new Exc_Boleto("Alguno de los datos del psajero ingresados no es valido.");
 			}
 			else{
-				Excursion excAux = excursiones.find(entrada.getCodExcursion());
+				Excursion excAux = this.excursiones.find(entrada.getCodExcursion());
 				Boletos boletosAux = excAux.getBoletos();
 				if(!boletosAux.full()){
 					Boleto insertar = null;
@@ -256,10 +314,10 @@ public class Fachada implements Serializable{
 	 * @throws Exc_Boletos 
 	 * @throws Exc_Excursiones
 	 * @exception */
-	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones{
+	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		double ret = 0.0;
-		if(excursiones.exists(codigo)){
-			Excursion excAux = excursiones.find(codigo);
+		if(this.excursiones.exists(codigo)){
+			Excursion excAux = this.excursiones.find(codigo);
 			Boletos bolsAux = excAux.getBoletos();
 			if(!bolsAux.empty()){
 				ret = bolsAux.recaudado(excAux.getPrecioBase());
@@ -281,7 +339,7 @@ public class Fachada implements Serializable{
 	 * @param String tipo
 	 * @return Iterator<VOBoleto2>*/
 	/*TODO testear requerimiento.*/
-	public Iterator<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones{
+	public Iterator<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		List<VOBoleto2> ret = new ArrayList<VOBoleto2>();
 		if(excursiones.exists(codigo)){
 			Excursion excAux = excursiones.find(codigo);
@@ -308,30 +366,35 @@ public class Fachada implements Serializable{
 	
 	/**Requerimiento 10
 	 * @throws Exc_Excursiones */
-	public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones{
-		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
-		if(! excursiones.empty()){
-			Iterator<Excursion> ite = this.excursiones.iterator();
-			while(ite.hasNext()){
-				Excursion excAux = ite.next();
-				if(excAux.getDestino().equals(destino)){
-					int asientosDisp = 0;
-					Bus busAux = this.buses.obtenerBusConExcursion(excAux.getCodigo());
-					asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
-					ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+	public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
+		if (destino.equals("")){
+			throw new Exc_Excursiones("Destino vacio");
+		}else{
+			List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
+			if(! excursiones.empty()){
+				Iterator<Excursion> ite = this.excursiones.iterator();
+				while(ite.hasNext()){
+					Excursion excAux = ite.next();
+					if(excAux.getDestino().equals(destino)){
+						//System.out.println("AODSNODAN");
+						int asientosDisp = 0;
+						Bus busAux = this.buses.obtenerBusConExcursion(excAux.getCodigo());
+						asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
+						ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+					}
 				}
 			}
+			else{
+				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+			}
+			return ret.iterator();
 		}
-		else{
-			throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
-		}
-		return ret.iterator();
 	}
 	
 	/**Requerimiento 11
 	 * @throws Exc_Excursiones 
 	 * */
-	public Iterator<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones{
+	public Iterator<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones, RemoteException{
 		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
 		if(!excursiones.empty()){
 			Iterator<Excursion> ite = this.excursiones.iterator();

@@ -2,6 +2,7 @@ package logica.colecciones;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +10,16 @@ import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
 public class Boletos implements Serializable{
+	@Override
+	public String toString() {
+		String devolver = "Boletos[";
+		for(int i = 0; i < this.tope; i++){
+			devolver = devolver + this.arreglo[i].toString() + " ,";
+		}
+		devolver = devolver + "]";
+		return devolver;
+	}
+
 	/**
 	 * 
 	 */
@@ -105,15 +116,26 @@ public class Boletos implements Serializable{
 	/*nuevaCap tiene que ser mayor a la capacidad maxima del arreglo anterior*/
 	public void actualizarMax(int nuevaCap) {
 		Boleto[] nuevoArr = new Boleto[nuevaCap];
-		
-		for(int i = 0 ; i < this.tope; i++){
-			nuevoArr[i] = arreglo[i];
+		int i;
+		for(i= 0; i < this.tope; i++){
+			if(this.arreglo[i].getTipo() == "Comun"){
+				nuevoArr[i] = new Boleto(arreglo[i]);
+			}
+			else{
+				nuevoArr[i] = new Especial(arreglo[i]);
+			}
+			this.arreglo[i] = null;
+		}
+		for(int j = 0; j < this.tope; j++){
+			this.arreglo[i] = null;
 		}
 		this.setArreglo(nuevoArr);
+		this.tope = nuevaCap;
 	}
 
 	@Override
 	public boolean equals(Object obj) {	
+		
 		boolean iguales = true;
 		Iterator<Boleto> iteOther = ((Boletos) obj).iterator();
 		Iterator<Boleto> iteThis = this.iterator();

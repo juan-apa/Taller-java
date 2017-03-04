@@ -5,6 +5,10 @@ import java.io.Serializable;
 import logica.colecciones.Excursiones;
 
 public class Bus implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String matricula;
 	private String marca;
 	private int capPasajeros;
@@ -16,6 +20,9 @@ public class Bus implements Serializable {
 		this.marca = marca;
 		this.capPasajeros = capPasajeros;
 		this.excuBus = new Excursiones();
+	}
+	public Bus() {
+		// TODO Auto-generated constructor stub
 	}
 	public String getMatricula() {
 		return matricula;

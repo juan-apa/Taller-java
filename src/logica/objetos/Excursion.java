@@ -26,7 +26,12 @@ public class Excursion implements Serializable{
 		this.hpartida = hpartida;
 		this.hllegada = hllegada;
 		this.precioBase = precioBase;
-		this.boletos = null;
+		/* TODO Agregarle la capMaxima de boletos*/
+		this.boletos = new Boletos(0);
+	}
+
+	public Excursion() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getCodigo() {
@@ -96,20 +101,29 @@ public class Excursion implements Serializable{
 		if(!this.destino.equals(((Excursion) obj).getDestino())){
 			iguales = false;
 		}
-		if(!this.boletos.equals(((Excursion) obj).getBoletos())){
+		if( (this.boletos == null && ((Excursion) obj).getBoletos() != null) || (this.boletos != null && ((Excursion) obj).getBoletos() == null)){
 			iguales = false;
 		}
-		if(!this.hllegada.equals(((Excursion) obj).getCodigo())){
+		else{
+			if(this.boletos == null && ((Excursion) obj).getBoletos() == null){
+				//igual = true;
+			}
+			else{
+				if(!this.boletos.equals(((Excursion) obj).getBoletos())){
+					iguales = false;
+				}
+			}
+		}
+		
+		if(!this.hllegada.equals(((Excursion) obj).getHllegada())){
 			iguales = false;
 		}
-		if(this.hpartida.equals(((Excursion) obj).getCodigo())){
+		if(this.hpartida.equals(((Excursion) obj).getHpartida())){
 			iguales = false;
 		}
 		if(this.precioBase != ((Excursion) obj).getPrecioBase()){
 			iguales = false;
-		}
-		
-		
+		}		
 		// TODO Auto-generated method stub
 		return iguales;
 		

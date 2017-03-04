@@ -6,13 +6,16 @@ package logica.ValueObjects;
 import java.io.Serializable;
 
 public class VOBoleto2 implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int numero;
 	private int edad;
 	private String lugarProcedencia;
+	@Override
+	public String toString() {
+		return "VOBoleto2 [numero=" + numero + ", edad=" + edad + ", lugarProcedencia=" + lugarProcedencia
+				+ ", nroCelular=" + nroCelular + ", dtoAdicional=" + dtoAdicional + "]";
+	}
+
 	private long nroCelular;
 	private double dtoAdicional;
 	/*Si el tipo de boleto es comun, el descuento adicional se pondra en 0*/

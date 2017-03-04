@@ -13,11 +13,19 @@ public class Boleto implements Serializable{
 	private static String tipo = "Comun";
 	
 	public Boleto(String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR){
+		super();
 		this.lugarPrecedencia = LUGARPRECEDENCIA;
 		this.edadPasajero = EDADPASAJERO;
 		this.nroCelular = NROCELULAR;
 	}
 	
+	public Boleto(Boleto boleto) {
+		super();
+		this.edadPasajero = boleto.getEdadPasajero();
+		this.lugarPrecedencia = boleto.getLugarPrecedencia();
+		this.nroCelular = boleto.getNroCelular();
+	}
+
 	public String getLugarPrecedencia() {
 		return lugarPrecedencia;
 	}

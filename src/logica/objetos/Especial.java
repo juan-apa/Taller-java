@@ -3,6 +3,10 @@ package logica.objetos;
 import logica.objetos.Boleto;
 
 public class Especial extends Boleto{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	double dtoAdicional;
 	
 	
@@ -11,6 +15,11 @@ public class Especial extends Boleto{
 		// TODO Auto-generated constructor stub
 		this.dtoAdicional = DTOADICIONAL;
 		Especial.setTipo("Especial");
+	}
+	
+	public Especial(Boleto boleto){
+		super(boleto);
+		this.setTipo("Especial");
 	}
 	
 	public double getDtoAdicional() {
