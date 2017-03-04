@@ -253,7 +253,6 @@ public class Main {
 				VOBoleto2 bo2 = iter8.next();
 				System.out.println(bo2.toString());
 			}
-			System.out.println("TERMINO\n");
 		} catch (Exc_Boletos e) {
 			// TODO Auto-generated catch block
 			System.out.println("ERROR:\n");
