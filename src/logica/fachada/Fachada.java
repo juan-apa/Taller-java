@@ -11,7 +11,7 @@ import logica.Excepciones.objetos.*;
 import logica.objetos.*;
 import logica.colecciones.*;
 import logica.ValueObjects.*;
-import logica.Persistencia.*;
+import persistencia.*;
  
 //extends UnicastRemoteObject |
 //                            V

@@ -3,6 +3,7 @@ package logica.fachada;
 import java.rmi.Remote; 
 import java.rmi.RemoteException;
 import java.util.Iterator;
+
 import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
@@ -18,6 +19,7 @@ import logica.ValueObjects.VOExcursion;
 import logica.ValueObjects.VOExcursionListado;
 
 public  interface IFachada extends Remote{
+	
 	//Requerimiento 1
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException;
 	//Requerimiento 2

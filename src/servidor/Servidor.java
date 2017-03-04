@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 import logica.fachada.Fachada;
+import logica.fachada.IFachada;
 
 public class Servidor {
 	public static void main(String [] args) { 

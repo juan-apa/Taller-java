@@ -21,6 +21,13 @@ public class VOExcursionListado implements Serializable{
 	private double precioBase;
 	private int asientosDisp;
 	
+	public String toString() {
+		return "VOExcursionListado [codigo=" + codigo + ", destino=" + destino
+				+ ", hPartia=" + hPartia + ", hLlegada=" + hLlegada
+				+ ", precioBase=" + precioBase + ", asientosDisp="
+				+ asientosDisp + "]";
+	}
+
 	public VOExcursionListado(String codigo, String destino, Date hPartia, Date hLlegada, double precioBase, int asientosDisp) {
 		super();
 		this.codigo = codigo;

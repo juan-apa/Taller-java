@@ -133,7 +133,7 @@ public class Main {
 			System.out.println(e.toString());
 		}
 		VOExcursion exc1 = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
-		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 200);
+		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 250);
 		try {
 			f.registroNuevaExcursion(exc1);
 			System.out.println(f.getBuses().toString());
@@ -282,11 +282,23 @@ public class Main {
 			System.out.println("CATCH 2");
 			e.printStackTrace();
 		}
-			
-		//public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino)
 		
-		
-		
+		System.out.println("\nTest Requerimiento 11.");
+		try {
+			Iterator<VOExcursionListado> iter10 = f.listadoExcursionesPrecio(150, 220);
+			while(iter10.hasNext()){	
+				VOExcursionListado exLi1 = iter10.next();
+				System.out.println(exLi1.toString());
+			}
+		} catch (RemoteException e) {
+			System.out.println("CATCH 1");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Excursiones e) {
+			// TODO Auto-generated catch block
+			System.out.println("CATCH 2");
+			e.printStackTrace();
+		}
 	}
 
 }
