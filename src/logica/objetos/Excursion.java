@@ -100,9 +100,20 @@ public class Excursion implements Serializable{
 		if(!this.destino.equals(((Excursion) obj).getDestino())){
 			iguales = false;
 		}
-		if(!this.boletos.equals(((Excursion) obj).getBoletos())){
+		if( (this.boletos == null && ((Excursion) obj).getBoletos() != null) || (this.boletos != null && ((Excursion) obj).getBoletos() == null)){
 			iguales = false;
 		}
+		else{
+			if(this.boletos == null && ((Excursion) obj).getBoletos() == null){
+				//igual = true;
+			}
+			else{
+				if(!this.boletos.equals(((Excursion) obj).getBoletos())){
+					iguales = false;
+				}
+			}
+		}
+		
 		if(!this.hllegada.equals(((Excursion) obj).getHllegada())){
 			iguales = false;
 		}

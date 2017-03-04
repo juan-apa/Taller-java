@@ -68,7 +68,7 @@ public class Buses implements Diccionario, Serializable{
 		boolean reasignado = false;
 		Iterator <Bus> recorrida = this.iterator();
 		while(recorrida.hasNext() && !reasignado){
-			Bus aux = recorrida.next();
+			Bus aux = recorrida.next(); //72 buses
 			if(!original.equals(aux) && !reasignado){ /*Si el bus no es el que le quiero sacar la excursion*/
 				if(aux.entraAsientosEnBus(original.getCapPasajeros())){ /*Si tiene  mayor o igual cantidad de asientos*/
 					if(aux.getExcuBus().entraExcursion(reasignar)){ /*Si tiene un horario disponible para la reasignar la excursion*/

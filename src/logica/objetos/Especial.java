@@ -17,6 +17,11 @@ public class Especial extends Boleto{
 		Especial.setTipo("Especial");
 	}
 	
+	public Especial(Boleto boleto){
+		super(boleto);
+		this.setTipo("Especial");
+	}
+	
 	public double getDtoAdicional() {
 		return dtoAdicional;
 	}

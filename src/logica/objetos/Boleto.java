@@ -19,6 +19,13 @@ public class Boleto implements Serializable{
 		this.nroCelular = NROCELULAR;
 	}
 	
+	public Boleto(Boleto boleto) {
+		super();
+		this.edadPasajero = boleto.getEdadPasajero();
+		this.lugarPrecedencia = boleto.getLugarPrecedencia();
+		this.nroCelular = boleto.getNroCelular();
+	}
+
 	public String getLugarPrecedencia() {
 		return lugarPrecedencia;
 	}
