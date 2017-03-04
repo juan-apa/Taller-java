@@ -1,5 +1,6 @@
 package logica;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -14,7 +15,7 @@ import logica.ValueObjects.*;
 
 public class Main {
 
-	public static void main(String[] args) throws Exc_Persistencia, ClassNotFoundException, Exc_Buses, Exc_Excursiones {
+	public static void main(String[] args){
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
 		System.out.println("hola");
@@ -56,6 +57,8 @@ public class Main {
 			
 		} catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
+		} catch(RemoteException e){
+			System.out.println(e.toString());
 		}
 		
 		/*Test Requerimiento 1*/
@@ -71,6 +74,9 @@ public class Main {
 		} catch (Exc_Buses e) {
 			e.printStackTrace();
 		}
+		catch(RemoteException e){
+			System.out.println(e.toString());
+		}
 		
 		/*Test Requerimiento 2 (cont.)*/
 		System.out.println("\n\nTest Requerimiento 2.");
@@ -84,6 +90,9 @@ public class Main {
 			System.out.println("Termine el try.");
 		} catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
+		}
+		catch(RemoteException e){
+			System.out.println(e.toString());
 		}
 		
 		/*Test random*/
@@ -110,6 +119,9 @@ public class Main {
 		catch(Exc_Excursiones eexcs){
 			System.out.println(eexcs.toString());
 		}
+		catch(RemoteException e){
+			System.out.println(e.toString());
+		}
 		
 		/*Test Requerimiento 4*/
 		System.out.println("\n\nTest Requerimiento 4.");
@@ -119,9 +131,7 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		@SuppressWarnings("deprecation")
 		VOExcursion exc1 = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
-		@SuppressWarnings("deprecation")
 		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 200);
 		try {
 			f.registroNuevaExcursion(exc1);
@@ -148,19 +158,50 @@ public class Main {
 				System.out.println("\nNo se cambio de bus");
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 		
 		
 		/*Test Requerimiento 6*/
 		System.out.println("\nTest Requerimiento 6.");
-		f.respaldar();
+		try {
+			f.respaldar();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exc_Persistencia e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("\n\nGuardo");
 		//Vacio la fachada para luego recuperar los datos del disco
-		f.setBuses(null);
-		f.setDatos(null);
-		f.setExcursiones(null);
-		f.recuperar();
+		try {
+			f.setBuses(null);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			f.setDatos(null);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			f.setExcursiones(null);
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			f.recuperar();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exc_Persistencia e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try{
 		Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
 		System.out.println("\n");
@@ -171,6 +212,9 @@ public class Main {
 		System.out.println("\nRecupero");
 		}catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		/*Test Requerimiento 7*/
 		try {

@@ -1,10 +1,12 @@
 package logica.fachada;
 
-import java.io.Serializable;
+import java.io.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import java.util.Properties;
 
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
@@ -244,10 +246,14 @@ public class Fachada implements Serializable, IFachada{
 	//Hacer requerimiento 6
 	public void respaldar() throws Exc_Persistencia, RemoteException{
 		try {
+			//Properties p = new Properties();
 			this.actualizarDatos();
-			String nombreArch = "objeto.obj";
-			Persistencia p = new Persistencia();
-			p.respaldar(nombreArch, this.getDatos());
+			//String nombreArch = ".setting/datos.properties";
+			//p.load(new FileInputStream(nombreArch));
+			//String Archivo = p.getProperty("rutaArchivo");
+			String Archivo = new String("objeto.obj");
+			Persistencia pers = new Persistencia();
+			pers.respaldar(Archivo, this.getDatos());
 		}catch (Exception e){ 
 			e.printStackTrace();
 		throw new Exc_Persistencia("Hubo un error al respaldar la informacion");

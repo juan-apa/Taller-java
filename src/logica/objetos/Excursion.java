@@ -103,17 +103,15 @@ public class Excursion implements Serializable{
 		if(!this.boletos.equals(((Excursion) obj).getBoletos())){
 			iguales = false;
 		}
-		if(!this.hllegada.equals(((Excursion) obj).getCodigo())){
+		if(!this.hllegada.equals(((Excursion) obj).getHllegada())){
 			iguales = false;
 		}
-		if(this.hpartida.equals(((Excursion) obj).getCodigo())){
+		if(this.hpartida.equals(((Excursion) obj).getHpartida())){
 			iguales = false;
 		}
 		if(this.precioBase != ((Excursion) obj).getPrecioBase()){
 			iguales = false;
-		}
-		
-		
+		}		
 		// TODO Auto-generated method stub
 		return iguales;
 		

@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.colecciones.Datos;
 
