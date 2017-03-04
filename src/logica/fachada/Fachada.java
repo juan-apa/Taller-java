@@ -369,23 +369,28 @@ public class Fachada implements Serializable, IFachada{
 	/**Requerimiento 10
 	 * @throws Exc_Excursiones */
 	public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
-		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
-		if(! excursiones.empty()){
-			Iterator<Excursion> ite = this.excursiones.iterator();
-			while(ite.hasNext()){
-				Excursion excAux = ite.next();
-				if(excAux.getDestino().equals(destino)){
-					int asientosDisp = 0;
-					Bus busAux = this.buses.obtenerBusConExcursion(excAux.getCodigo());
-					asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
-					ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+		if (destino.equals("")){
+			throw new Exc_Excursiones("Destino vacio");
+		}else{
+			List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
+			if(! excursiones.empty()){
+				Iterator<Excursion> ite = this.excursiones.iterator();
+				while(ite.hasNext()){
+					Excursion excAux = ite.next();
+					if(excAux.getDestino().equals(destino)){
+						//System.out.println("AODSNODAN");
+						int asientosDisp = 0;
+						Bus busAux = this.buses.obtenerBusConExcursion(excAux.getCodigo());
+						asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
+						ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+					}
 				}
 			}
+			else{
+				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+			}
+			return ret.iterator();
 		}
-		else{
-			throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
-		}
-		return ret.iterator();
 	}
 	
 	/**Requerimiento 11

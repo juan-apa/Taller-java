@@ -243,6 +243,48 @@ public class Main {
 			System.out.println(e.toString());
 		}
 		
+		System.out.println("\nTest Requerimiento 9.");
+		String codigoExcu = "001";
+		String tipoBoleto = "Especial";
+		try {
+			Iterator<VOBoleto2> iter8 = f.listadoBoletosExcursion("001", "Especial");
+			while(iter8.hasNext()){
+				VOBoleto2 bo2 = iter8.next();
+				System.out.println(bo2.toString());
+			}
+			System.out.println("TERMINO\n");
+		} catch (Exc_Boletos e) {
+			// TODO Auto-generated catch block
+			System.out.println("ERROR:\n");
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Excursiones e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		System.out.println("\nTest Requerimiento 10.");
+		try {
+			Iterator<VOExcursionListado> iter10 = f.listadoExcursionesDestino("Montevideo");
+			while(iter10.hasNext()){	
+				VOExcursionListado exLi = iter10.next();
+				System.out.println(exLi.toString());
+			}
+		} catch (RemoteException e) {
+			System.out.println("CATCH 1");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Excursiones e) {
+			// TODO Auto-generated catch block
+			System.out.println("CATCH 2");
+			e.printStackTrace();
+		}
+			
+		//public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino)
+		
+		
 		
 	}
 
