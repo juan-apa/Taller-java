@@ -190,7 +190,7 @@ public class Fachada implements Serializable, IFachada{
 			if(entrada.gethPartida().before(entrada.gethLlegada()) || entrada.gethPartida().equals(entrada.gethLlegada())){
 				if(entrada.getPrecioBase() >= 0){
 					if(!buses.empty()){
-						Excursion insertar = new Excursion(entrada.getCodigo(), entrada.getDestino(), entrada.gethPartida(), entrada.gethLlegada(), entrada.getPrecioBase());
+						Excursion insertar = new Excursion(entrada.getCodigo(), entrada.getDestino(), entrada.gethPartida(), entrada.gethLlegada(), entrada.getPrecioBase(), new Boletos(0));
 						buses.asignarExcursionAUnBus(insertar); 
 						System.out.println("Asignando Excursion al diccionario global...");
 						excursiones.insert(insertar);
@@ -234,7 +234,7 @@ public class Fachada implements Serializable, IFachada{
 			this.buses.reasignarExcursion(busConExcursion, aux);
 			/*Si llego a esta parte del codigo es porque la pude reasignar a otro bus.*/
 			/*Actualizo la cantidad de boletos de la excursion en el dicc global y en el dicc del bus al que le acabo de asignar la excursion*/
-			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros());
+			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros(), this.excursiones.find(codigo).getCantBoletosVendidos());
 		}
 		else{
 			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema");

@@ -19,7 +19,7 @@ public class Excursion implements Serializable{
 	private Boletos boletos;
 	
 	public Excursion(String codigo, String destino, Date hpartida,
-			Date hllegada, double precioBase) {
+			Date hllegada, double precioBase, Boletos boletos) {
 		super();
 		this.codigo = codigo;
 		this.destino = destino;
@@ -27,13 +27,17 @@ public class Excursion implements Serializable{
 		this.hllegada = hllegada;
 		this.precioBase = precioBase;
 		/* TODO Agregarle la capMaxima de boletos*/
-		this.boletos = new Boletos(0);
+		this.boletos = boletos;
 	}
 
 	public Excursion() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public int getCantBoletosVendidos(){
+		return this.boletos.getTope();
+	}
+	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -82,8 +86,8 @@ public class Excursion implements Serializable{
 		this.boletos = boletos;
 	}
 	
-	public void actualizarCantBoletos(int nuevaCap){
-		this.boletos.actualizarMax(nuevaCap);
+	public void actualizarCantBoletos(int nuevaCap, int topeViejo){
+		this.boletos.actualizarMax(nuevaCap, topeViejo);
 	}
 
 	@Override
@@ -95,38 +99,41 @@ public class Excursion implements Serializable{
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = true;
-		if(this.codigo != ((Excursion) obj).getCodigo()){
-			iguales = false;
-		}
-		if(!this.destino.equals(((Excursion) obj).getDestino())){
-			iguales = false;
-		}
-		if( (this.boletos == null && ((Excursion) obj).getBoletos() != null) || (this.boletos != null && ((Excursion) obj).getBoletos() == null)){
+		if((this == null && obj != null) || (this != null && obj == null)){
 			iguales = false;
 		}
 		else{
-			if(this.boletos == null && ((Excursion) obj).getBoletos() == null){
-				//igual = true;
+			if(this.codigo != ((Excursion) obj).getCodigo()){
+				iguales = false;
+			}
+			if(!this.destino.equals(((Excursion) obj).getDestino())){
+				iguales = false;
+			}
+			if( (this.boletos == null && ((Excursion) obj).getBoletos() != null) || (this.boletos != null && ((Excursion) obj).getBoletos() == null)){
+				iguales = false;
 			}
 			else{
-				if(!this.boletos.equals(((Excursion) obj).getBoletos())){
-					iguales = false;
+				if(this.boletos == null && ((Excursion) obj).getBoletos() == null){
+					//igual = true;
+				}
+				else{
+					if(!this.boletos.equals(((Excursion) obj).getBoletos())){
+						iguales = false;
+					}
 				}
 			}
+			
+			if(!this.hllegada.equals(((Excursion) obj).getHllegada())){
+				iguales = false;
+			}
+			if(this.hpartida.equals(((Excursion) obj).getHpartida())){
+				iguales = false;
+			}
+			if(this.precioBase != ((Excursion) obj).getPrecioBase()){
+				iguales = false;
+			}
 		}
-		
-		if(!this.hllegada.equals(((Excursion) obj).getHllegada())){
-			iguales = false;
-		}
-		if(this.hpartida.equals(((Excursion) obj).getHpartida())){
-			iguales = false;
-		}
-		if(this.precioBase != ((Excursion) obj).getPrecioBase()){
-			iguales = false;
-		}		
-		// TODO Auto-generated method stub
 		return iguales;
-		
 	}
 
 	public boolean dentroRango(double precioMin, double precioMax) {

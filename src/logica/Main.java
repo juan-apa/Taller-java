@@ -136,7 +136,6 @@ public class Main {
 		VOExcursion exc2 = new VOExcursion("002", "Montevideo", new Date(2017, 2, 19, 10, 11), new Date(2017, 2, 19, 10, 21), 250);
 		try {
 			f.registroNuevaExcursion(exc1);
-			System.out.println(f.getBuses().toString());
 			f.registroNuevaExcursion(exc2);
 			System.out.println("\n\nExcursiones global: "+ f.getExcursiones().toString());
 		} catch (Exception e) {

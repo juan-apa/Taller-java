@@ -45,6 +45,11 @@ public class Buses implements Diccionario, Serializable{
 			if(entraEnBus){
 				/*Cambio el valor de busLibre a true y asigno la excursion al bus.*/
 				busLibre = true;
+				int cantAsientos = busAux.getCapPasajeros();
+				//Aca es cuando le actualizo la cantidad de pasajeros a boletos.
+				//TODO terminar
+				/*Pongo 0 como el tope viejo porque estoy ingresando la excursion por primera vez al sistema.*/
+				insertar.actualizarCantBoletos(cantAsientos, 0);
 				busAux.insertarExcursion(insertar);
 			}
 		}
@@ -69,14 +74,19 @@ public class Buses implements Diccionario, Serializable{
 		Iterator <Bus> recorrida = this.iterator();
 		while(recorrida.hasNext() && !reasignado){
 			Bus aux = recorrida.next(); //72 buses
-			if(!original.equals(aux) && !reasignado){ /*Si el bus no es el que le quiero sacar la excursion*/
+			if(!(original.getMatricula() == aux.getMatricula()) && !reasignado){ /*Si el bus no es el que le quiero sacar la excursion*/
 				if(aux.entraAsientosEnBus(original.getCapPasajeros())){ /*Si tiene  mayor o igual cantidad de asientos*/
 					if(aux.getExcuBus().entraExcursion(reasignar)){ /*Si tiene un horario disponible para la reasignar la excursion*/
 						/*Cumple todos los requisitos*/
+						int cantPasajeros = aux.getCapPasajeros();
+						//TODO terminar
+						reasignar.actualizarCantBoletos(cantPasajeros, 0);
 						aux.insertarExcursion(reasignar); /*Le asigno la excursion al bus que cumple los requsitos*/
 						/*Tengo que actualizar la cantidad de boletos maximos para la excursion.*/
-						aux.getExcuBus().find(reasignar.getCodigo()).actualizarCantBoletos(aux.getCapPasajeros());
-						original.sacarExcursion(reasignar); /*Le saco la excursion al bus original*/
+						//TODO terminar
+						aux.getExcuBus().find(reasignar.getCodigo()).actualizarCantBoletos(aux.getCapPasajeros(), 0);
+						original.sacarExcursion(reasignar.getCodigo()); /*Le saco la excursion al bus original*/
+						reasignado = true;
 					}
 				}
 			}
@@ -132,8 +142,8 @@ public class Buses implements Diccionario, Serializable{
 	}
 
 	@Override
-	public void remove(Object borrar) {
-		this.diccionario.remove(borrar);
+	public void remove(String clave) {
+		this.diccionario.remove(clave);
 		
 	}	
 	

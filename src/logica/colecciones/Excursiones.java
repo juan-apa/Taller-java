@@ -126,28 +126,33 @@ public class Excursiones implements Diccionario, Serializable{
 	}
 
 	@Override
-	public void remove(Object borrar) {
-		this.diccionario.remove(borrar);
+	public void remove(String clave) {
+		this.diccionario.remove(clave);
 	}	
 	
 	@Override
 	public boolean equals(Object otro){
 		boolean iguales = true;
-		
-		Iterator<Excursion> iteOtro= ((Excursiones) otro).iterator();
-		Iterator<Excursion> iteThis = this.iterator();
-		
-		while(iguales && iteOtro.hasNext() && iteThis.hasNext()){
-			Excursion excOtro = iteOtro.next();
-			Excursion excThis = iteThis.next();
-			if(!excOtro.equals(excThis)){
+		if((this == null && otro != null) || (this != null && otro == null)){
+			iguales = false;
+		}
+		else{
+			Iterator<Excursion> iteOtro= ((Excursiones) otro).iterator();
+			Iterator<Excursion> iteThis = this.iterator();
+			
+			while(iguales && iteOtro.hasNext() && iteThis.hasNext()){
+				Excursion excOtro = iteOtro.next();
+				Excursion excThis = iteThis.next();
+				if(!excOtro.equals(excThis)){
+					iguales = false;
+				}
+			}
+			
+			if((iteThis.hasNext() && !iteOtro.hasNext()) || (!iteThis.hasNext() && iteOtro.hasNext())){
 				iguales = false;
 			}
 		}
 		
-		if((iteThis.hasNext() && !iteOtro.hasNext()) || (!iteThis.hasNext() && iteOtro.hasNext())){
-			iguales = false;
-		}
 		return iguales;
 	}
 }

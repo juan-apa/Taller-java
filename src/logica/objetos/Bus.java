@@ -61,7 +61,7 @@ public class Bus implements Serializable {
 		this.excuBus.insert(insertar);
 	}
 	
-	public void sacarExcursion(Excursion sacar){
+	public void sacarExcursion(String sacar){
 		this.excuBus.remove(sacar);
 	}
 	
@@ -82,18 +82,22 @@ public class Bus implements Serializable {
 	@Override
 	public boolean equals(Object obj) {
 		boolean iguales = true;
-		
-		if(this.capPasajeros != ((Bus) obj).getCapPasajeros()){
+		if((this == null && obj != null) || (this != null && obj == null)){
 			iguales = false;
 		}
-		if(!this.marca.equals(((Bus) obj).getMarca())){
-			iguales = false;
-		}
-		if(!this.matricula.equals(((Bus) obj).getMatricula())){
-			iguales = false;
-		}
-		if(!this.excuBus.equals(((Bus) obj).getExcuBus())){
-			iguales = false;
+		else{
+			if(this.capPasajeros != ((Bus) obj).getCapPasajeros()){
+				iguales = false;
+			}
+			if(!this.marca.equals(((Bus) obj).getMarca())){
+				iguales = false;
+			}
+			if(!this.matricula.equals(((Bus) obj).getMatricula())){
+				iguales = false;
+			}
+			if(!this.excuBus.equals(((Bus) obj).getExcuBus())){
+				iguales = false;
+			}
 		}
 		return iguales;
 	}

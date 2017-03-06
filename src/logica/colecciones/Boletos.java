@@ -10,15 +10,7 @@ import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
 public class Boletos implements Serializable{
-	@Override
-	public String toString() {
-		String devolver = "Boletos[";
-		for(int i = 0; i < this.tope; i++){
-			devolver = devolver + this.arreglo[i].toString() + " ,";
-		}
-		devolver = devolver + "]";
-		return devolver;
-	}
+	
 
 	/**
 	 * 
@@ -114,10 +106,10 @@ public class Boletos implements Serializable{
 		return ret.iterator();
 	}
 	/*nuevaCap tiene que ser mayor a la capacidad maxima del arreglo anterior*/
-	public void actualizarMax(int nuevaCap) {
+	public void actualizarMax(int nuevaCap, int topeViejo) {
 		Boleto[] nuevoArr = new Boleto[nuevaCap];
 		int i;
-		for(i= 0; i < this.tope; i++){
+		for(i= 0; i < topeViejo; i++){
 			if(this.arreglo[i].getTipo() == "Comun"){
 				nuevoArr[i] = new Boleto(arreglo[i]);
 			}
@@ -126,32 +118,42 @@ public class Boletos implements Serializable{
 			}
 			this.arreglo[i] = null;
 		}
-		for(int j = 0; j < this.tope; j++){
-			this.arreglo[i] = null;
-		}
 		this.setArreglo(nuevoArr);
-		this.tope = nuevaCap;
+		this.tope = topeViejo;
 	}
 
 	@Override
 	public boolean equals(Object obj) {	
-		
 		boolean iguales = true;
-		Iterator<Boleto> iteOther = ((Boletos) obj).iterator();
-		Iterator<Boleto> iteThis = this.iterator();
-		while(iguales && iteOther.hasNext() && iteThis.hasNext()){
-			Boleto bolOther = iteOther.next();
-			Boleto bolThis = iteThis.next();
-			
-			if(!bolThis.equals(bolOther)){
+		if((this == null && obj != null) || (this != null && obj == null)){
+			iguales = false;
+		}
+		else{
+			Iterator<Boleto> iteOther = ((Boletos) obj).iterator();
+			Iterator<Boleto> iteThis = this.iterator();
+			while(iguales && iteOther.hasNext() && iteThis.hasNext()){
+				Boleto bolOther = iteOther.next();
+				Boleto bolThis = iteThis.next();
+				
+				if(!bolThis.equals(bolOther)){
+					iguales = false;
+				}
+			}
+			if((iteThis.hasNext() && !iteOther.hasNext()) || (!iteThis.hasNext() && iteOther.hasNext())){
 				iguales = false;
 			}
 		}
-		if((iteThis.hasNext() && !iteOther.hasNext()) || (!iteThis.hasNext() && iteOther.hasNext())){
-			iguales = false;
-		}
 		return iguales;
 	}
-
+	
+	@Override
+	public String toString() {
+		String devolver = "Boletos[";
+		for(int i = 0; i < this.tope; i++){
+			devolver = devolver + this.arreglo[i].toString() + " ,";
+		}
+		devolver = devolver + "]";
+		return devolver;
+	}
 
 }
