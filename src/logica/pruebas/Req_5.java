@@ -12,10 +12,9 @@ import logica.ValueObjects.VOExcursion;
 import logica.fachada.Fachada;
 import logica.objetos.Bus;
 
-public class PruebaReq5 {
+public class Req_5 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Fachada f = Fachada.getInstancia();
 		VOBus vob1 = new VOBus("aaa001", "mercedes", 12);
 		VOBus vob2 = new VOBus("zzz999", "Suzuki", 13);

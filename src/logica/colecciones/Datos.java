@@ -23,14 +23,6 @@ public class Datos implements Serializable{
 		return serialVersionUID;
 	}
 
-	public Buses get_buses() {
-		return _buses;
-	}
-
-	public Excursiones get_excursiones() {
-		return _excursiones;
-	}
-
 	public Buses buses() {
 		return _buses;
 	}

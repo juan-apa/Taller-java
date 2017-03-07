@@ -3,7 +3,6 @@ package logica.fachada;
 import java.rmi.Remote; 
 import java.rmi.RemoteException;
 import java.util.Iterator;
-
 import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;

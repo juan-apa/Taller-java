@@ -20,8 +20,8 @@ public class Fachada implements Serializable, IFachada{
 	 * 
 	 */
 	private static final long serialVersionUID = 4670089808545963151L;
-	private Excursiones excursiones;
-	private Buses buses;
+//	private Excursiones excursiones;
+//	private Buses buses;
 	private Datos datos;
 	private static Fachada instancia;
 	
@@ -35,36 +35,27 @@ public class Fachada implements Serializable, IFachada{
 	}
 	
 	private Fachada(){
-		excursiones = new Excursiones();
-		buses = new Buses();
 		datos = new Datos();
 	}
 	
 	public Buses getBuses() throws RemoteException {
-		return this.buses;
+		return this.datos.buses();
 	}
 	
 	public Excursiones getExcursiones() throws RemoteException{
-		return this.excursiones;
+		return this.datos.excursiones();
 	}
 	
 	public Datos getDatos() throws RemoteException{
 		return this.datos;
 	}
 	
-	public void actualizarDatos() throws RemoteException{
-		this.datos.setBuses(buses);
-		this.datos.setExcursiones(excursiones);
-	}
-	
-	
-	
 	public void setExcursiones(Excursiones excursiones) throws RemoteException{
-		this.excursiones = excursiones;
+		this.datos.setExcursiones(excursiones);
 	}
 
 	public void setBuses(Buses buses) throws RemoteException{
-		this.buses = buses;
+		this.datos.setBuses(buses);
 	}
 
 	public void setDatos(Datos datos) throws RemoteException{
@@ -88,10 +79,10 @@ public class Fachada implements Serializable, IFachada{
 		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
 		 												  *solo tiene minusculas y numeros.*/
 			
-			if(! this.buses.exists(entrada.getMatricula())){/*Si no hay un bus ingresado en el sistema con la matricula ingresada*/
+			if(! this.datos.buses().exists(entrada.getMatricula())){/*Si no hay un bus ingresado en el sistema con la matricula ingresada*/
 				if(entrada.getCapPasajeros() > 0){/*Si la cantidad de pasajeros es mayor a 0*/
 					Bus aux = new Bus(entrada.getMatricula(), entrada.getMarca(), entrada.getCapPasajeros());
-					this.buses.insert(aux);
+					this.datos.buses().insert(aux);
 					System.out.println("Ingreso del bus exitoso.");
 				}
 				else{
@@ -116,12 +107,12 @@ public class Fachada implements Serializable, IFachada{
 		/*Creo una nueva lista de VOBusExc que es la que voy a devolver.*/
 		List<VOBusExc> ret = new ArrayList<VOBusExc>();
 		/*Si buses se encuentra vacio, tiro un error.*/
-		if(this.buses.empty()){
+		if(this.datos.buses().empty()){
 			throw new Exc_Buses("No hay buses registrados en el sistema.");
 		}
 		else{
 			/*Obtengo un iterador con el contenido de buse.s*/
-			Iterator<Bus> iteradorBus = this.buses.iterator();
+			Iterator<Bus> iteradorBus = this.datos.buses().iterator();
 			/*convierto los datos de tipo Bus a VOBusExc y los aniado a la lista ret.*/
 			while(iteradorBus.hasNext()){
 				Bus aux = (Bus) iteradorBus.next();
@@ -147,9 +138,9 @@ public class Fachada implements Serializable, IFachada{
 		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>(); /*Creo una lista donde oy a guardar los VO que voy a devolver*/
 		
 		if(matricula.matches("[a-z09]+")){ /*Si la matricula tiene un formato alfanumerico.*/
-			if(buses.exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
+			if(this.datos.buses().exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
 				Bus aux;
-				aux = (Bus) buses.find(matricula); /*Obtengo el bus con la matricula ingresada del diccionario buses*/
+				aux = (Bus) this.datos.buses().find(matricula); /*Obtengo el bus con la matricula ingresada del diccionario buses*/
 				if(! aux.getExcuBus().empty()){ /*Si las excursiones del bus obtenido no esta vacio.*/
 					Excursiones excs;
 					Iterator<Excursion> iteExc;
@@ -186,14 +177,14 @@ public class Fachada implements Serializable, IFachada{
 	 * @exception Exc_Excursion una excepcion que se genera si el precio base de entrada es menor a 0 o si la hora de partida es despues o igual que la hora de llegada.
 	 * */
 	public void registroNuevaExcursion(VOExcursion entrada) throws Exc_Excursiones, Exc_Buses, Exc_Excursion, RemoteException{
-		if(! excursiones.exists(entrada.getCodigo())){
+		if(! this.datos.excursiones().exists(entrada.getCodigo())){
 			if(entrada.gethPartida().before(entrada.gethLlegada()) || entrada.gethPartida().equals(entrada.gethLlegada())){
 				if(entrada.getPrecioBase() >= 0){
-					if(!buses.empty()){
+					if(!this.datos.buses().empty()){
 						Excursion insertar = new Excursion(entrada.getCodigo(), entrada.getDestino(), entrada.gethPartida(), entrada.gethLlegada(), entrada.getPrecioBase(), new Boletos(0));
-						buses.asignarExcursionAUnBus(insertar); 
+						this.datos.buses().asignarExcursionAUnBus(insertar); 
 						System.out.println("Asignando Excursion al diccionario global...");
-						excursiones.insert(insertar);
+						this.datos.excursiones().insert(insertar);
 						System.out.println("Asignacion al dicc global de Excursiones exitoso.");
 					}
 					else{
@@ -224,17 +215,17 @@ public class Fachada implements Serializable, IFachada{
 		
 		
 		/*Verifico que la matricula tenga formato alfanumerico*/
-		if(this.excursiones.exists(codigo)){
+		if(this.datos.excursiones().exists(codigo)){
 			/*Obtengo la excursion con el codigo ingresado*/
-			Excursion aux = this.excursiones.find(codigo);
+			Excursion aux = this.datos.excursiones().find(codigo);
 			/*Obtengo el bus que tiene la excursion con el codigo pasado por param*/
-			Bus busConExcursion = this.buses.obtenerBusConExcursion(codigo); 
+			Bus busConExcursion = this.datos.buses().obtenerBusConExcursion(codigo); 
 			/*Antes de borrar la excursion del diccionario global tengo que estar seguro que la puedo
 			 * reasignar a otro.*/
-			this.buses.reasignarExcursion(busConExcursion, aux);
+			this.datos.buses().reasignarExcursion(busConExcursion, aux);
 			/*Si llego a esta parte del codigo es porque la pude reasignar a otro bus.*/
 			/*Actualizo la cantidad de boletos de la excursion en el dicc global y en el dicc del bus al que le acabo de asignar la excursion*/
-			aux.actualizarCantBoletos(this.buses.obtenerBusConExcursion(codigo).getCapPasajeros(), this.excursiones.find(codigo).getCantBoletosVendidos());
+			aux.actualizarCantBoletos(this.datos.buses().obtenerBusConExcursion(codigo).getCapPasajeros(), this.datos.excursiones().find(codigo).getCantBoletosVendidos());
 		}
 		else{
 			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema");
@@ -245,13 +236,12 @@ public class Fachada implements Serializable, IFachada{
 	public void respaldar() throws Exc_Persistencia, RemoteException{
 		try {
 			//Properties p = new Properties();
-			this.actualizarDatos();
 			//String nombreArch = ".setting/datos.properties";
 			//p.load(new FileInputStream(nombreArch));
 			//String Archivo = p.getProperty("rutaArchivo");
 			String Archivo = new String("objeto.obj");
 			Persistencia pers = new Persistencia();
-			pers.respaldar(Archivo, this.getDatos());
+			pers.respaldar(Archivo, this.datos);
 		}catch (Exception e){ 
 			e.printStackTrace();
 		throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
@@ -262,8 +252,8 @@ public class Fachada implements Serializable, IFachada{
 			String nombreArch = "objeto.obj";
 			Persistencia p = new Persistencia();
 			this.setDatos(p.recuperar(nombreArch));
-			this.setExcursiones(this.getDatos().get_excursiones());
-			this.setBuses(this.getDatos().get_buses());
+			this.setExcursiones(this.datos.excursiones());
+			this.setBuses(this.datos.buses());
 		}catch (Exception e){ 
 			e.printStackTrace();
 		throw new Exc_Persistencia("Hubo un error al recuperar la informacion");
@@ -281,12 +271,12 @@ public class Fachada implements Serializable, IFachada{
 	 * @exception Exc_Excursiones uan excepcion que se genera si no hay una excursion registrada con el codigo pasado por param
 	 * */
 	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{
-		if(excursiones.exists(entrada.getCodExcursion())){
+		if(this.datos.excursiones().exists(entrada.getCodExcursion())){
 			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() < 0.0)){
 				throw new Exc_Boleto("Alguno de los datos del psajero ingresados no es valido.");
 			}
 			else{
-				Excursion excAux = this.excursiones.find(entrada.getCodExcursion());
+				Excursion excAux = this.datos.excursiones().find(entrada.getCodExcursion());
 				Boletos boletosAux = excAux.getBoletos();
 				if(!boletosAux.full()){
 					Boleto insertar = null;
@@ -316,8 +306,8 @@ public class Fachada implements Serializable, IFachada{
 	 * @exception */
 	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		double ret = 0.0;
-		if(this.excursiones.exists(codigo)){
-			Excursion excAux = this.excursiones.find(codigo);
+		if(this.datos.excursiones().exists(codigo)){
+			Excursion excAux = this.datos.excursiones().find(codigo);
 			Boletos bolsAux = excAux.getBoletos();
 			if(!bolsAux.empty()){
 				ret = bolsAux.recaudado(excAux.getPrecioBase());
@@ -341,8 +331,8 @@ public class Fachada implements Serializable, IFachada{
 	/*TODO testear requerimiento.*/
 	public Iterator<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		List<VOBoleto2> ret = new ArrayList<VOBoleto2>();
-		if(excursiones.exists(codigo)){
-			Excursion excAux = excursiones.find(codigo);
+		if(this.datos.excursiones().exists(codigo)){
+			Excursion excAux = this.datos.excursiones().find(codigo);
 			if(! excAux.getBoletos().empty()){
 				Iterator<Boleto> ite = excAux.getBoletos().iterator();
 				int nroBoleto = 1;
@@ -371,14 +361,14 @@ public class Fachada implements Serializable, IFachada{
 			throw new Exc_Excursiones("Destino vacio");
 		}else{
 			List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
-			if(! excursiones.empty()){
-				Iterator<Excursion> ite = this.excursiones.iterator();
+			if(! this.datos.excursiones().empty()){
+				Iterator<Excursion> ite = this.datos.excursiones().iterator();
 				while(ite.hasNext()){
 					Excursion excAux = ite.next();
 					if(excAux.getDestino().equals(destino)){
 						//System.out.println("AODSNODAN");
 						int asientosDisp = 0;
-						Bus busAux = this.buses.obtenerBusConExcursion(excAux.getCodigo());
+						Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
 						asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
 						ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
 					}
@@ -396,13 +386,13 @@ public class Fachada implements Serializable, IFachada{
 	 * */
 	public Iterator<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones, RemoteException{
 		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
-		if(!excursiones.empty()){
-			Iterator<Excursion> ite = this.excursiones.iterator();
+		if(!this.datos.excursiones().empty()){
+			Iterator<Excursion> ite = this.datos.excursiones().iterator();
 			while(ite.hasNext()){
 				Excursion aux = ite.next();
 				if(((Excursion) aux).dentroRango(precioMin, precioMax)){
 					int asientosDisp = 0;
-					Bus busAux = this.buses.obtenerBusConExcursion(aux.getCodigo());
+					Bus busAux = this.datos.buses().obtenerBusConExcursion(aux.getCodigo());
 					asientosDisp = busAux.asientosDisponiblesParaExcursion(aux.getCodigo());
 					ret.add(new VOExcursionListado(aux.getCodigo(), aux.getDestino(), aux.getHpartida(), aux.getHllegada(), aux.getPrecioBase(), asientosDisp));
 				}
