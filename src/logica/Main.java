@@ -19,52 +19,20 @@ public class Main {
 		
 		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
-		System.out.println("hola");
 		Buses bs = new Buses();
-		System.out.println("Antes de insertar.");
-		bs.imprimir();
-		bs.insert(busAux);
-		System.out.println("Despues de insertar");
-		bs.imprimir();
-		
+		bs.insert(busAux);		
 		Boleto bcomun = new Boleto("Comun", 0, 0);
-		System.out.println("Tipo boleto comun: " + bcomun.getTipo());
-		
 		Especial bespecial = new Especial("Especial", 0, 0, 0);
-		System.out.println("Tipo boleto especial: " + bespecial.getTipo());
-		
-		//System.out.println("Casteo Comun --> Especial: " + (Especial)bcomun);
-		
 		Boletos boletos = new Boletos(3);
 		boletos.insert(bcomun);
 		boletos.insert(bespecial);
-		System.out.println("Tipo comun--> " + boletos.getBoletoNro(1).getTipo());
-		System.out.println("Tipo especial--> " + boletos.getBoletoNro(2).getTipo());
-		try{
-			throw new Exc_Bus();
-		}catch(Exc_Bus e){
-			System.out.println("Mensaje de e: " + e);
-		}
-		
 		/*Testeo requerimientos*/
 		Fachada f = Fachada.getInstancia();
-		
-		
-		/*Test Requerimiento 2*/
-		System.out.println("\n\nTest Requerimiento 2.");
-		VOBus vobus = new VOBus("aaa009", "Suzuki", 5);
-		try {
-			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
-			
-		} catch (Exc_Buses e) {
-			System.out.println("Advertencia: " + e.toString());
-		} catch(RemoteException e){
-			System.out.println(e.toString());
-		}
-		
 		/*Test Requerimiento 1*/
 		System.out.println("\n\nTest Requerimiento 1.");
 		try {
+
+			VOBus vobus = new VOBus("aaa009", "Suzuki", 5);
 			f.registroNuevoBus(vobus);
 			vobus.setMatricula("aaa010");
 			vobus.setCapPasajeros(30);
@@ -88,24 +56,13 @@ public class Main {
 				System.out.println(vobusexcaux.toString());
 			}
 			System.out.println("Requerimiento 2 con exito.");
-			System.out.println("Termine el try.");
 		} catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		}
 		catch(RemoteException e){
 			System.out.println(e.toString());
 		}
-		
-		/*Test random*/
-		System.out.println("\n\nTest random.");
-		try{
-			System.out.println("Antes del throw.");
-			throw new Exception();
-		}
-		catch(Exception e){
-			System.out.println("Adentro del catch");
-		}
-		
+	
 		/*Test Requerimiento 3*/
 		System.out.println("\n\nTest Requerimiento 3.");
 		try{
@@ -147,7 +104,6 @@ public class Main {
 			System.out.println("\n\nTest Requerimiento 5.");
 			String Bus1 = new String();
 			Bus1 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
-			//ACA SE CAGAAAAA!!!
 			f.reasignacionExcursion("001");
 			String Bus2 = new String();
 			Bus2 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
