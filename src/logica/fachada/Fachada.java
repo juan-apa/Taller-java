@@ -2,6 +2,7 @@ package logica.fachada;
 
 import java.io.*;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +16,7 @@ import persistencia.*;
  
 //extends UnicastRemoteObject |
 //                            V
-public class Fachada implements Serializable, IFachada{
+public class Fachada extends UnicastRemoteObject implements Serializable, IFachada{
 	/**
 	 * 
 	 */
@@ -25,14 +26,19 @@ public class Fachada implements Serializable, IFachada{
 	
 
 	
-	public static Fachada getInstancia(){
+	public static Fachada getInstancia(){ /*TODO revisar*/
 		if(instancia == null){
-			instancia = new Fachada();
+			try {
+				instancia = new Fachada();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return instancia;
 	}
 	
-	private Fachada(){
+	private Fachada() throws RemoteException{
 		datos = new Datos();
 	}
 	
