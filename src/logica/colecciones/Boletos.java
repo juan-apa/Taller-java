@@ -2,10 +2,8 @@ package logica.colecciones;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
 import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
@@ -89,8 +87,10 @@ public class Boletos implements Serializable{
 	public double recaudado(double precioBase){
 		double ret = 0.0;
 		for(int i = 0; i < this.tope; i++){
-			if(arreglo[i].getTipo().equals("Especial")){
-				ret = ret + (precioBase*(((Especial) arreglo[i]).getDtoAdicional()));
+			//TODO se rompe aca porque entra siempre con que es especial.
+			if(arreglo[i].getTipo() == "Especial"){
+				
+				ret = ret + (precioBase*(1-(((Especial) arreglo[i]).getDtoAdicional())));
 			}
 			else
 				ret = ret + precioBase;

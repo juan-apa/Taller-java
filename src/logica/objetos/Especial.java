@@ -14,7 +14,7 @@ public class Especial extends Boleto{
 		super(LUGARPRECEDENCIA, EDADPASAJERO, NROCELULAR);
 		// TODO Auto-generated constructor stub
 		this.dtoAdicional = DTOADICIONAL;
-		Especial.setTipo("Especial");
+		this.setTipo("Especial");
 	}
 	
 	public Especial(Boleto boleto){
@@ -29,5 +29,11 @@ public class Especial extends Boleto{
 	public void setDtoAdicional(double dtoAdicional) {
 		this.dtoAdicional = dtoAdicional;
 	}
+
+	@Override
+	public String toString() {
+		return "Especial [dtoAdicional=" + dtoAdicional + ", tipo="+this.getTipo() +"]";
+	}
+	
 
 }

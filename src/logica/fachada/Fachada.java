@@ -19,9 +19,7 @@ public class Fachada implements Serializable, IFachada{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4670089808545963151L;
-//	private Excursiones excursiones;
-//	private Buses buses;
+	private static final long serialVersionUID = 1L;
 	private Datos datos;
 	private static Fachada instancia;
 	
@@ -83,7 +81,6 @@ public class Fachada implements Serializable, IFachada{
 				if(entrada.getCapPasajeros() > 0){/*Si la cantidad de pasajeros es mayor a 0*/
 					Bus aux = new Bus(entrada.getMatricula(), entrada.getMarca(), entrada.getCapPasajeros());
 					this.datos.buses().insert(aux);
-					System.out.println("Ingreso del bus exitoso.");
 				}
 				else{
 					throw new Exc_Bus("La cantidad de asientos '" + entrada.getCapPasajeros() + "' no es valida. La cantidad de pasajeros tiene que ser mayor a '0'.");
@@ -137,7 +134,7 @@ public class Fachada implements Serializable, IFachada{
 	public Iterator<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
 		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>(); /*Creo una lista donde oy a guardar los VO que voy a devolver*/
 		
-		if(matricula.matches("[a-z09]+")){ /*Si la matricula tiene un formato alfanumerico.*/
+		if(matricula.matches("[a-z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
 			if(this.datos.buses().exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
 				Bus aux;
 				aux = (Bus) this.datos.buses().find(matricula); /*Obtengo el bus con la matricula ingresada del diccionario buses*/
@@ -183,9 +180,7 @@ public class Fachada implements Serializable, IFachada{
 					if(!this.datos.buses().empty()){
 						Excursion insertar = new Excursion(entrada.getCodigo(), entrada.getDestino(), entrada.gethPartida(), entrada.gethLlegada(), entrada.getPrecioBase(), new Boletos(0));
 						this.datos.buses().asignarExcursionAUnBus(insertar); 
-						System.out.println("Asignando Excursion al diccionario global...");
 						this.datos.excursiones().insert(insertar);
-						System.out.println("Asignacion al dicc global de Excursiones exitoso.");
 					}
 					else{
 						throw new Exc_Buses("No hay buses registrados en el sistema.");

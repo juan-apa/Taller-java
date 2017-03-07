@@ -10,7 +10,7 @@ public class Boleto implements Serializable{
 	private String lugarPrecedencia;
 	private int edadPasajero;
 	private long nroCelular;
-	private static String tipo = "Comun";
+	private String tipo = "Comun";
 	
 	public Boleto(String LUGARPRECEDENCIA, int EDADPASAJERO, long NROCELULAR){
 		super();
@@ -49,14 +49,14 @@ public class Boleto implements Serializable{
 		return tipo;
 	}
 
-	public static void setTipo(String tipo) {
-		Boleto.tipo = tipo;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override
 	public String toString() {
 		return "Boleto [lugarPrecedencia=" + lugarPrecedencia + ", edadPasajero="
-				+ edadPasajero + ", nroCelular=" + nroCelular + "]";
+				+ edadPasajero + ", nroCelular=" + nroCelular + ", tipo=" +this.tipo+"]";
 	}
 
 	@Override
