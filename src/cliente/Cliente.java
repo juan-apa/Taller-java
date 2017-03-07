@@ -13,7 +13,7 @@ public class Cliente {
 
 	public static void main(String[] args) {
 		try {
-			IFachada fachada = (IFachada) Naming.lookup("//localhost:1099/fachada");
+			IFachada fachada = (IFachada) Naming.lookup("//192.168.255.238:1099/fachada");
 			fachada.listadoBoletosExcursion("001", "comun");
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();

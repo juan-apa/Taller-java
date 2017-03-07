@@ -14,8 +14,7 @@ import logica.colecciones.*;
 import logica.ValueObjects.*;
 import persistencia.*;
  
-//extends UnicastRemoteObject |
-//                            V
+
 public class Fachada extends UnicastRemoteObject implements Serializable, IFachada{
 	/**
 	 * 
