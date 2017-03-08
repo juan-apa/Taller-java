@@ -14,6 +14,7 @@ import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOExcursion;
+import logica.colecciones.Iterador;
 import logica.fachada.Fachada;
 
 public class Req_9 {
@@ -26,7 +27,7 @@ public class Req_9 {
 			f.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 21, 10, 10), new Date(2017, 12, 21, 10, 50), 50.00));
 			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Comun", 0.0));
 			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Especial", 0.10));
-			Iterator<VOBoleto2> iter8 = f.listadoBoletosExcursion("001", "Comun");
+			Iterador<VOBoleto2> iter8 = f.listadoBoletosExcursion("001", "Comun");
 			while(iter8.hasNext()){
 				VOBoleto2 bo2 = iter8.next();
 				System.out.println(bo2.toString());

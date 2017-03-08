@@ -1,7 +1,7 @@
 package logica.pruebas;
 
 import java.rmi.RemoteException;
-import java.util.Iterator;
+import logica.colecciones.*;
 
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.objetos.Exc_Bus;
@@ -19,7 +19,7 @@ public class Req_1 {
 			f.registroNuevoBus(vobus);
 			VOBus vobus1 = new VOBus("aaa008", "Chino", 5);
 			f.registroNuevoBus(vobus1);
-			Iterator<VOBusExc> ite = f.listadoGeneralBuses();
+			Iterador<VOBusExc> ite = f.listadoGeneralBuses();
 			while(ite.hasNext()){
 				System.out.println(ite.next());
 			}

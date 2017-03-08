@@ -11,6 +11,7 @@ import logica.Excepciones.objetos.Exc_Excursion;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
+import logica.colecciones.Iterador;
 import logica.fachada.Fachada;
 
 public class Req_2 {
@@ -22,7 +23,7 @@ public class Req_2 {
 		try {
 			f.registroNuevoBus(new VOBus("aaa001", "Marca x", 25));
 			f.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 21, 10, 10), new Date(2017, 12, 21, 10, 50), 50.00));
-			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			Iterador<VOBusExc> itegenbus = f.listadoGeneralBuses();
 			while(itegenbus.hasNext()){
 				VOBusExc vobusexcaux = itegenbus.next();
 				System.out.println(vobusexcaux.toString());
