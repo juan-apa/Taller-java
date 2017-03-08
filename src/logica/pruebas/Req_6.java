@@ -9,6 +9,7 @@ import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
 import logica.colecciones.Datos;
+import logica.colecciones.Iterador;
 import logica.fachada.Fachada;
 
 public class Req_6 {
@@ -47,7 +48,7 @@ public class Req_6 {
 		}
 		
 		try{
-		Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+		Iterador<VOBusExc> itegenbus = f.listadoGeneralBuses();
 		System.out.println("\n");
 		while(itegenbus.hasNext()){
 			VOBusExc vobusexcaux = itegenbus.next();

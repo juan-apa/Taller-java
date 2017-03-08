@@ -14,6 +14,7 @@ import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOExcursion;
 import logica.ValueObjects.VOExcursionListado;
+import logica.colecciones.Iterador;
 import logica.fachada.Fachada;
 
 public class Req_10 {
@@ -26,7 +27,7 @@ public class Req_10 {
 			f.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 21, 10, 10), new Date(2017, 12, 21, 10, 50), 50.00));
 			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Comun", 0.0));
 			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Especial", 0.10));
-			Iterator<VOExcursionListado> iter10 = f.listadoExcursionesDestino("Chuy");
+			Iterador<VOExcursionListado> iter10 = f.listadoExcursionesDestino("Chuy");
 			/*TODO agregar que tire una excepcion si no hay excursiones con ese destino??*/
 			while(iter10.hasNext()){	
 				VOExcursionListado exLi = iter10.next();

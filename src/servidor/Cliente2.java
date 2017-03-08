@@ -17,6 +17,7 @@ import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
 import logica.ValueObjects.VOExcursionListado;
+import logica.colecciones.Iterador;
 import logica.fachada.IFachada;
 
 public class Cliente2 {
@@ -38,9 +39,13 @@ public class Cliente2 {
 			
 			while(true){
 				try{
-					System.out.println("pasada");
-					fachada.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 10, 10, 10), new Date(2017, 12, 10, 10, 50), 250.0));
-					System.out.println("\n\n");
+//					System.out.println("pasada");
+//					fachada.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 10, 10, 10), new Date(2017, 12, 10, 10, 50), 250.0));
+//					System.out.println("\n\n");
+					Iterador<VOBusExc> ite = fachada.listadoGeneralBuses();
+					while(ite.hasNext()){
+						System.out.println(ite.next().toString());
+					}
 				}
 				catch(Exception e){
 					System.out.println(e.toString());

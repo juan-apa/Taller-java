@@ -50,7 +50,7 @@ public class Main {
 		/*Test Requerimiento 2 (cont.)*/
 		System.out.println("\n\nTest Requerimiento 2.");
 		try {
-			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			Iterador<VOBusExc> itegenbus = f.listadoGeneralBuses();
 			while(itegenbus.hasNext()){
 				VOBusExc vobusexcaux = itegenbus.next();
 				System.out.println(vobusexcaux.toString());
@@ -66,7 +66,7 @@ public class Main {
 		/*Test Requerimiento 3*/
 		System.out.println("\n\nTest Requerimiento 3.");
 		try{
-			Iterator<VOExcursionListado> itereq3 = f.listadoExcursionesDeBus("aaa009");
+			Iterador<VOExcursionListado> itereq3 = f.listadoExcursionesDeBus("aaa009");
 		}
 		catch(Exc_Bus ebus){
 			System.out.println(ebus.toString());
@@ -141,7 +141,7 @@ public class Main {
 
 		try {
 			f.recuperar();
-			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			Iterador<VOBusExc> itegenbus = f.listadoGeneralBuses();
 			System.out.println("\n");
 			while(itegenbus.hasNext()){
 				VOBusExc vobusexcaux = itegenbus.next();
@@ -187,7 +187,7 @@ public class Main {
 		String codigoExcu = "001";
 		String tipoBoleto = "Especial";
 		try {
-			Iterator<VOBoleto2> iter8 = f.listadoBoletosExcursion("001", "Especial");
+			Iterador<VOBoleto2> iter8 = f.listadoBoletosExcursion("001", "Especial");
 			while(iter8.hasNext()){
 				VOBoleto2 bo2 = iter8.next();
 				System.out.println(bo2.toString());
@@ -206,7 +206,7 @@ public class Main {
 		
 		System.out.println("\nTest Requerimiento 10.");
 		try {
-			Iterator<VOExcursionListado> iter10 = f.listadoExcursionesDestino("Montevideo");
+			Iterador<VOExcursionListado> iter10 = f.listadoExcursionesDestino("Montevideo");
 			while(iter10.hasNext()){	
 				VOExcursionListado exLi = iter10.next();
 				System.out.println(exLi.toString());
@@ -223,7 +223,7 @@ public class Main {
 		
 		System.out.println("\nTest Requerimiento 11.");
 		try {
-			Iterator<VOExcursionListado> iter10 = f.listadoExcursionesPrecio(150, 220);
+			Iterador<VOExcursionListado> iter10 = f.listadoExcursionesPrecio(150, 220);
 			while(iter10.hasNext()){	
 				VOExcursionListado exLi1 = iter10.next();
 				System.out.println(exLi1.toString());

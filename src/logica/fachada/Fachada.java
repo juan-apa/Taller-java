@@ -113,9 +113,9 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	 * @throws Exc_Buses
 	 * @exception Exc_Buses una excepcion que se genera en el caso de que no hay ningun bus ingresado en el sistema.
 	 * */
-	public Iterator<VOBusExc> listadoGeneralBuses() throws Exc_Buses, RemoteException{
+	public Iterador<VOBusExc> listadoGeneralBuses() throws Exc_Buses, RemoteException{
 		/*Creo una nueva lista de VOBusExc que es la que voy a devolver.*/
-		List<VOBusExc> ret = new ArrayList<VOBusExc>();
+		Iterador<VOBusExc> ret = new Iterador<VOBusExc>();
 		/*Si buses se encuentra vacio, tiro un error.*/
 		monitor.startRead();
 		if(this.datos.buses().empty()){
@@ -136,7 +136,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 			monitor.endRead();
 		}
 		/*convierto la lista ret a un iterador y la devuelvo.*/
-		return ret.iterator();
+		return ret;
 	}
 	
 	/**Requerimiento 3
@@ -149,8 +149,8 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	 * @exception Exc_Buses una excepcion que se genera si no hay un bus ingresado en buses con la matricula pasada por param
 	 * @exception Exc_Excursiones una excepcion que se genera si no hay ninguna excursion asignada al bus con la matricula pasada por param
 	 * */
-	public Iterator<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
-		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>(); /*Creo una lista donde oy a guardar los VO que voy a devolver*/
+	public Iterador<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
+		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>(); /*Creo un Iterador donde voy a guardar los VO que voy a devolver*/
 		
 		if(matricula.matches("[a-z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
 			monitor.startRead();
@@ -184,7 +184,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		else{
 			throw new Exc_Bus("La matricula " + matricula + " no tiene un formato alfanumerico.");
 		}
-		return ret.iterator(); /*Convierto la lista a un iterador y la devuelvo.*/
+		return ret; /*Convierto la lista a un iterador y la devuelvo.*/
 	}
 	
 	/**Requerimiento 4
@@ -397,8 +397,8 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	 * @param String tipo
 	 * @return Iterator<VOBoleto2>*/
 	/*TODO testear requerimiento.*/
-	public Iterator<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
-		List<VOBoleto2> ret = new ArrayList<VOBoleto2>();
+	public Iterador<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
+		Iterador<VOBoleto2> ret = new Iterador<VOBoleto2>();
 		monitor.startRead();
 		if(this.datos.excursiones().exists(codigo)){			
 			Excursion excAux = this.datos.excursiones().find(codigo);
@@ -423,16 +423,16 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 			monitor.endRead();
 			throw new Exc_Excursiones("La excursion con el codigo" + codigo + " no se encuentra ingresada en el sistema.");
 		}
-		return ret.iterator();
+		return ret;
 	}
 	
 	/**Requerimiento 10
 	 * @throws Exc_Excursiones */
-	public Iterator<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
+	public Iterador<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
 		if (destino.equals("")){
 			throw new Exc_Excursiones("Destino vacio");
 		}else{
-			List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
+			Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 			monitor.startRead();
 			if(! this.datos.excursiones().empty()){
 				Iterator<Excursion> ite = this.datos.excursiones().iterator();
@@ -452,15 +452,15 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 				monitor.endRead();
 				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
 			}
-			return ret.iterator();
+			return ret;
 		}
 	}
 	
 	/**Requerimiento 11
 	 * @throws Exc_Excursiones 
 	 * */
-	public Iterator<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones, RemoteException{
-		List<VOExcursionListado> ret = new ArrayList<VOExcursionListado>();
+	public Iterador<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones, RemoteException{
+		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		monitor.startRead();
 		if(!this.datos.excursiones().empty()){
 			Iterator<Excursion> ite = this.datos.excursiones().iterator();
@@ -479,6 +479,6 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 			monitor.endRead();
 			throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
 		}
-		return ret.iterator();
+		return ret;
 	}
 }
