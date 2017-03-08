@@ -1,7 +1,6 @@
 package logica.pruebas;
 
 import java.rmi.RemoteException;
-import java.util.Iterator;
 
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.objetos.Exc_Bus;
@@ -23,16 +22,14 @@ public class Req_6 {
 		} catch (Exc_Persistencia e) {
 			e.printStackTrace();
 		} catch (Exc_Bus e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Buses e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("\n\nGuardo");
 		
 		
-		//Vacio la fachada para luego recuperar los datos del disco
+		//Vacío la fachada para luego recuperar los datos del disco
 		try {
 			f.setDatos(new Datos());
 		} catch (RemoteException e1) {

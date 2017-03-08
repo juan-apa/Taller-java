@@ -2,7 +2,6 @@ package logica;
 
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.Iterator;
 
 import logica.colecciones.*;
 import logica.Excepciones.colecciones.*;
@@ -67,6 +66,9 @@ public class Main {
 		System.out.println("\n\nTest Requerimiento 3.");
 		try{
 			Iterador<VOExcursionListado> itereq3 = f.listadoExcursionesDeBus("aaa009");
+			while(itereq3.hasNext()){
+				System.out.println(itereq3.next().toString());
+			}
 		}
 		catch(Exc_Bus ebus){
 			System.out.println(ebus.toString());

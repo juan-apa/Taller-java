@@ -10,9 +10,6 @@ import java.util.Date;
 
 
 public class VOExcursionListado implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String destino;

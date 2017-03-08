@@ -24,19 +24,14 @@ public class Req_5 {
 			f.registroNuevaExcursion(voe1);
 			f.registroNuevoBus(vob2);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Bus e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Buses e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursiones e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursion e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

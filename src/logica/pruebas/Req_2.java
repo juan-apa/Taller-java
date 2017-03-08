@@ -2,7 +2,6 @@ package logica.pruebas;
 
 import java.rmi.RemoteException;
 import java.util.Date;
-import java.util.Iterator;
 
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
