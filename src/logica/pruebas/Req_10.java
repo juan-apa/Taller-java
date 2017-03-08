@@ -18,7 +18,6 @@ import logica.fachada.Fachada;
 
 public class Req_10 {
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Fachada f = Fachada.getInstancia();
 		try {
@@ -27,7 +26,6 @@ public class Req_10 {
 			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Comun", 0.0));
 			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Especial", 0.10));
 			Iterador<VOExcursionListado> iter10 = f.listadoExcursionesDestino("Chuy");
-			/*TODO agregar que tire una excepcion si no hay excursiones con ese destino??*/
 			while(iter10.hasNext()){	
 				VOExcursionListado exLi = iter10.next();
 				System.out.println(exLi.toString());

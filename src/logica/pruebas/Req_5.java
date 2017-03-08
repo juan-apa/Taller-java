@@ -45,7 +45,6 @@ public class Req_5 {
 				System.out.println("\nNo se cambio de bus");
 			}
 		} catch (RemoteException | Exc_Buses | Exc_Excursiones e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

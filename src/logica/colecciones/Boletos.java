@@ -8,11 +8,6 @@ import logica.objetos.Boleto;
 import logica.objetos.Especial;
 
 public class Boletos implements Serializable{
-	
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Boleto arreglo[];
 	private int tope;
@@ -87,7 +82,6 @@ public class Boletos implements Serializable{
 	public double recaudado(double precioBase){
 		double ret = 0.0;
 		for(int i = 0; i < this.tope; i++){
-			//TODO se rompe aca porque entra siempre con que es especial.
 			if(arreglo[i].getTipo() == "Especial"){
 				
 				ret = ret + (precioBase*(1-(((Especial) arreglo[i]).getDtoAdicional())));

@@ -15,8 +15,6 @@ import logica.ValueObjects.*;
 public class Main {
 
 	public static void main(String[] args){
-		
-		// TODO Auto-generated method stub
 		Bus busAux = new Bus("matricula", "marca", 4);
 		Buses bs = new Buses();
 		bs.insert(busAux);		
@@ -126,10 +124,8 @@ public class Main {
 		try {
 			f.respaldar();
 		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (Exc_Persistencia e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("\n\nGuardo");
@@ -137,7 +133,6 @@ public class Main {
 		try {
 			f.setDatos(new Datos());
 		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -153,10 +148,8 @@ public class Main {
 		}catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Persistencia e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		/*Test Requerimiento 7*/
@@ -195,14 +188,11 @@ public class Main {
 				System.out.println(bo2.toString());
 			}
 		} catch (Exc_Boletos e) {
-			// TODO Auto-generated catch block
 			System.out.println("ERROR:\n");
 			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursiones e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		
@@ -215,10 +205,8 @@ public class Main {
 			}
 		} catch (RemoteException e) {
 			System.out.println("CATCH 1");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursiones e) {
-			// TODO Auto-generated catch block
 			System.out.println("CATCH 2");
 			e.printStackTrace();
 		}
@@ -232,10 +220,8 @@ public class Main {
 			}
 		} catch (RemoteException e) {
 			System.out.println("CATCH 1");
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursiones e) {
-			// TODO Auto-generated catch block
 			System.out.println("CATCH 2");
 			e.printStackTrace();
 		}

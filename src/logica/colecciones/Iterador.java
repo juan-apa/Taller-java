@@ -31,4 +31,8 @@ public class Iterador<T> implements Serializable{
 		return contenido.get(actual - 1);
 	}
 	
+	public boolean empty(){
+		return (contenido.size() == 0);
+	}
+	
 }

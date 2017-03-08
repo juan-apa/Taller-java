@@ -3,9 +3,7 @@ package logica.fachada;
 import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
@@ -27,12 +25,11 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	
 
 	
-	public static Fachada getInstancia(){ /*TODO revisar*/
+	public static Fachada getInstancia(){
 		if(instancia == null){
 			try {
 				instancia = new Fachada();
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -244,10 +241,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	 * @throws Exc_Buses
 	 * @exception Exc_Buses uian excepcion que se genera si no hay un bus con un espacio disponible para mover
 	 * @throws Exc_Excursiones */
-	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones, RemoteException{
-		/*TODO esta funcion puede tener errores (algo con punteros debe ser).*/
-		
-		
+	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones, RemoteException{		
 		/*Verifico que la matricula tenga formato alfanumerico*/
 		monitor.startRead();
 		if(this.datos.excursiones().exists(codigo)){
@@ -396,7 +390,6 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	 * @param String codigo
 	 * @param String tipo
 	 * @return Iterator<VOBoleto2>*/
-	/*TODO testear requerimiento.*/
 	public Iterador<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		Iterador<VOBoleto2> ret = new Iterador<VOBoleto2>();
 		monitor.startRead();

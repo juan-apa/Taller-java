@@ -55,7 +55,6 @@ public class Req_6 {
 		}catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

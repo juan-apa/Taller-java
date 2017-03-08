@@ -33,13 +33,10 @@ public class Req_2 {
 		catch(RemoteException e){
 			System.out.println(e.toString());
 		} catch (Exc_Bus e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursiones e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exc_Excursion e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

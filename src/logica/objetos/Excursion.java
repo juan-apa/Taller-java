@@ -7,9 +7,7 @@ import logica.colecciones.Boletos;
 import java.io.Serializable;
 
 public class Excursion implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String destino;
@@ -26,12 +24,16 @@ public class Excursion implements Serializable{
 		this.hpartida = hpartida;
 		this.hllegada = hllegada;
 		this.precioBase = precioBase;
-		/* TODO Agregarle la capMaxima de boletos*/
 		this.boletos = boletos;
 	}
 
 	public Excursion() {
-		// TODO Auto-generated constructor stub
+		codigo = "";
+		destino = "";
+		hpartida = null;
+		hllegada = null;
+		precioBase = 0.0;
+		boletos = new Boletos(0);
 	}
 
 	public int getCantBoletosVendidos(){

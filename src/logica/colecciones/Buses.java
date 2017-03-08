@@ -10,9 +10,6 @@ import java.util.Iterator;
 import java.io.Serializable;
 
 public class Buses implements Diccionario, Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	/*Atributos*/
 	private TreeMap<String, Bus> diccionario;
@@ -47,7 +44,6 @@ public class Buses implements Diccionario, Serializable{
 				busLibre = true;
 				int cantAsientos = busAux.getCapPasajeros();
 				//Aca es cuando le actualizo la cantidad de pasajeros a boletos.
-				//TODO terminar
 				/*Pongo 0 como el tope viejo porque estoy ingresando la excursion por primera vez al sistema.*/
 				insertar.actualizarCantBoletos(cantAsientos, 0);
 				busAux.insertarExcursion(insertar);
@@ -79,11 +75,9 @@ public class Buses implements Diccionario, Serializable{
 					if(aux.getExcuBus().entraExcursion(reasignar)){ /*Si tiene un horario disponible para la reasignar la excursion*/
 						/*Cumple todos los requisitos*/
 						int cantPasajeros = aux.getCapPasajeros();
-						//TODO terminar
 						reasignar.actualizarCantBoletos(cantPasajeros, 0);
 						aux.insertarExcursion(reasignar); /*Le asigno la excursion al bus que cumple los requsitos*/
 						/*Tengo que actualizar la cantidad de boletos maximos para la excursion.*/
-						//TODO terminar
 						aux.getExcuBus().find(reasignar.getCodigo()).actualizarCantBoletos(aux.getCapPasajeros(), 0);
 						original.sacarExcursion(reasignar.getCodigo()); /*Le saco la excursion al bus original*/
 						reasignado = true;
