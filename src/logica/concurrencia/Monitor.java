@@ -1,22 +1,24 @@
 package logica.concurrencia;
 
+import java.io.Serializable;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class Monitor {
-	/*TODO revisar monitor*/
-	private int cantLectores;
-	private int cantEscritores;
-	private boolean leyendo;
-	private boolean escribiendo;
-	private final Lock lock;
-	private final Condition bloquear;
-	private final Condition cola_escribiendo;
-	private static Monitor instancia;
+public class Monitor implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	
-	/*Acceso a lectura: si nadie esta escribiendo o quiere escribir, leo*/
-	/*Acceso a escritura: si nadie esta leyendo o escribiendo, escribo*/
+	
+	  private int readers       = 0;
+	  private int writers       = 0;
+	  private int writeRequests = 0;
+	  private static Monitor instancia;
 	
 	public static Monitor getInstancia(){
 		if(instancia == null){
@@ -26,104 +28,47 @@ public class Monitor {
 			return null;
 		}
 	}
-	
 	private Monitor(){
-		this.cantLectores = 0;
-		this.cantEscritores = 0;
-		leyendo = false;
-		escribiendo = false;
-		lock = new ReentrantLock();
-		bloquear = lock.newCondition();
-		cola_escribiendo = lock.newCondition();
+		readers = 0;
+		writers = 0;
+		writeRequests = 0;
 	}
 	
-	public synchronized void startRead(){
-//		while(cantEscritores > 0){
-//			try {
-//				this.wait(5);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		/*Si llego aca es porque no hay gente escribiendo*/
-//		cantLectores++;
-		lock.lock();
-		try{
-			while(escribiendo){
-				try{
-					bloquear.await();
-				}
-				catch(InterruptedException e){
-					e.printStackTrace();
-				}
-			}
-			cantLectores++;
-			leyendo = true;
+	  
+	  public synchronized void startRead(){
+	    while(writers > 0 || writeRequests > 0){
+	      try {
+			this.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		finally{
-			lock.unlock();
-		}		
-	}
+	    }
+	    readers++;
+	  }
 	
-	public synchronized void endRead(){
-		try{
-			lock.lock();
-			cantLectores--;
-//			this.notify(); /*Esto va aca???*/
-			if(cantLectores == 0){
-				leyendo = false;
-			}
-			bloquear.signal();
-		}
-		finally{
-			lock.unlock();
-		}
-		
-		
-//		this.notify();
-	}
+	  public synchronized void endRead(){
+	    readers--;
+	    notifyAll();
+	  }
 	
-	public synchronized void startWrite(){
-		try{
-			lock.lock();
-			while(leyendo || escribiendo){
-				try {
-					bloquear.await();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			escribiendo = true;
-			cantEscritores++;
-		}finally{
-			lock.unlock();
-		}
-		
-//		while(cantLectores > 0 || cantEscritores > 0){
-//			try {
-//				this.wait(5);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				System.out.println(e.toString());
-//			}
-//		}
-//		cantEscritores++;
-	}
+	  public synchronized void startWrite(){
+	    writeRequests++;
 	
-	public synchronized void endWrite(){
-		try{
-			lock.lock();
-			cantEscritores--;
-			escribiendo = false;
-			bloquear.signal();
-			
-		}finally{
-			lock.unlock();
+	    while(readers > 0 || writers > 0){
+	      try {
+			this.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-//		this.notify();
-	}
+	    }
+	    writeRequests--;
+	    writers++;
+	  }
+	
+	  public synchronized void endWrite(){
+	    writers--;
+	    notifyAll();
+	  }
 }

@@ -16,7 +16,7 @@ public class Servidor {
 			// instanciomi Objeto Remoto y lo publico 
 			Fachada fachada = Fachada.getInstancia();
 			System.out.println("Antes de publicarlo");
-			Naming.rebind("//localhost:1099/fachada", fachada);
+			Naming.rebind("//192.168.0.102:1099/fachada", fachada);
 			System.out.println("Luego de publicarlo");
 		} catch (Exception e) {
 			System.out.println(e.toString());
