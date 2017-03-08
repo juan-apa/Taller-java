@@ -8,7 +8,6 @@ import logica.Excepciones.objetos.Exc_Bus;
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
-import logica.colecciones.Buses;
 import logica.colecciones.Datos;
 import logica.fachada.Fachada;
 

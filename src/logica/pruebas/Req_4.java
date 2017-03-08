@@ -7,6 +7,7 @@ import logica.ValueObjects.VOExcursion;
 import logica.fachada.Fachada;
 
 public class Req_4 {
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args){
 		Fachada f = Fachada.getInstancia();
 		VOBus bus3 = new VOBus("aaa011", "marcaRandom", 15);

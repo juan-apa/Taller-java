@@ -6,6 +6,7 @@ import java.util.Iterator;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.objetos.Exc_Bus;
 import logica.ValueObjects.VOBus;
+import logica.ValueObjects.VOBusExc;
 import logica.fachada.Fachada;
 
 public class Req_1 {
@@ -18,7 +19,7 @@ public class Req_1 {
 			f.registroNuevoBus(vobus);
 			VOBus vobus1 = new VOBus("aaa008", "Chino", 5);
 			f.registroNuevoBus(vobus1);
-			Iterator ite = f.listadoGeneralBuses();
+			Iterator<VOBusExc> ite = f.listadoGeneralBuses();
 			while(ite.hasNext()){
 				System.out.println(ite.next());
 			}

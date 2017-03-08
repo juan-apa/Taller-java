@@ -15,6 +15,7 @@ import logica.fachada.Fachada;
 
 public class Req_2 {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Fachada f = Fachada.getInstancia();
 		System.out.println("\n\nTest Requerimiento 2.");
