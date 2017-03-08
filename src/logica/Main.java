@@ -22,7 +22,7 @@ public class Main {
 		Buses bs = new Buses();
 		bs.insert(busAux);		
 		Boleto bcomun = new Boleto("Comun", 0, 0);
-		Especial bespecial = new Especial("Especial", 0, 0, 0);
+		Especial bespecial = new Especial("Especial", 0, 0, 0.8);
 		Boletos boletos = new Boletos(3);
 		boletos.insert(bcomun);
 		boletos.insert(bespecial);
@@ -133,23 +133,12 @@ public class Main {
 		System.out.println("\n\nGuardo");
 		//Vacio la fachada para luego recuperar los datos del disco
 		try {
-			f.setBuses(null);
+			f.setDatos(new Datos());
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		try {
-			f.setDatos(null);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			f.setExcursiones(null);
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
 		try {
 			f.recuperar();
 		} catch (RemoteException e1) {
