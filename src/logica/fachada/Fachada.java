@@ -289,13 +289,8 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	public void respaldar() throws Exc_Persistencia, RemoteException{
 		monitor.startRead();
 		try {
-			//Properties p = new Properties();
-			//String nombreArch = ".setting/datos.properties";
-			//p.load(new FileInputStream(nombreArch));
-			//String Archivo = p.getProperty("rutaArchivo");
-			String Archivo = new String("objeto.obj");
 			Persistencia pers = new Persistencia();
-			pers.respaldar(Archivo, this.datos);
+			pers.respaldar(this.datos);
 		}catch (Exception e){ 
 			e.printStackTrace();
 			throw new Exc_Persistencia("Hubo un error al respaldar la informacion");

@@ -10,10 +10,10 @@ import logica.Excepciones.objetos.Exc_Excursion;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOExcursion;
 import logica.fachada.Fachada;
-import logica.objetos.Bus;
 
 public class Req_5 {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Fachada f = Fachada.getInstancia();
 		VOBus vob1 = new VOBus("aaa001", "mercedes", 12);
@@ -40,7 +40,14 @@ public class Req_5 {
 			e.printStackTrace();
 		}
 		try {
+			String Bus1 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
 			f.reasignacionExcursion("001");
+			String Bus2 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
+			if(Bus1 != Bus2){
+				System.out.println("\nSe cambio correctamente de bus");
+			}else{
+				System.out.println("\nNo se cambio de bus");
+			}
 		} catch (RemoteException | Exc_Buses | Exc_Excursiones e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,13 +5,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.colecciones.Datos;
 
+import java.util.Properties;
+
 public class Persistencia {
 	
-	public void respaldar (String archivo, Datos d) throws Exc_Persistencia{ 
+	public void respaldar (Datos d) throws Exc_Persistencia{ 
 		try{
+			Properties properties = new Properties();
+			String nombreProperties = ".settings/datos.properties";
+			properties.load(new FileInputStream(nombreProperties));
+			String archivo = properties.getProperty("rutaArchivo");
 			FileOutputStream Arch = new FileOutputStream(archivo);
 			ObjectOutputStream flujo = new ObjectOutputStream(Arch);
 			flujo.writeObject(d);

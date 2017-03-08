@@ -141,24 +141,19 @@ public class Main {
 
 		try {
 			f.recuperar();
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (Exc_Persistencia e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try{
-		Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
-		System.out.println("\n");
-		while(itegenbus.hasNext()){
-			VOBusExc vobusexcaux = itegenbus.next();
-			System.out.println(vobusexcaux.toString());
-		}
-		System.out.println("\nRecupero");
+			Iterator<VOBusExc> itegenbus = f.listadoGeneralBuses();
+			System.out.println("\n");
+			while(itegenbus.hasNext()){
+				VOBusExc vobusexcaux = itegenbus.next();
+				System.out.println(vobusexcaux.toString());
+			}
+			System.out.println("\nRecupero");
 		}catch (Exc_Buses e) {
 			System.out.println("Advertencia: " + e.toString());
 		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Persistencia e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

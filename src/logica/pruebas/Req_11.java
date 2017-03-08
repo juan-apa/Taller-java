@@ -18,6 +18,7 @@ import logica.fachada.Fachada;
 
 public class Req_11 {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Fachada f = Fachada.getInstancia();
 		try {

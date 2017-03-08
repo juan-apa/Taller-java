@@ -18,10 +18,9 @@ import logica.fachada.Fachada;
 
 public class Req_9 {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Fachada f = Fachada.getInstancia();
-		String codigoExcu = "001";
-		String tipoBoleto = "Especial";
 		try {
 			f.registroNuevoBus(new VOBus("aaa001", "Marca x", 25));
 			f.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 21, 10, 10), new Date(2017, 12, 21, 10, 50), 50.00));
