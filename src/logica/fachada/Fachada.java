@@ -69,14 +69,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		Fachada.instancia = instancia;
 	}
 
-	/**Requerimiento 1
-	 * @param VOBus entrada
-	 * @return void
-	 * @throws Exc_Bus
-	 * @throws Exc_Buses
-	 * @exception Exc_Bus una excepcion que se genera en el caso de que la cantidad de pasajeros no es valida o la matricula no tiene un formato alfanumerico.
-	 * @exception Exc_Buses una excepcion que se genera en el caso de que ya haya un bus ingresado en buses: Buses con la misma matricula que entrada: VOBus.
-	 * */
+	
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
 		/*Es alfanumerico*/
 		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
@@ -104,12 +97,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 			throw new Exc_Bus("La matricula " + entrada.getMatricula() + " no tiene un formato alfanumerico.");
 		}
 	}
-	/**Requerimiento 2
-	 * @param void
-	 * @return Iterador<VOBusExc>
-	 * @throws Exc_Buses
-	 * @exception Exc_Buses una excepcion que se genera en el caso de que no hay ningun bus ingresado en el sistema.
-	 * */
+
 	public Iterador<VOBusExc> listadoGeneralBuses() throws Exc_Buses, RemoteException{
 		/*Creo una nueva lista de VOBusExc que es la que voy a devolver.*/
 		Iterador<VOBusExc> ret = new Iterador<VOBusExc>();
@@ -136,16 +124,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		return ret;
 	}
 	
-	/**Requerimiento 3
-	 * @param String matricula
-	 * @return Iterator<VOExcursionListado>
-	 * @throws Exc_Bus
-	 * @throws Exc_Buses
-	 * @throws Exc_Excursiones
-	 * @exception Exc_Bus una Excepcion que se genera si la matricula pasada por param no tiene un formato alfanumerico
-	 * @exception Exc_Buses una excepcion que se genera si no hay un bus ingresado en buses con la matricula pasada por param
-	 * @exception Exc_Excursiones una excepcion que se genera si no hay ninguna excursion asignada al bus con la matricula pasada por param
-	 * */
+	
 	public Iterador<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>(); /*Creo un Iterador donde voy a guardar los VO que voy a devolver*/
 		
@@ -184,16 +163,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		return ret; /*Convierto la lista a un iterador y la devuelvo.*/
 	}
 	
-	/**Requerimiento 4
-	 * @param VOExcursion entrada
-	 * @return void
-	 * @throws Exc_Excursiones
-	 * @throws Exc_Buses
-	 * @throws Exc_Excursion
-	 * @exception Exc_Excursiones una excepcion que se genera si ya hay una excursion ingresda con el codigo de entrada
-	 * @exception Exc_Buses una excepcion que se genera si no hay buses registrados en el sistema o si no hay ningun bus con un espacio lo suficientemente grande para que entre la excursion pasada por param.
-	 * @exception Exc_Excursion una excepcion que se genera si el precio base de entrada es menor a 0 o si la hora de partida es despues o igual que la hora de llegada.
-	 * */
+	
 	public void registroNuevaExcursion(VOExcursion entrada) throws Exc_Excursiones, Exc_Buses, Exc_Excursion, RemoteException{
 		monitor.startRead();
 		if(! this.datos.excursiones().exists(entrada.getCodigo())){
@@ -235,12 +205,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		}
 	}
 	
-	/**Requerimiento 5
-	 * @param String codigo
-	 * @return void
-	 * @throws Exc_Buses
-	 * @exception Exc_Buses uian excepcion que se genera si no hay un bus con un espacio disponible para mover
-	 * @throws Exc_Excursiones */
+	
 	public void reasignacionExcursion(String codigo) throws Exc_Buses, Exc_Excursiones, RemoteException{		
 		/*Verifico que la matricula tenga formato alfanumerico*/
 		monitor.startRead();
@@ -279,7 +244,6 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		}
 	}
 	
-	//Hacer requerimiento 6
 	public void respaldar() throws Exc_Persistencia, RemoteException{
 		monitor.startRead();
 		try {
@@ -311,16 +275,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		}
 	}
 	
-	/**Requerimiento 7
-	 * @param VOBoleto entrada
-	 * @return void
-	 * @throws Exc_Boleto
-	 * @throws Exc_Boletos
-	 * @throws Exc_Excursiones
-	 * @exception Exc_Boleto una excepcion que se genera si alguno de los datos del pasajero es incorrecto.
-	 * @exception Exc_Boletos una excepcion que se genera si todos los boletos de la excursion ya estan vendidos.
-	 * @exception Exc_Excursiones uan excepcion que se genera si no hay una excursion registrada con el codigo pasado por param
-	 * */
+
 	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{
 		monitor.startRead();
 		if(this.datos.excursiones().exists(entrada.getCodExcursion())){
@@ -357,12 +312,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		}
 	}
 	
-	/**Requerimiento 8
-	 * @param String codigo
-	 * @return double
-	 * @throws Exc_Boletos 
-	 * @throws Exc_Excursiones
-	 * @exception */
+	
 	public double recaudadoEnExcursion(String codigo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		double ret = 0.0;
 		monitor.startRead();
@@ -384,12 +334,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		return ret;
 	}
 	
-	/**Requerimiento 9
-	 * @throws Exc_Boletos 
-	 * @throws Exc_Excursiones 
-	 * @param String codigo
-	 * @param String tipo
-	 * @return Iterator<VOBoleto2>*/
+	
 	public Iterador<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		Iterador<VOBoleto2> ret = new Iterador<VOBoleto2>();
 		monitor.startRead();
@@ -419,8 +364,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		return ret;
 	}
 	
-	/**Requerimiento 10
-	 * @throws Exc_Excursiones */
+
 	public Iterador<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
 		if (destino.equals("")){
 			throw new Exc_Excursiones("Destino vacio");
@@ -449,9 +393,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		}
 	}
 	
-	/**Requerimiento 11
-	 * @throws Exc_Excursiones 
-	 * */
+
 	public Iterador<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones, RemoteException{
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		monitor.startRead();
