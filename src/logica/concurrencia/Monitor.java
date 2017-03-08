@@ -1,11 +1,18 @@
 package logica.concurrencia;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Monitor {
 	/*TODO revisar monitor*/
-	int cantLectores;
-	int cantEscritores;
-	boolean leyendo;
-	boolean escribiendo;
+	private int cantLectores;
+	private int cantEscritores;
+	private boolean leyendo;
+	private boolean escribiendo;
+	private final Lock lock;
+	private final Condition bloquear;
+	private final Condition cola_escribiendo;
 	private static Monitor instancia;
 	
 	/*Acceso a lectura: si nadie esta escribiendo o quiere escribir, leo*/
@@ -25,6 +32,9 @@ public class Monitor {
 		this.cantEscritores = 0;
 		leyendo = false;
 		escribiendo = false;
+		lock = new ReentrantLock();
+		bloquear = lock.newCondition();
+		cola_escribiendo = lock.newCondition();
 	}
 	
 	public synchronized void startRead(){
@@ -38,38 +48,59 @@ public class Monitor {
 //		}
 //		/*Si llego aca es porque no hay gente escribiendo*/
 //		cantLectores++;
-		while(escribiendo){
-			try{
-				Thread.sleep(5);
+		lock.lock();
+		try{
+			while(escribiendo){
+				try{
+					bloquear.await();
+				}
+				catch(InterruptedException e){
+					e.printStackTrace();
+				}
 			}
-			catch(InterruptedException e){
-				e.printStackTrace();
-			}
+			cantLectores++;
+			leyendo = true;
 		}
-		cantLectores++;
-		leyendo = true;
+		finally{
+			lock.unlock();
+		}		
 	}
 	
 	public synchronized void endRead(){
-		cantLectores--;
-//		this.notify(); /*Esto va aca???*/
-		if(cantLectores == 0){
-			leyendo = false;
+		try{
+			lock.lock();
+			cantLectores--;
+//			this.notify(); /*Esto va aca???*/
+			if(cantLectores == 0){
+				leyendo = false;
+			}
+			bloquear.signal();
 		}
+		finally{
+			lock.unlock();
+		}
+		
+		
 //		this.notify();
 	}
 	
 	public synchronized void startWrite(){
-		while(leyendo || escribiendo){
-			try {
-				Thread.sleep(5);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try{
+			lock.lock();
+			while(leyendo || escribiendo){
+				try {
+					bloquear.await();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+			escribiendo = true;
+			cantEscritores++;
+		}finally{
+			lock.unlock();
 		}
-		escribiendo = true;
-		cantEscritores++;
+		
 //		while(cantLectores > 0 || cantEscritores > 0){
 //			try {
 //				this.wait(5);
@@ -83,8 +114,16 @@ public class Monitor {
 	}
 	
 	public synchronized void endWrite(){
-		cantEscritores--;
-		escribiendo = false;
+		try{
+			lock.lock();
+			cantEscritores--;
+			escribiendo = false;
+			bloquear.signal();
+			
+		}finally{
+			lock.unlock();
+		}
+		
 //		this.notify();
 	}
 }

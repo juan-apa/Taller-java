@@ -39,6 +39,7 @@ public class Req_5 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		try {
 			String Bus1 = f.getBuses().obtenerBusConExcursion("001").getMatricula();
 			f.reasignacionExcursion("001");
