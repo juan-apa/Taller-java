@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegistroExcursion
 {
@@ -36,6 +39,8 @@ public class RegistroExcursion
 	private JComboBox comboBox_8;
 	private JLabel label_4;
 	private JComboBox comboBox_9;
+	private JButton btnIngresar;
+	private JButton btnVolver;
 
 	/* Constructor de la ventana */
 	public RegistroExcursion() {
@@ -47,6 +52,7 @@ public class RegistroExcursion
 	{
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setSize(new Dimension(419, 322));
 		frame.setTitle("Registro de Excursion");
 		
@@ -197,6 +203,24 @@ public class RegistroExcursion
 		comboBox_9 = new JComboBox();
 		comboBox_9.setBounds(159, 210, 56, 20);
 		frame.getContentPane().add(comboBox_9);
+		
+		btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//codigo de lo que hace el boton INGRESAR
+			}
+		});
+		btnIngresar.setBounds(296, 213, 97, 27);
+		frame.getContentPane().add(btnIngresar);
+		
+		btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
+		btnVolver.setBounds(296, 249, 97, 27);
+		frame.getContentPane().add(btnVolver);
 		int minInicial=00;
 		int minFinal=59;
 		for(int i=minInicial; i<=minFinal; i++){

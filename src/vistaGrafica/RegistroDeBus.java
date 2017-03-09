@@ -34,6 +34,7 @@ public class RegistroDeBus
 	{
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setSize(new Dimension(419, 322));
 		frame.setTitle("Registro de Bus");
 		

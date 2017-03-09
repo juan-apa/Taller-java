@@ -109,8 +109,8 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				RegistroBoleto registroBoleto = new RegistroBoleto();
+				registroBoleto.setVisible(true);	
 			}
 		});
 		B_registros.add(menuItem);
