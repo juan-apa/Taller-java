@@ -19,9 +19,7 @@ public class Cliente2 {
 			IFachada fachada = (IFachada) Naming.lookup("//localhost:1099/fachada");
 			
 			try {
-				fachada.registroNuevoBus(new VOBus("aaa006", "Suzuki", 15));
-				fachada.registroNuevoBus(new VOBus("aaa002", "VW", 16));
-				fachada.registroNuevoBus(new VOBus("aaa003", "BMW", 17));
+				fachada.registroNuevoBus(new VOBus("aaa001", "Suzuki", 15));
 				
 			} catch (Exc_Bus e1) {
 				e1.printStackTrace();
