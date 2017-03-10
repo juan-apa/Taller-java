@@ -47,7 +47,7 @@ public class RegistroBoleto
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblMatricula = new JLabel("Codigo de excursion:");
-		lblMatricula.setBounds(10, 11, 116, 25);
+		lblMatricula.setBounds(10, 11, 122, 25);
 		frame.getContentPane().add(lblMatricula);
 		
 		JLabel lblMarca = new JLabel("DATOS PASAJERO");

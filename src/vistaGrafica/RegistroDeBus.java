@@ -51,7 +51,7 @@ public class RegistroDeBus
 		frame.getContentPane().add(lblMarca);
 		
 		JLabel lblCapPasajeros = new JLabel("Cap. Pasajeros:");
-		lblCapPasajeros.setBounds(10, 111, 85, 25);
+		lblCapPasajeros.setBounds(10, 111, 95, 25);
 		frame.getContentPane().add(lblCapPasajeros);
 		
 		textField = new JTextField();
