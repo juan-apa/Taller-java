@@ -1,11 +1,15 @@
 package logica.fachada;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
-
+import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
+import logica.Excepciones.objetos.Exc_Boleto;
 import logica.Excepciones.objetos.Exc_Bus;
 import logica.Excepciones.objetos.Exc_Excursion;
+import logica.ValueObjects.VOBoleto;
+import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
@@ -13,7 +17,16 @@ import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
 import logica.objetos.Bus;
 
-public class Controladora {
+public class Controladora implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1771386298451442810L;
+	
+	public Controladora(Fachada fachada) throws RemoteException {
+
+	}
+
 	//REQUERIMIENTO 1
 	public void registroNuevoBus(Fachada f, VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
 		if(entrada.getMatricula() == null){
@@ -101,9 +114,93 @@ public class Controladora {
 	//No hay verificaciones por que si el archivo existe lo sobreescribe y si no existe lo crea
 	
 	//REQUERIMIENTO 7
-	//REQUERIMIENTO 8
-	//REQUERIMIENTO 9
-	//REQUERIMIENTO 10
-	//REQUERIMIENTO 11
+	public void ventaBoleto(Fachada f, VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{
+		if(entrada.getEdadPasajero() < 0){
+			throw new Exc_Boletos("La edad del pasajero no puede ser menor a 0");
+		}else{
+			if(entrada.getNroCelular()/10000000 < 0){
+				throw new Exc_Boletos("Al numero de telefono le faltan digitos");
+			}else{
+				if(entrada.getDtoAdicional() < 0.0){
+					throw new Exc_Boletos("El descuento no puede ser menor a 0");
+				}else{
+					if(!f.getExcursiones().exists(entrada.getCodExcursion())){
+						throw new Exc_Excursiones("No existe una excursion con este codigo");
+					}else{
+						if(f.getExcursiones().find(entrada.getCodExcursion()).getBoletos().full()){
+							throw new Exc_Boletos("Todos los boletos para esta excursion ya estan vendidos");
+						}else{
+							f.ventaBoleto(entrada);
+						}
+					}
+				}
+			}
+		}
+	}
 	
+	//REQUERIMIENTO 8
+	public double recaudadoEnExcursion(Fachada f, String codigo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
+		if(!f.getExcursiones().exists(codigo)){
+			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.");
+		}else{
+			if(f.getExcursiones().find(codigo).getBoletos().empty()){
+				throw new Exc_Boletos("No hay boletos vendidos para la excursion con el codigo "+codigo);
+			}else{
+				return f.recaudadoEnExcursion(codigo);
+			}
+		}
+	}
+	
+	//REQUERIMIENTO 9
+	public Iterador<VOBoleto2> listadoBoletosExcursion(Fachada f,String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
+		if(!f.getExcursiones().exists(codigo)){
+			throw new Exc_Excursiones("La excursion con el codigo" + codigo + " no se encuentra ingresada en el sistema.");
+		}else{
+			if(f.getExcursiones().find(codigo).getBoletos().empty()){
+				throw new Exc_Boletos("Advertencia: no hay boletos vendidos para esta excursion.");
+			}else{
+				Iterador<VOBoleto2> aux = new Iterador<VOBoleto2>();
+				aux= f.listadoBoletosExcursion(codigo, tipo);
+				if(aux.hasNext()){
+					return aux;
+				}else{
+					throw new Exc_Boletos("De los Boletos vendidos no hay vnedidos del tipo "+tipo);
+				}
+			}
+		}
+	}
+	
+	//REQUERIMIENTO 10
+	public Iterador<VOExcursionListado> listadoExcursionesDestino(Fachada f, String destino) throws Exc_Excursiones, RemoteException{
+		if (destino.equals("")){
+			throw new Exc_Excursiones("Destino vacio");
+		}else{
+			if(f.getExcursiones().empty()){
+				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+			}else{
+				Iterador<VOExcursionListado> aux = new Iterador<VOExcursionListado>();
+				aux = f.listadoExcursionesDestino(destino);
+				if(aux.hasNext()){
+					return aux;
+				}else{
+					throw new Exc_Excursiones("No hay Excursiones registradas con "+destino+" como destino");
+				}
+			}
+		}
+	}
+	
+	//REQUERIMIENTO 11
+	public Iterador<VOExcursionListado> listadoExcursionesPrecio(Fachada f, double precioMin, double precioMax) throws Exc_Excursiones, RemoteException{
+		if(f.getExcursiones().empty()){
+			throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+		}else{
+			Iterador<VOExcursionListado> aux = new Iterador<VOExcursionListado>();
+			aux = f.listadoExcursionesPrecio(precioMin, precioMax);
+			if(aux.hasNext()){
+				return aux;
+			}else{
+				throw new Exc_Excursiones("No hay Excursiones registradas en el rango de precios de "+precioMin+" hasta "+precioMax+" inclusive");
+			}
+		}
+	}
 }

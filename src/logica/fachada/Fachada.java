@@ -300,7 +300,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 				}
 				else{
 					monitor.endRead();
-					throw new Exc_Boletos("Todos los boletos para esta excursion ya estan vendidos.");
+					throw new Exc_Boletos("Todos los boletos para esta excursion ya estan vendidos");
 				}
 			}
 		}

@@ -6,6 +6,7 @@ import java.util.Date;
 import logica.colecciones.*;
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
+import logica.fachada.Controladora;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import logica.ValueObjects.*;
@@ -225,6 +226,11 @@ public class Main {
 			System.out.println("CATCH 2");
 			e.printStackTrace();
 		}
+	}
+
+	private static Controladora Controladora() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
