@@ -264,8 +264,6 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 			Persistencia p = new Persistencia();
 			
 			this.setDatos(p.recuperar(nombreArch));
-//			this.setExcursiones(this.datos.excursiones());
-//			this.setBuses(this.datos.buses());
 		}catch (Exception e){ 
 			e.printStackTrace();
 			throw new Exc_Persistencia("Hubo un error al recuperar la informacion");
