@@ -88,9 +88,9 @@ public class ListadoExcuPrecio
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(314, 49, 89, 23);
-		frame.getContentPane().add(btnIngresar);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(314, 49, 89, 23);
+		frame.getContentPane().add(btnBuscar);
 		
 		JLabel lblPrecioFinal = new JLabel("Precio final:");
 		lblPrecioFinal.setBounds(162, 49, 76, 23);

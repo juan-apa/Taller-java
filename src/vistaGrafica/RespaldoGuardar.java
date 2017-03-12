@@ -74,13 +74,26 @@ public class RespaldoGuardar
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnGuardar = new JButton("Guardar");
+		final JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(97, 95, 89, 23);
 		frame.getContentPane().add(btnGuardar);
+		btnGuardar.setVisible(false);
 		
-		JCheckBox chckbxDeseaRespaldarLos = new JCheckBox("Desea respaldar los datos?");
+		final JCheckBox chckbxDeseaRespaldarLos = new JCheckBox("Desea respaldar los datos?");
+		chckbxDeseaRespaldarLos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxDeseaRespaldarLos.isSelected()){
+					btnGuardar.setVisible(true);
+				}else{
+					btnGuardar.setVisible(false);
+				}
+			}
+		});
 		chckbxDeseaRespaldarLos.setBounds(20, 54, 181, 23);
 		frame.getContentPane().add(chckbxDeseaRespaldarLos);
+		
+		
+		
 
 	}
 	

@@ -103,9 +103,9 @@ public class ListadoBoletosExcu
 		lblTipoDeBoleto.setBounds(10, 124, 114, 14);
 		frame.getContentPane().add(lblTipoDeBoleto);
 		
-		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(10, 259, 89, 23);
-		frame.getContentPane().add(btnIngresar);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(10, 259, 89, 23);
+		frame.getContentPane().add(btnBuscar);
 		/*ACA AGREGO VALORES A LA LISTA
 		DefaultListModel model= new DefaultListModel();
 		model.addElement("HOLA");

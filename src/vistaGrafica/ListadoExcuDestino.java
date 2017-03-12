@@ -87,9 +87,9 @@ public class ListadoExcuDestino
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(213, 49, 89, 23);
-		frame.getContentPane().add(btnIngresar);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(213, 49, 89, 23);
+		frame.getContentPane().add(btnBuscar);
 		/*ACA AGREGO VALORES A LA LISTA
 		DefaultListModel model= new DefaultListModel();
 		model.addElement("HOLA");

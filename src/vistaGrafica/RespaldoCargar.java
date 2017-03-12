@@ -74,11 +74,21 @@ public class RespaldoCargar
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnCargar = new JButton("Cargar");
+		final JButton btnCargar = new JButton("Cargar");
 		btnCargar.setBounds(97, 95, 89, 23);
 		frame.getContentPane().add(btnCargar);
+		btnCargar.setVisible(false);
 		
-		JCheckBox chckbxDeseaRespaldarLos = new JCheckBox("Desea cargar los datos?");
+		final JCheckBox chckbxDeseaRespaldarLos = new JCheckBox("Desea cargar los datos?");
+		chckbxDeseaRespaldarLos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxDeseaRespaldarLos.isSelected()){
+					btnCargar.setVisible(true);
+				}else{
+					btnCargar.setVisible(false);
+				}
+			}
+		});
 		chckbxDeseaRespaldarLos.setBounds(20, 54, 181, 23);
 		frame.getContentPane().add(chckbxDeseaRespaldarLos);
 
