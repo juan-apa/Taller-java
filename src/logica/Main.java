@@ -26,6 +26,7 @@ public class Main {
 		boletos.insert(bespecial);
 		/*Testeo requerimientos*/
 		Fachada f = Fachada.getInstancia();
+		Controladora c = Controladora();
 		/*Test Requerimiento 1*/
 		System.out.println("\n\nTest Requerimiento 1.");
 		try {

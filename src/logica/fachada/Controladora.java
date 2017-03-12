@@ -23,7 +23,7 @@ public class Controladora implements Serializable{
 	 */
 	private static final long serialVersionUID = -1771386298451442810L;
 	
-	public Controladora(Fachada fachada) throws RemoteException {
+	public Controladora() throws RemoteException {
 
 	}
 

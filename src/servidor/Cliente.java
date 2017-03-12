@@ -21,6 +21,7 @@ import logica.fachada.IFachada;
 
 public class Cliente {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws Exc_Excursiones {
 		try {
 			Propiedades p = new Propiedades();
