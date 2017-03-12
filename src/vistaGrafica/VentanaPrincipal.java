@@ -1,7 +1,10 @@
 package vistaGrafica;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -22,8 +25,7 @@ public class VentanaPrincipal
 	private JMenu B_registros, B_listados, B_otros, B_respaldo;
 	private JMenuItem menuItem;
 	private ImagenFondo fondo;
-	
-	
+	protected static int controlVent = 0;
 	//prueba
 		public static void main(String[] args) {
 			EventQueue.invokeLater(new Runnable() {
@@ -37,6 +39,7 @@ public class VentanaPrincipal
 				}
 			});
 		}
+	
 	
 	
 	/* Constructor de la ventana */
@@ -66,6 +69,9 @@ public class VentanaPrincipal
 		fondo.setLayout(null);
 		frame.getContentPane().add(fondo);
 		
+		
+		
+		
 		/* barra de menu que contiene un menu */
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -87,8 +93,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroDeBus registroBus = new RegistroDeBus();
-				registroBus.setVisible(true);	
+					if (controlVent==0){
+						controlVent=1;
+						RegistroDeBus registroBus = new RegistroDeBus();
+						registroBus.setVisible(true);
+					}
 			}
 		});
 		B_registros.add(menuItem);
@@ -98,8 +107,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroExc = new RegistroExcursion ();
-				registroExc.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					RegistroExcursion registroExc = new RegistroExcursion ();
+					registroExc.setVisible(true);	
+				}
 			}
 		});
 		B_registros.add(menuItem);
@@ -109,8 +121,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroBoleto registroBoleto = new RegistroBoleto();
-				registroBoleto.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					RegistroBoleto registroBoleto = new RegistroBoleto();
+					registroBoleto.setVisible(true);	
+				}
 			}
 		});
 		B_registros.add(menuItem);
@@ -120,8 +135,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					ListadoBuses listBuses = new ListadoBuses();
+					listBuses.setVisible(true);
+				}
 			}
 		});
 		B_listados.add(menuItem);
@@ -131,8 +149,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					ListadoBoletosExcu listBolExc = new ListadoBoletosExcu();
+					listBolExc.setVisible(true);
+				}
 			}
 		});
 		B_listados.add(menuItem);
@@ -142,8 +163,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					ListadoExcuDestino listExcDest = new ListadoExcuDestino();
+					listExcDest.setVisible(true);
+				}
 			}
 		});
 		B_listados.add(menuItem);
@@ -153,30 +177,39 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					ListadoExcuPrecio listExcPre = new ListadoExcuPrecio();
+					listExcPre.setVisible(true);
+				}
 			}
 		});
 		B_listados.add(menuItem);
 		
-		menuItem = new JMenuItem("Reasignar Excursion");
+		menuItem = new JMenuItem("Listado de Excursiones por bus");
 		menuItem.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					ListadoExcursionesBus listExcBus = new ListadoExcursionesBus();
+					listExcBus.setVisible(true);
+				}
 			}
 		});
-		B_otros.add(menuItem);
+		B_listados.add(menuItem);
 	
 		menuItem = new JMenuItem("Reasignar Excursion");
 		menuItem.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					ReasignacionExcursion reasignExc = new ReasignacionExcursion();
+					reasignExc.setVisible(true);
+				}	
 			}
 		});
 		B_otros.add(menuItem);
@@ -186,8 +219,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					RecaudacionExcursion recExc = new RecaudacionExcursion();
+					recExc.setVisible(true);
+				}
 			}
 		});
 		B_otros.add(menuItem);
@@ -199,8 +235,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					RespaldoGuardar respGuard = new RespaldoGuardar();
+					respGuard.setVisible(true);
+				}
 			}
 		});
 		B_respaldo.add(menuItem);
@@ -210,8 +249,11 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				RegistroExcursion registroBus = new RegistroExcursion();
-				registroBus.setVisible(true);	
+				if (controlVent==0){
+					controlVent=1;
+					RespaldoCargar respCarg = new RespaldoCargar();
+					respCarg.setVisible(true);
+				}
 			}
 		});
 		B_respaldo.add(menuItem);

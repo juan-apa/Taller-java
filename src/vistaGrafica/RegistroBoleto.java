@@ -1,5 +1,4 @@
 package vistaGrafica;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +16,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 
 public class RegistroBoleto
@@ -42,8 +43,11 @@ public class RegistroBoleto
 		frame.setSize(new Dimension(419, 322));
 		frame.setTitle("Registro de Boleto");
 		
+
+		
+		
 		/* cuando intenten cerrarme, solamente me cierro yo */
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblMatricula = new JLabel("Codigo de excursion:");
@@ -86,6 +90,7 @@ public class RegistroBoleto
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
+				VentanaPrincipal.controlVent=0;
 			}
 		});
 		btnVolver.setBounds(197, 259, 89, 23);

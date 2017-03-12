@@ -10,8 +10,13 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.awt.Font;
 
 public class RegistroExcursion
 {
@@ -23,12 +28,6 @@ public class RegistroExcursion
 	private JLabel lblHora;
 	private JLabel lblMinutos;
 	private JComboBox comboBox_1;
-	private JLabel lblAo;
-	private JComboBox comboBox_2;
-	private JComboBox comboBox_3;
-	private JLabel lblMes;
-	private JLabel lblDia;
-	private JComboBox comboBox_4;
 	private JComboBox comboBox_5;
 	private JLabel label;
 	private JComboBox comboBox_6;
@@ -41,6 +40,7 @@ public class RegistroExcursion
 	private JComboBox comboBox_9;
 	private JButton btnIngresar;
 	private JButton btnVolver;
+	private JLabel lblFechaDeHoy;
 
 	/* Constructor de la ventana */
 	public RegistroExcursion() {
@@ -48,6 +48,7 @@ public class RegistroExcursion
 	}
 
 	/* Inicializo los componentes de la ventana */
+	@SuppressWarnings("deprecation")
 	private void initialize() 
 	{
 		/* marco de la ventana secundaria */
@@ -57,7 +58,7 @@ public class RegistroExcursion
 		frame.setTitle("Registro de Excursion");
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		/* etiqueta de la ventana secundaria */
 		frame.getContentPane().setLayout(null);
@@ -74,7 +75,7 @@ public class RegistroExcursion
 		lblHoraDePartida.setBounds(10, 61, 103, 14);
 		frame.getContentPane().add(lblHoraDePartida);
 		
-		JLabel lblHoraDeLlegada = new JLabel("Hora de Llegada:");
+		JLabel lblHoraDeLlegada = new JLabel("Fecha de Llegada:");
 		lblHoraDeLlegada.setBounds(10, 152, 103, 14);
 		frame.getContentPane().add(lblHoraDeLlegada);
 		
@@ -113,30 +114,6 @@ public class RegistroExcursion
 		comboBox_1.setBounds(159, 121, 56, 20);
 		frame.getContentPane().add(comboBox_1);
 		
-		lblAo = new JLabel("A\u00F1o:");
-		lblAo.setBounds(10, 86, 34, 20);
-		frame.getContentPane().add(lblAo);
-		
-		comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(45, 86, 56, 20);
-		frame.getContentPane().add(comboBox_2);
-		
-		comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(159, 83, 56, 20);
-		frame.getContentPane().add(comboBox_3);
-		
-		lblMes = new JLabel("Mes:");
-		lblMes.setBounds(111, 86, 38, 14);
-		frame.getContentPane().add(lblMes);
-		
-		lblDia = new JLabel("Dia:");
-		lblDia.setBounds(225, 86, 23, 14);
-		frame.getContentPane().add(lblDia);
-		
-		comboBox_4 = new JComboBox();
-		comboBox_4.setBounds(258, 83, 56, 20);
-		frame.getContentPane().add(comboBox_4);
-		
 		comboBox_5 = new JComboBox();
 		comboBox_5.setBounds(258, 172, 56, 20);
 		frame.getContentPane().add(comboBox_5);
@@ -144,7 +121,6 @@ public class RegistroExcursion
 		int diaInicial=1;
 		int diaFinal=31;
 		for(int i=diaInicial; i<=diaFinal; i++){
-			comboBox_4.addItem(new Integer(i));
 			comboBox_5.addItem(new Integer(i));
 		}
 		
@@ -158,7 +134,6 @@ public class RegistroExcursion
 		int mesInicial=1;
 		int mesFinal=12;
 		for(int i=mesInicial; i<=mesFinal; i++){
-			comboBox_3.addItem(new Integer(i));
 			comboBox_6.addItem(new Integer(i));
 		}
 		
@@ -173,7 +148,6 @@ public class RegistroExcursion
 		int añoInicial=2017;
 		int añoFinal=2030;
 		for(int i=añoInicial; i<=añoFinal; i++){
-			comboBox_2.addItem(new Integer(i));
 			comboBox_7.addItem(new Integer(i));
 		}
 		
@@ -217,10 +191,26 @@ public class RegistroExcursion
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
+				VentanaPrincipal.controlVent=0;
 			}
 		});
 		btnVolver.setBounds(296, 249, 97, 27);
 		frame.getContentPane().add(btnVolver);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_1.setBounds(114, 85, 178, 14);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		//Agrego la fecha de hoy automaticamente
+		DateFormat fechaAct = new SimpleDateFormat("dd/MM/yy");
+		Date dateobj = new Date();
+		lblNewLabel_1.setText(fechaAct.format(dateobj));
+		lblFechaDeHoy = new JLabel("Fecha de hoy:");
+		lblFechaDeHoy.setBounds(10, 86, 103, 14);
+		frame.getContentPane().add(lblFechaDeHoy);
+		
+		
 		int minInicial=00;
 		int minFinal=59;
 		for(int i=minInicial; i<=minFinal; i++){

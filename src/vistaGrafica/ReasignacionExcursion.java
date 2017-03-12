@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
 
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -18,14 +20,20 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
+import javax.swing.JList;
 
-public class RegistroDeBus 
+import java.awt.Font;
+
+import javax.swing.SwingConstants;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
+
+public class ReasignacionExcursion
 {
 	private JFrame frame;
 	private JTextField textField;
-	private JTextField textField_1;
 
-	public RegistroDeBus() {
+	public ReasignacionExcursion() {
 		initialize();
 		
 	}
@@ -40,7 +48,7 @@ public class RegistroDeBus
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(419, 322));
-		frame.setTitle("Registro de Bus");
+		frame.setTitle("Reasignacion de Excursion");
 		
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
@@ -48,44 +56,11 @@ public class RegistroDeBus
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblMatricula = new JLabel("Matricula:");
-		lblMatricula.setBounds(10, 39, 71, 25);
-		frame.getContentPane().add(lblMatricula);
-		
-		JLabel lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(10, 75, 71, 25);
-		frame.getContentPane().add(lblMarca);
-		
-		JLabel lblCapPasajeros = new JLabel("Cap. Pasajeros:");
-		lblCapPasajeros.setBounds(10, 111, 95, 25);
-		frame.getContentPane().add(lblCapPasajeros);
-		
-		textField = new JTextField();
-		textField.setBounds(101, 41, 122, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(101, 77, 122, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(105, 113, 53, 20);
-		int capacidadBus = 120;
-		for(int i=1; i<=capacidadBus; i++){
-			comboBox.addItem(new Integer(i));
-		}
-		frame.getContentPane().add(comboBox);
-		
-		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//codigo de lo que hace el boton INGRESAR
-			}
-		});
-		btnIngresar.setBounds(101, 176, 89, 23);
-		frame.getContentPane().add(btnIngresar);
+		JLabel lblTitulo = new JLabel("Reasignacion de excursion");
+		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblTitulo.setBounds(10, 11, 393, 36);
+		frame.getContentPane().add(lblTitulo);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
@@ -94,8 +69,29 @@ public class RegistroDeBus
 				VentanaPrincipal.controlVent=0;
 			}
 		});
-		btnVolver.setBounds(200, 176, 89, 23);
+		btnVolver.setBounds(205, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
+		
+		textField = new JTextField();
+		textField.setBounds(149, 84, 126, 23);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblPrecioInicial = new JLabel("Codigo de Excursion:");
+		lblPrecioInicial.setBounds(10, 84, 136, 23);
+		frame.getContentPane().add(lblPrecioInicial);
+		
+		ButtonGroup grupo = new ButtonGroup();
+		
+		JButton btnIngresar = new JButton("Reasignar");
+		btnIngresar.setBounds(91, 259, 104, 23);
+		frame.getContentPane().add(btnIngresar);
+		/*ACA AGREGO VALORES A LA LISTA
+		DefaultListModel model= new DefaultListModel();
+		model.addElement("HOLA");
+		model.addElement("ALOHA");
+		list.setModel(model);
+		*/
 	}
 	
 	/* Indico si deseo que la ventana sea visible o no */
