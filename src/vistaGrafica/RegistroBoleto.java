@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
@@ -20,10 +21,18 @@ import javax.swing.JButton;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
 import java.awt.Font;
+import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
 
-public class RegistroBoleto
+import logica.Excepciones.colecciones.Exc_Boletos;
+import logica.Excepciones.colecciones.Exc_Excursiones;
+import logica.Excepciones.objetos.Exc_Boleto;
+import logica.ValueObjects.VOBoleto;
+import logica.fachada.Controladora;
+import logica.fachada.Fachada;
+
+public class RegistroBoleto extends Ventana
 {
 	private JFrame frame;
 	private JTextField textField;
@@ -33,6 +42,8 @@ public class RegistroBoleto
 
 	/* Constructor de la ventana */
 	public RegistroBoleto() {
+		//llamo el constructor de la clase Ventana para que me inicialize la controladora
+		super();
 		initialize();
 	}
 
@@ -76,7 +87,7 @@ public class RegistroBoleto
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(89, 83, 53, 20);
 		int edadInicial = 1;
 		int edadFinal = 100;
@@ -86,11 +97,7 @@ public class RegistroBoleto
 		frame.getContentPane().add(comboBox);
 		
 		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//codigo de lo que hace el boton INGRESAR
-			}
-		});
+		
 		btnIngresar.setBounds(99, 259, 89, 23);
 		frame.getContentPane().add(btnIngresar);
 		
@@ -149,7 +156,41 @@ public class RegistroBoleto
 		chckbxBoletoEspecial.setBounds(10, 194, 306, 23);
 		frame.getContentPane().add(chckbxBoletoEspecial);
 		
-		
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//codigo de lo que hace el boton INGRESAR
+				
+				//Obtengo los datos de la pantalla.
+				String codigoExcursion = textField.getText();
+				int edad	 = Integer.parseInt(comboBox.getSelectedItem().toString());
+				String procedencia 	= textField_1.getText();
+				long celular = Long.parseLong(textField_2.getText());
+//				boolean checkeado = 
+				boolean especial = chckbxBoletoEspecial.isSelected();
+				double descuento 	= Double.parseDouble(textField_3.getText());
+				String tipoBoleto = "Comun";
+				if(especial)
+					tipoBoleto = "Especial";
+				
+				//Se los mando a la controladora para que me revise que los valores sean correctos.
+				VOBoleto voboleto = new VOBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
+				Controladora c = getControladora();
+				Fachada f = getFachada();
+				
+				try {
+					c.ventaBoleto(f, voboleto);
+				} catch (RemoteException e) {
+					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (Exc_Boleto e) {
+					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (Exc_Boletos e) {
+					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (Exc_Excursiones e) {
+					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		
 		
 		
