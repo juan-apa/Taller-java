@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -12,10 +13,16 @@ import javax.swing.JMenuItem;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.rmi.Naming;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
+
+import logica.fachada.Controladora;
+import logica.fachada.Fachada;
+import logica.fachada.IFachada;
+import persistencia.Propiedades;
 
 
 public class VentanaPrincipal
@@ -84,6 +91,7 @@ public class VentanaPrincipal
 		menuBar.add(B_otros);
 		B_respaldo = new JMenu("Respaldos");
 		menuBar.add(B_respaldo);
+
 		
 		/* item de menu, al clickearlo se abre la ventana secundaria que emite un saludo */
 		

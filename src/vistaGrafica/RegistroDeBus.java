@@ -21,15 +21,16 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
+import logica.fachada.Fachada;
+
 public class RegistroDeBus 
 {
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
-
+	
 	public RegistroDeBus() {
 		initialize();
-		
 	}
 	
 	
@@ -89,6 +90,7 @@ public class RegistroDeBus
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//codigo de lo que hace el boton INGRESAR
+				
 			}
 		});
 		btnIngresar.setBounds(101, 176, 89, 23);

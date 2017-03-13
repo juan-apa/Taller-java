@@ -31,13 +31,13 @@ public class Controladora implements Serializable{
 
 	//REQUERIMIENTO 1
 	public void registroNuevoBus(Fachada f, VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
-		if(entrada.getMatricula() == null){
+		if((entrada.getMatricula() == null) || (entrada.getMatricula() == "")){
 			throw new Exc_Bus("El Bus a registrar no cuenta con una Matricula");
 		}else{
 			if(!entrada.getMatricula().matches("[a-z0-9]+")){
 				throw new Exc_Bus("La matricula ingresada no es Alfanumerica");
 			}else{
-				if(entrada.getMarca() == null){
+				if((entrada.getMarca() == null) || (entrada.getMarca() == "")){
 					throw new Exc_Bus("El Bus a registrar no cuenta con una Marca");
 				}else{
 					if(entrada.getCapPasajeros() <= 0){

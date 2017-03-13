@@ -230,4 +230,9 @@ public class Main {
 		}
 	}
 
+	private static Controladora Controladora() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
