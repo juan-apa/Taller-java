@@ -17,6 +17,8 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
@@ -52,9 +54,14 @@ public class RecaudacionExcursion
 		
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
-		//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		WindowAdapter manFrame = (new WindowAdapter(){
+			public void windowClosing (WindowEvent arg0){ 
+				setVisible(false); // cierro el frame
+				VentanaPrincipal.controlVent=0;
+				}
+		});
+		frame.addWindowListener(manFrame);
 		
 		JLabel lblTitulo = new JLabel("Recaudacion de excursion");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -92,7 +99,7 @@ public class RecaudacionExcursion
 		lblRecaudacionTotal.setBounds(10, 116, 142, 23);
 		frame.getContentPane().add(lblRecaudacionTotal);
 		
-		JLabel lblCalculoTotal = new JLabel("New label");
+		JLabel lblCalculoTotal = new JLabel("");
 		lblCalculoTotal.setBounds(162, 114, 103, 29);
 		frame.getContentPane().add(lblCalculoTotal);
 		/*ACA AGREGO VALORES A LA LISTA

@@ -17,6 +17,8 @@ import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
@@ -51,9 +53,14 @@ public class RespaldoCargar
 		
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
-		//frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		WindowAdapter manFrame = (new WindowAdapter(){
+			public void windowClosing (WindowEvent arg0){ 
+				setVisible(false); // cierro el frame
+				VentanaPrincipal.controlVent=0;
+				}
+		});
+		frame.addWindowListener(manFrame);
 		
 		JLabel lblTitulo = new JLabel("Cargar datos");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);

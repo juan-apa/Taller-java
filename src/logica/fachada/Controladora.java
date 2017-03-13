@@ -2,12 +2,14 @@ package logica.fachada;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
+
 import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Boleto;
 import logica.Excepciones.objetos.Exc_Bus;
 import logica.Excepciones.objetos.Exc_Excursion;
+import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBus;
@@ -23,7 +25,7 @@ public class Controladora implements Serializable{
 	 */
 	private static final long serialVersionUID = -1771386298451442810L;
 	
-	public Controladora() throws RemoteException {
+	public Controladora(){
 
 	}
 
@@ -32,7 +34,7 @@ public class Controladora implements Serializable{
 		if(entrada.getMatricula() == null){
 			throw new Exc_Bus("El Bus a registrar no cuenta con una Matricula");
 		}else{
-			if(entrada.getMatricula().matches("[a-z0-9]+")){
+			if(!entrada.getMatricula().matches("[a-z0-9]+")){
 				throw new Exc_Bus("La matricula ingresada no es Alfanumerica");
 			}else{
 				if(entrada.getMarca() == null){
@@ -63,7 +65,7 @@ public class Controladora implements Serializable{
 	
 	//REQUERIMIENTO 3
 	public Iterador<VOExcursionListado> listadoExcursionesDeBus(Fachada f, String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
-		if(matricula.matches("[a-z0-9]+")){
+		if(!matricula.matches("[a-z0-9]+")){
 			throw new Exc_Bus("La matricula ingresada no es Alfanumerica");
 		}else{
 			if(!f.getBuses().exists(matricula)){
@@ -112,6 +114,13 @@ public class Controladora implements Serializable{
 	
 	//REQUERIMIENTO 6
 	//No hay verificaciones por que si el archivo existe lo sobreescribe y si no existe lo crea
+	public void respaldar(Fachada f) throws Exc_Persistencia, RemoteException{
+		f.respaldar();
+	}
+	
+	public void recuperar(Fachada f) throws Exc_Persistencia, RemoteException{
+		f.recuperar();
+	}
 	
 	//REQUERIMIENTO 7
 	public void ventaBoleto(Fachada f, VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{
@@ -154,7 +163,7 @@ public class Controladora implements Serializable{
 	//REQUERIMIENTO 9
 	public Iterador<VOBoleto2> listadoBoletosExcursion(Fachada f,String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		if(!f.getExcursiones().exists(codigo)){
-			throw new Exc_Excursiones("La excursion con el codigo" + codigo + " no se encuentra ingresada en el sistema.");
+			throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.");
 		}else{
 			if(f.getExcursiones().find(codigo).getBoletos().empty()){
 				throw new Exc_Boletos("Advertencia: no hay boletos vendidos para esta excursion.");

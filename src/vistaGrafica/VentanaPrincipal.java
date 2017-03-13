@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -18,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 
+
 public class VentanaPrincipal
 {
 	private JFrame frame;
@@ -26,7 +26,7 @@ public class VentanaPrincipal
 	private JMenuItem menuItem;
 	private ImagenFondo fondo;
 	protected static int controlVent = 0;
-	//prueba
+    
 		public static void main(String[] args) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -68,7 +68,6 @@ public class VentanaPrincipal
 		fondo.setBackground(new Color(165,250,142));
 		fondo.setLayout(null);
 		frame.getContentPane().add(fondo);
-		
 		
 		
 		
@@ -257,14 +256,6 @@ public class VentanaPrincipal
 			}
 		});
 		B_respaldo.add(menuItem);
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 	}
