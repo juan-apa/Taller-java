@@ -1,4 +1,4 @@
-package logica.fachada;
+package vistaGrafica.controladoras;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -17,10 +17,13 @@ import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
 import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
+import logica.fachada.Fachada;
 import logica.objetos.Bus;
 
 public class Controladora implements Serializable{
 	private static final long serialVersionUID = -1771386298451442810L;
+	
+	
 	
 	public Controladora(){
 

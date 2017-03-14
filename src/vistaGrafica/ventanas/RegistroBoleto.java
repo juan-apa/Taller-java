@@ -1,4 +1,4 @@
-package vistaGrafica;
+package vistaGrafica.ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,8 +29,8 @@ import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Boleto;
 import logica.ValueObjects.VOBoleto;
-import logica.fachada.Controladora;
 import logica.fachada.Fachada;
+import vistaGrafica.controladoras.Controladora;
 
 public class RegistroBoleto extends Ventana
 {
@@ -175,19 +175,19 @@ public class RegistroBoleto extends Ventana
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
 				VOBoleto voboleto = new VOBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
 				Controladora c = getControladora();
-				Fachada f = getFachada();
+//				Fachada f = getFachada();
 				
-				try {
-					c.ventaBoleto(f, voboleto);
-				} catch (RemoteException e) {
-					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-				} catch (Exc_Boleto e) {
-					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-				} catch (Exc_Boletos e) {
-					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-				} catch (Exc_Excursiones e) {
-					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-				}
+//				try {
+//					c.ventaBoleto(f, voboleto);
+//				} catch (RemoteException e) {
+//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+//				} catch (Exc_Boleto e) {
+//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+//				} catch (Exc_Boletos e) {
+//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+//				} catch (Exc_Excursiones e) {
+//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
+//				}
 				
 			}
 		});

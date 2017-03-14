@@ -1,4 +1,4 @@
-package vistaGrafica;
+package vistaGrafica.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,12 +30,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
-public class ListadoExcursionesBus 
+public class RecaudacionExcursion 
 {
 	private JFrame frame;
 	private JTextField textField;
 
-	public ListadoExcursionesBus() {
+	public RecaudacionExcursion() {
 		initialize();
 		
 	}
@@ -50,7 +50,7 @@ public class ListadoExcursionesBus
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(419, 322));
-		frame.setTitle("Listado de excursiones por bus");
+		frame.setTitle("Recaudacion de excursion");
 		
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
@@ -63,7 +63,7 @@ public class ListadoExcursionesBus
 		});
 		frame.addWindowListener(manFrame);
 		
-		JLabel lblTitulo = new JLabel("Listado de excuriones de bus");
+		JLabel lblTitulo = new JLabel("Recaudacion de excursion");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setBounds(10, 11, 393, 36);
@@ -79,24 +79,29 @@ public class ListadoExcursionesBus
 		btnVolver.setBounds(149, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
-		JList list = new JList();
-		list.setBounds(10, 83, 393, 165);
-		frame.getContentPane().add(list);
-		
 		textField = new JTextField();
-		textField.setBounds(93, 49, 95, 23);
+		textField.setBounds(135, 49, 103, 23);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblMatricula = new JLabel("Matricula:");
-		lblMatricula.setBounds(10, 49, 89, 23);
-		frame.getContentPane().add(lblMatricula);
+		JLabel lblCodExc = new JLabel("Codigo excursion:");
+		lblCodExc.setBounds(10, 49, 115, 23);
+		frame.getContentPane().add(lblCodExc);
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnIngresar = new JButton("Buscar");
-		btnIngresar.setBounds(314, 49, 89, 23);
+		JButton btnIngresar = new JButton("Calcular");
+		btnIngresar.setBounds(280, 49, 89, 23);
 		frame.getContentPane().add(btnIngresar);
+		
+		JLabel lblRecaudacionTotal = new JLabel("Recaudacion total:");
+		lblRecaudacionTotal.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblRecaudacionTotal.setBounds(10, 116, 142, 23);
+		frame.getContentPane().add(lblRecaudacionTotal);
+		
+		JLabel lblCalculoTotal = new JLabel("");
+		lblCalculoTotal.setBounds(162, 114, 103, 29);
+		frame.getContentPane().add(lblCalculoTotal);
 		/*ACA AGREGO VALORES A LA LISTA
 		DefaultListModel model= new DefaultListModel();
 		model.addElement("HOLA");

@@ -1,4 +1,4 @@
-package vistaGrafica;
+package vistaGrafica.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

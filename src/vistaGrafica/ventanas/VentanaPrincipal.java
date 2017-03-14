@@ -1,4 +1,4 @@
-package vistaGrafica;
+package vistaGrafica.ventanas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -19,10 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 
-import logica.fachada.Controladora;
 import logica.fachada.Fachada;
 import logica.fachada.IFachada;
 import persistencia.Propiedades;
+import vistaGrafica.controladoras.Controladora;
 
 
 public class VentanaPrincipal

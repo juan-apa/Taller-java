@@ -6,9 +6,9 @@ import java.util.Date;
 import logica.colecciones.*;
 import logica.Excepciones.colecciones.*;
 import logica.Excepciones.objetos.*;
-import logica.fachada.Controladora;
 import logica.fachada.Fachada;
 import logica.objetos.*;
+import vistaGrafica.controladoras.Controladora;
 import logica.ValueObjects.*;
 
 

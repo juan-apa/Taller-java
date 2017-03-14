@@ -16,6 +16,8 @@ import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
 import logica.ValueObjects.VOExcursionListado;
+import logica.colecciones.Buses;
+import logica.colecciones.Excursiones;
 import logica.colecciones.Iterador;
 
 public  interface IFachada extends Remote{
@@ -163,4 +165,9 @@ public  interface IFachada extends Remote{
 	 * @exception Exc_Excursiones uan excepcion que se genera si no hay excursiones registradas en el sistema.*/
 	public Iterador<VOExcursionListado> listadoExcursionesPrecio(double precioMin, double precioMax) throws Exc_Excursiones, RemoteException;
 
+	
+	public Buses getBuses() throws RemoteException ;
+	
+	public Excursiones getExcursiones() throws RemoteException ;
+	
 }

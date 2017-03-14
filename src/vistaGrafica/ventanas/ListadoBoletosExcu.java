@@ -1,4 +1,4 @@
-package vistaGrafica;
+package vistaGrafica.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,12 +30,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
-public class RecaudacionExcursion 
+public class ListadoBoletosExcu 
 {
 	private JFrame frame;
 	private JTextField textField;
 
-	public RecaudacionExcursion() {
+	public ListadoBoletosExcu() {
 		initialize();
 		
 	}
@@ -50,7 +50,7 @@ public class RecaudacionExcursion
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(419, 322));
-		frame.setTitle("Recaudacion de excursion");
+		frame.setTitle("Listado de boletos para excursion");
 		
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
@@ -60,10 +60,11 @@ public class RecaudacionExcursion
 				setVisible(false); // cierro el frame
 				VentanaPrincipal.controlVent=0;
 				}
-		});
+			});
 		frame.addWindowListener(manFrame);
 		
-		JLabel lblTitulo = new JLabel("Recaudacion de excursion");
+		
+		JLabel lblTitulo = new JLabel("Listado de boletos vendidos para excursion");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setBounds(10, 11, 393, 36);
@@ -76,32 +77,43 @@ public class RecaudacionExcursion
 				VentanaPrincipal.controlVent=0;
 			}
 		});
-		btnVolver.setBounds(149, 259, 89, 23);
+		btnVolver.setBounds(109, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
+		JList list = new JList();
+		list.setBounds(134, 52, 269, 196);
+		frame.getContentPane().add(list);
+		
 		textField = new JTextField();
-		textField.setBounds(135, 49, 103, 23);
+		textField.setBounds(10, 86, 114, 23);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblCodExc = new JLabel("Codigo excursion:");
-		lblCodExc.setBounds(10, 49, 115, 23);
-		frame.getContentPane().add(lblCodExc);
+		JLabel lblCodigoDeExcursion = new JLabel("Codigo de Excursion:");
+		lblCodigoDeExcursion.setBounds(10, 58, 114, 23);
+		frame.getContentPane().add(lblCodigoDeExcursion);
+		
+		JRadioButton rdbtnComun = new JRadioButton("Comun");
+		rdbtnComun.setBounds(10, 145, 122, 23);
+		frame.getContentPane().add(rdbtnComun);
+		rdbtnComun.setSelected(true);
+		
+		JRadioButton rdbtnEspecial = new JRadioButton("Especial");
+		rdbtnEspecial.setBounds(10, 172, 118, 23);
+		frame.getContentPane().add(rdbtnEspecial);
 		
 		ButtonGroup grupo = new ButtonGroup();
+		grupo.add(rdbtnEspecial);
+		grupo.add(rdbtnComun);
 		
-		JButton btnIngresar = new JButton("Calcular");
-		btnIngresar.setBounds(280, 49, 89, 23);
-		frame.getContentPane().add(btnIngresar);
 		
-		JLabel lblRecaudacionTotal = new JLabel("Recaudacion total:");
-		lblRecaudacionTotal.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblRecaudacionTotal.setBounds(10, 116, 142, 23);
-		frame.getContentPane().add(lblRecaudacionTotal);
+		JLabel lblTipoDeBoleto = new JLabel("Tipo de Boleto:");
+		lblTipoDeBoleto.setBounds(10, 124, 114, 14);
+		frame.getContentPane().add(lblTipoDeBoleto);
 		
-		JLabel lblCalculoTotal = new JLabel("");
-		lblCalculoTotal.setBounds(162, 114, 103, 29);
-		frame.getContentPane().add(lblCalculoTotal);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(10, 259, 89, 23);
+		frame.getContentPane().add(btnBuscar);
 		/*ACA AGREGO VALORES A LA LISTA
 		DefaultListModel model= new DefaultListModel();
 		model.addElement("HOLA");

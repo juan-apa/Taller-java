@@ -1,4 +1,4 @@
-package vistaGrafica;
+package vistaGrafica.ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,12 +30,11 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
-public class ListadoExcuDestino 
+public class RespaldoGuardar 
 {
 	private JFrame frame;
-	private JTextField textField;
 
-	public ListadoExcuDestino() {
+	public RespaldoGuardar() {
 		initialize();
 		
 	}
@@ -49,25 +48,27 @@ public class ListadoExcuDestino
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setSize(new Dimension(419, 322));
-		frame.setTitle("Listado de excursiones por destino");
+		frame.setSize(new Dimension(416, 216));
+		frame.setTitle("Respaldo de datos (G)");
 		
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */
 		frame.getContentPane().setLayout(null);
 		WindowAdapter manFrame = (new WindowAdapter(){
-			public void windowClosing (WindowEvent arg0){ 
-				setVisible(false); // cierro el frame
-				VentanaPrincipal.controlVent=0;
-				}
+		public void windowClosing (WindowEvent arg0){ 
+			setVisible(false); // cierro el frame
+			VentanaPrincipal.controlVent=0;
+			}
 		});
 		frame.addWindowListener(manFrame);
 		
-		JLabel lblTitulo = new JLabel("Listado de excursiones por destino");
+		
+		JLabel lblTitulo = new JLabel("Guardar datos");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitulo.setBounds(10, 11, 393, 36);
 		frame.getContentPane().add(lblTitulo);
+		
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
@@ -76,33 +77,32 @@ public class ListadoExcuDestino
 				VentanaPrincipal.controlVent=0;
 			}
 		});
-		btnVolver.setBounds(155, 259, 89, 23);
+		btnVolver.setBounds(204, 95, 89, 23);
 		frame.getContentPane().add(btnVolver);
-		
-		JList list = new JList();
-		list.setBounds(10, 83, 393, 165);
-		frame.getContentPane().add(list);
-		
-		textField = new JTextField();
-		textField.setBounds(55, 49, 114, 23);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblDestino = new JLabel("Destino:");
-		lblDestino.setBounds(10, 49, 114, 23);
-		frame.getContentPane().add(lblDestino);
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(213, 49, 89, 23);
-		frame.getContentPane().add(btnBuscar);
-		/*ACA AGREGO VALORES A LA LISTA
-		DefaultListModel model= new DefaultListModel();
-		model.addElement("HOLA");
-		model.addElement("ALOHA");
-		list.setModel(model);
-		*/
+		final JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(97, 95, 89, 23);
+		frame.getContentPane().add(btnGuardar);
+		btnGuardar.setVisible(false);
+		
+		final JCheckBox chckbxDeseaRespaldarLos = new JCheckBox("Desea respaldar los datos?");
+		chckbxDeseaRespaldarLos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxDeseaRespaldarLos.isSelected()){
+					btnGuardar.setVisible(true);
+				}else{
+					btnGuardar.setVisible(false);
+				}
+			}
+		});
+		chckbxDeseaRespaldarLos.setBounds(20, 54, 181, 23);
+		frame.getContentPane().add(chckbxDeseaRespaldarLos);
+		
+		
+		
+
 	}
 	
 	/* Indico si deseo que la ventana sea visible o no */
