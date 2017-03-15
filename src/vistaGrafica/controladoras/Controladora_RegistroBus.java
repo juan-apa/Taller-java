@@ -39,11 +39,10 @@ public class Controladora_RegistroBus {
 			ven.mostrarError("El Bus a registrar no cuenta con una Matricula", 0);
 		}else{
 			//no esta funcionando esta prueba
-//			if((matricula.matches(".*[a-zA-Z].*"))&&(matricula.matches("[0-9]"))){
-			if((matricula.matches("^[a-zA-Z0-9]*$"))){
+			if((matricula.matches(".*[a-zA-Z].*"))&&(matricula.matches("[0-9]"))){
 				ven.mostrarError("La matricula ingresada no es Alfanumerica", 0);
 			}else{
-				if((entrada.getMarca() == null) || (entrada.getMarca() == "")){
+				if(marca.isEmpty()){
 					ven.mostrarError("El Bus a registrar no cuenta con una Marca", 0);
 				}else{
 					if(entrada.getCapPasajeros() <= 0){

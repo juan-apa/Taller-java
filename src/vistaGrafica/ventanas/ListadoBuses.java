@@ -4,12 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Rectangle;
 
 import javax.swing.DefaultListModel;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -20,12 +25,24 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 import javax.swing.JList;
 
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
+import logica.ValueObjects.VOBusExc;
+import logica.colecciones.Iterador;
+import vistaGrafica.controladoras.Controladora_ListaBus;
+
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
+
+import jdk.nashorn.internal.scripts.JS;
 
 public class ListadoBuses extends Ventana
 {
@@ -72,12 +89,58 @@ public class ListadoBuses extends Ventana
 				setVentanaAbierta(null);
 			}
 		});
-		btnVolver.setBounds(155, 259, 89, 23);
+		btnVolver.setBounds(230, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
-		JList list = new JList();
+	
+
+		final JTable list = new JTable();
 		list.setBounds(10, 52, 393, 196);
 		frame.getContentPane().add(list);
+		list.enable(true);
+		
+		
+		final JButton btnRecargar = new JButton("Cargar");
+		btnRecargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					btnRecargar.setText("Re-Cargar");
+					final String[] columnas = {"Matricula", "Marca", "Pasajeros", "Cant. Excursiones"};
+					
+					
+					
+					
+					 DefaultTableModel dlm = new DefaultTableModel(){
+						 @Override
+						 public int getColumnCount(){
+							 return columnas.length;
+						 }
+						 @Override 
+			            public String getColumnName(int index) { 
+			                return columnas[index]; 
+			            }
+					 };
+					 dlm.addColumn("Matricula");
+					 dlm.addColumn("Mrca");
+
+					 //dlm.setColumnIdentifiers(new String[] {"Matricula", "Marca"});
+					 
+					 
+					Controladora_ListaBus c;
+					c= new Controladora_ListaBus((ListadoBuses) getVentanaAbierta());
+					Iterador<VOBusExc> ite = c.ListadoBuses();
+					while (ite.hasNext()){
+						VOBusExc aux = ite.next();
+						dlm.addRow(new String[] {aux.getMatricula(), aux.getMarca(), String.valueOf(aux.getCapPasajeros()),String.valueOf(aux.getExcursionesAsignadas())});
+					}
+					
+					 list.setModel(dlm);
+					 
+					
+			}	
+				
+		});
+		btnRecargar.setBounds(100, 259, 89, 23);
+		frame.getContentPane().add(btnRecargar);
 		/*ACA AGREGO VALORES A LA LISTA
 		DefaultListModel model= new DefaultListModel();
 		model.addElement("HOLA");
