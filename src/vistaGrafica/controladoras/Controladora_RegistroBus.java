@@ -17,10 +17,10 @@ public class Controladora_RegistroBus {
 	private IFachada f;
 	private RegistroDeBus ven;
 	
-	public Controladora_RegistroBus() {
+	public Controladora_RegistroBus(RegistroDeBus ventana) {
 		try {
-			ven = new RegistroDeBus();
-			ven.setVentanaAbierta(ven);
+//			ven = new RegistroDeBus();
+			ven = ventana;
 			Propiedades p = new Propiedades();
 			String puerto = p.buscar("Puerto");
 			String ip = p.buscar("Ip");
@@ -39,7 +39,8 @@ public class Controladora_RegistroBus {
 			ven.mostrarError("El Bus a registrar no cuenta con una Matricula", 0);
 		}else{
 			//no esta funcionando esta prueba
-			if((matricula.matches(".*[a-zA-Z].*"))&&(matricula.matches("[0-9]"))){
+//			if((matricula.matches(".*[a-zA-Z].*"))&&(matricula.matches("[0-9]"))){
+			if((matricula.matches("^[a-zA-Z0-9]*$"))){
 				ven.mostrarError("La matricula ingresada no es Alfanumerica", 0);
 			}else{
 				if((entrada.getMarca() == null) || (entrada.getMarca() == "")){
