@@ -174,7 +174,7 @@ public class RegistroBoleto extends Ventana
 				
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
 				VOBoleto voboleto = new VOBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
-				Controladora c = getControladora();
+				
 //				Fachada f = getFachada();
 				
 //				try {
