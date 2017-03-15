@@ -15,6 +15,15 @@ public class VOExcursion implements Serializable{
 	private Date hLlegada;
 	private double precioBase;
 	
+	public VOExcursion(){
+		super();
+		this.codigo = "";
+		this.destino = "";
+		this.hPartida = new Date();
+		this.hLlegada = new Date();
+		this.precioBase = 0.0;
+	}
+	
 	public VOExcursion(String codigo, String destino, Date hPartia, Date hLlegada, double precioBase) {
 		super();
 		this.codigo = codigo;

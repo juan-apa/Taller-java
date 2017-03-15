@@ -10,17 +10,18 @@ public class VOBoleto2 implements Serializable{
 	private int numero;
 	private int edad;
 	private String lugarProcedencia;
-	@Override
-	public String toString() {
-		return "VOBoleto2 [numero=" + numero + ", edad=" + edad + ", lugarProcedencia=" + lugarProcedencia
-				+ ", nroCelular=" + nroCelular + ", dtoAdicional=" + dtoAdicional + "]";
-	}
-
 	private long nroCelular;
 	private double dtoAdicional;
 	/*Si el tipo de boleto es comun, el descuento adicional se pondra en 0*/
 	
-	
+	public VOBoleto2(){
+		super();
+		this.numero = 1;
+		this.edad = 1;
+		this.lugarProcedencia = "";
+		this.nroCelular = 0;
+		this.dtoAdicional = 0.0;
+	}
 	
 	public VOBoleto2(int numero, int edad, String lugarProcedencia, long nroCelular, double dtoAdicional) {
 		super();
@@ -80,4 +81,9 @@ public class VOBoleto2 implements Serializable{
 		this.dtoAdicional = dtoAdicional;
 	}
 	
+	@Override
+	public String toString() {
+		return "VOBoleto2 [numero=" + numero + ", edad=" + edad + ", lugarProcedencia=" + lugarProcedencia
+				+ ", nroCelular=" + nroCelular + ", dtoAdicional=" + dtoAdicional + "]";
+	}
 }

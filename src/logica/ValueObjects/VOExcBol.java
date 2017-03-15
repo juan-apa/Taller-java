@@ -10,6 +10,12 @@ public class VOExcBol implements Serializable{
 	private String codigoExcursion;
 	private String tipoBoleto;
 	
+	public VOExcBol(){
+		super();
+		this.codigoExcursion = "";
+		this.tipoBoleto = "Comun";
+	}
+	
 	public VOExcBol(String codigoExcursion, String tipoBoleto) {
 		super();
 		this.codigoExcursion = codigoExcursion;

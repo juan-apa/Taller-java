@@ -2,12 +2,22 @@ package logica.ValueObjects;
 
 import java.io.Serializable;
 
+import logica.colecciones.Excursiones;
+
 public class VOBusExc implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String matricula;
 	private String marca;
 	private int capPasajeros;
 	private int excursionesAsignadas;
+	
+	public VOBusExc(){
+		super();
+		this.matricula = "";
+		this.marca = "";
+		this.capPasajeros = 0;
+		this.excursionesAsignadas = 0;
+	}
 	
 	public VOBusExc(String matricula, String marca, int capPasajeros, int excursionesAsignadas) {
 		super();

@@ -13,6 +13,15 @@ public class VOBoleto implements Serializable{
 	private long nroCelular;
 	private double dtoAdicional;
 	
+	public VOBoleto(){
+		super();
+		this.codExcursion = "";
+		this.lugarPrecedencia = "";
+		this.edadPasajero = 1;
+		this.nroCelular = 0;
+		this.dtoAdicional = 0.0;
+	}
+	
 	public VOBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular, String tipoBoleto, double dtoAdicioal) {
 		super();
 		this.codExcursion = codExcursion;

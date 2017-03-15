@@ -13,23 +13,26 @@ public class VOExcursionListado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String destino;
-	private Date hPartia;
+	private Date hPartida;
 	private Date hLlegada;
 	private double precioBase;
 	private int asientosDisp;
 	
-	public String toString() {
-		return "VOExcursionListado [codigo=" + codigo + ", destino=" + destino
-				+ ", hPartia=" + hPartia + ", hLlegada=" + hLlegada
-				+ ", precioBase=" + precioBase + ", asientosDisp="
-				+ asientosDisp + "]";
+	public VOExcursionListado(){
+		super();
+		this.codigo = "";
+		this.destino = "";
+		this.hPartida = new Date();
+		this.hLlegada = new Date();
+		this.precioBase = 0.0;
+		this.asientosDisp = 0;
 	}
 
-	public VOExcursionListado(String codigo, String destino, Date hPartia, Date hLlegada, double precioBase, int asientosDisp) {
+	public VOExcursionListado(String codigo, String destino, Date hPartida, Date hLlegada, double precioBase, int asientosDisp) {
 		super();
 		this.codigo = codigo;
 		this.destino = destino;
-		this.hPartia = hPartia;
+		this.hPartida = hPartida;
 		this.hLlegada = hLlegada;
 		this.precioBase = precioBase;
 		this.asientosDisp = asientosDisp;
@@ -51,12 +54,12 @@ public class VOExcursionListado implements Serializable{
 		this.destino = destino;
 	}
 
-	public Date gethPartia() {
-		return hPartia;
+	public Date gethPartida() {
+		return hPartida;
 	}
 
 	public void sethPartia(Date hPartia) {
-		this.hPartia = hPartia;
+		this.hPartida = hPartia;
 	}
 
 	public Date gethLlegada() {
@@ -83,5 +86,10 @@ public class VOExcursionListado implements Serializable{
 		this.asientosDisp = asientosDisp;
 	}
 	
-	
+	public String toString() {
+		return "VOExcursionListado [codigo=" + codigo + ", destino=" + destino
+				+ ", hPartia=" + hPartida + ", hLlegada=" + hLlegada
+				+ ", precioBase=" + precioBase + ", asientosDisp="
+				+ asientosDisp + "]";
+	}
 }
