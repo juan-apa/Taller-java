@@ -20,6 +20,7 @@ public class Controladora_RegistroBus {
 	public Controladora_RegistroBus() {
 		try {
 			ven = new RegistroDeBus();
+			ven.setVentanaAbierta(ven);
 			Propiedades p = new Propiedades();
 			String puerto = p.buscar("Puerto");
 			String ip = p.buscar("Ip");

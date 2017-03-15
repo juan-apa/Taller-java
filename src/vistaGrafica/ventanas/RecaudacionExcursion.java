@@ -30,12 +30,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
-public class RecaudacionExcursion 
+public class RecaudacionExcursion extends Ventana
 {
 	private JFrame frame;
 	private JTextField textField;
 
 	public RecaudacionExcursion() {
+		super();
 		initialize();
 		
 	}
@@ -58,7 +59,7 @@ public class RecaudacionExcursion
 		WindowAdapter manFrame = (new WindowAdapter(){
 			public void windowClosing (WindowEvent arg0){ 
 				setVisible(false); // cierro el frame
-				VentanaPrincipal.controlVent=0;
+				setVentanaAbierta(null);
 				}
 		});
 		frame.addWindowListener(manFrame);
@@ -73,7 +74,7 @@ public class RecaudacionExcursion
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				VentanaPrincipal.controlVent=0;
+				setVentanaAbierta(null);
 			}
 		});
 		btnVolver.setBounds(149, 259, 89, 23);
@@ -113,5 +114,9 @@ public class RecaudacionExcursion
 	/* Indico si deseo que la ventana sea visible o no */
 	public void setVisible (boolean visible) {
 		frame.setVisible(visible);
+	}
+	@Override
+	public void toFront(){
+		frame.toFront();
 	}
 }

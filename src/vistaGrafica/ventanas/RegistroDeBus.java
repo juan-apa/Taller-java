@@ -35,6 +35,7 @@ public class RegistroDeBus extends Ventana
 	private JTextField textField_1;
 	
 	public RegistroDeBus() {
+		super();
 		initialize();
 	}
 	
@@ -54,9 +55,9 @@ public class RegistroDeBus extends Ventana
 		/* cuando intenten cerrarme, solamente me cierro yo */
 		frame.getContentPane().setLayout(null);
 		WindowAdapter manFrame = (new WindowAdapter(){
-			public void windowClosing (WindowEvent arg0){ 
+			public void windowClosing (WindowEvent arg0){
+				setVentanaAbierta(null);
 				setVisible(false); // cierro el frame
-				VentanaPrincipal.controlVent=0;
 				}
 		});
 		frame.addWindowListener(manFrame);
@@ -107,7 +108,7 @@ public class RegistroDeBus extends Ventana
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				VentanaPrincipal.controlVent=0;
+				setVentanaAbierta(null);
 			}
 		});
 		btnVolver.setBounds(200, 176, 89, 23);
@@ -117,5 +118,10 @@ public class RegistroDeBus extends Ventana
 	/* Indico si deseo que la ventana sea visible o no */
 	public void setVisible (boolean visible) {
 		frame.setVisible(visible);
+	}
+	
+	@Override
+	public void toFront(){
+		frame.toFront();
 	}
 }

@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.Font;
 
-public class RegistroExcursion
+public class RegistroExcursion extends Ventana
 {
 	private JFrame frame;
 	private JTextField textField_1;
@@ -46,6 +46,7 @@ public class RegistroExcursion
 
 	/* Constructor de la ventana */
 	public RegistroExcursion() {
+		super();
 		initialize();
 	}
 
@@ -63,8 +64,8 @@ public class RegistroExcursion
 		frame.getContentPane().setLayout(null);
 		WindowAdapter manFrame = (new WindowAdapter(){
 			public void windowClosing (WindowEvent arg0){ 
+				setVentanaAbierta(null);
 				setVisible(false); // cierro el frame
-				VentanaPrincipal.controlVent=0;
 				}
 		});
 		frame.addWindowListener(manFrame);
@@ -200,7 +201,7 @@ public class RegistroExcursion
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				VentanaPrincipal.controlVent=0;
+				setVentanaAbierta(null);
 			}
 		});
 		btnVolver.setBounds(296, 249, 97, 27);
@@ -231,5 +232,10 @@ public class RegistroExcursion
 	/* Indico si deseo que la ventana sea visible o no */
 	public void setVisible (boolean visible) {
 		frame.setVisible(visible);
+	}
+	
+	@Override
+	public void toFront(){
+		frame.toFront();
 	}
 }

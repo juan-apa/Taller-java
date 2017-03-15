@@ -14,11 +14,7 @@ import logica.ValueObjects.*;
 import persistencia.*;
  
 
-public class Fachada extends UnicastRemoteObject implements Serializable, IFachada{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Fachada extends UnicastRemoteObject implements IFachada{
 	private Datos datos;
 	private static Fachada instancia;
 	private Monitor monitor;

@@ -30,13 +30,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
-public class RespaldoGuardar 
+public class RespaldoGuardar extends Ventana
 {
 	private JFrame frame;
 
 	public RespaldoGuardar() {
+		super();
 		initialize();
-		
 	}
 	
 	
@@ -57,7 +57,7 @@ public class RespaldoGuardar
 		WindowAdapter manFrame = (new WindowAdapter(){
 		public void windowClosing (WindowEvent arg0){ 
 			setVisible(false); // cierro el frame
-			VentanaPrincipal.controlVent=0;
+			setVentanaAbierta(null);
 			}
 		});
 		frame.addWindowListener(manFrame);
@@ -74,7 +74,7 @@ public class RespaldoGuardar
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
-				VentanaPrincipal.controlVent=0;
+				setVentanaAbierta(null);
 			}
 		});
 		btnVolver.setBounds(204, 95, 89, 23);
@@ -108,5 +108,10 @@ public class RespaldoGuardar
 	/* Indico si deseo que la ventana sea visible o no */
 	public void setVisible (boolean visible) {
 		frame.setVisible(visible);
+	}
+	
+	@Override
+	public void toFront(){
+		frame.toFront();
 	}
 }

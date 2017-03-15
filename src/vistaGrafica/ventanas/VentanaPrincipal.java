@@ -25,14 +25,13 @@ import persistencia.Propiedades;
 import vistaGrafica.controladoras.Controladora;
 
 
-public class VentanaPrincipal
+public class VentanaPrincipal extends Ventana
 {
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenu B_registros, B_listados, B_otros, B_respaldo;
 	private JMenuItem menuItem;
 	private ImagenFondo fondo;
-	protected static int controlVent = 0;
     
 		public static void main(String[] args) {
 			EventQueue.invokeLater(new Runnable() {
@@ -100,11 +99,14 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-					if (controlVent==0){
-						controlVent=1;
-						RegistroDeBus registroBus = new RegistroDeBus();
-						registroBus.setVisible(true);
-					}
+				if(getVentanaAbierta() == null){
+					RegistroDeBus registroBus = new RegistroDeBus();
+					registroBus.setVisible(true);
+					setVentanaAbierta(registroBus);
+				}
+				else{
+					getVentanaAbierta().toFront();
+				}
 			}
 		});
 		B_registros.add(menuItem);
@@ -114,10 +116,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
-					RegistroExcursion registroExc = new RegistroExcursion ();
-					registroExc.setVisible(true);	
+				if(getVentanaAbierta() == null){
+					RegistroExcursion registroExc = new RegistroExcursion();
+					setVentanaAbierta(registroExc);
+					registroExc.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -128,10 +133,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					RegistroBoleto registroBoleto = new RegistroBoleto();
-					registroBoleto.setVisible(true);	
+					setVentanaAbierta(registroBoleto);
+					registroBoleto.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -142,10 +150,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					ListadoBuses listBuses = new ListadoBuses();
+					setVentanaAbierta(listBuses);
 					listBuses.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -156,10 +167,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					ListadoBoletosExcu listBolExc = new ListadoBoletosExcu();
+					setVentanaAbierta(listBolExc);
 					listBolExc.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -170,10 +184,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					ListadoExcuDestino listExcDest = new ListadoExcuDestino();
+					setVentanaAbierta(listExcDest);
 					listExcDest.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -184,10 +201,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					ListadoExcuPrecio listExcPre = new ListadoExcuPrecio();
+					setVentanaAbierta(listExcPre);
 					listExcPre.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -198,10 +218,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					ListadoExcursionesBus listExcBus = new ListadoExcursionesBus();
+					setVentanaAbierta(listExcBus);
 					listExcBus.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -212,11 +235,14 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					ReasignacionExcursion reasignExc = new ReasignacionExcursion();
+					setVentanaAbierta(reasignExc);
 					reasignExc.setVisible(true);
-				}	
+				}
+				else{
+					getVentanaAbierta().toFront();
+				}
 			}
 		});
 		B_otros.add(menuItem);
@@ -226,10 +252,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					RecaudacionExcursion recExc = new RecaudacionExcursion();
+					setVentanaAbierta(recExc);
 					recExc.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -242,10 +271,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					RespaldoGuardar respGuard = new RespaldoGuardar();
+					setVentanaAbierta(respGuard);
 					respGuard.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
@@ -256,10 +288,13 @@ public class VentanaPrincipal
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (controlVent==0){
-					controlVent=1;
+				if(getVentanaAbierta() == null){
 					RespaldoCargar respCarg = new RespaldoCargar();
+					setVentanaAbierta(respCarg);
 					respCarg.setVisible(true);
+				}
+				else{
+					getVentanaAbierta().toFront();
 				}
 			}
 		});
