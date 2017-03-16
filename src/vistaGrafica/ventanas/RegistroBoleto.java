@@ -156,7 +156,8 @@ public class RegistroBoleto extends Ventana
 				boolean especial = chckbxBoletoEspecial.isSelected();
 				//NO ENTIENDO POR QUE MIERDA PERO SE ACA ACA!!!!!! con la variable double
 				//double descuento = new Double(Double.parseDouble(textField_3.getSelectedText().toString()));
-				double descuento = 2.4;
+				
+				double descuento = Double.parseDouble(textField_3.getText().toString());
 				String tipoBoleto = "Comun";
 				if(especial)
 					tipoBoleto = "Especial";
