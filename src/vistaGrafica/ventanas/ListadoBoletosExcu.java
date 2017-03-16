@@ -37,6 +37,7 @@ import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBusExc;
 import logica.colecciones.Iterador;
 import vistaGrafica.controladoras.Controladora_ListadoBoletosExcu;
+import javax.swing.JScrollPane;
 
 public class ListadoBoletosExcu extends Ventana
 {
@@ -88,14 +89,19 @@ public class ListadoBoletosExcu extends Ventana
 		btnVolver.setBounds(109, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(134, 52, 269, 196);
+		frame.getContentPane().add(scrollPane);
+		
 		final JTable list = new JTable();
-		list.setBounds(134, 52, 269, 196);
-		frame.getContentPane().add(list);
+		scrollPane.setViewportView(list);
+		list.enable(false);
 		
 		cod_exc = new JTextField();
 		cod_exc.setBounds(10, 86, 114, 23);
 		frame.getContentPane().add(cod_exc);
 		cod_exc.setColumns(10);
+		
 		
 		JLabel lblCodigoDeExcursion = new JLabel("Codigo de Excursion:");
 		lblCodigoDeExcursion.setBounds(10, 58, 114, 23);
@@ -131,7 +137,7 @@ public class ListadoBoletosExcu extends Ventana
 					tipo = "Especial";
 				}
 				
-				final String[] columnas = {"Matricula", "Marca", "Pasajeros", "Cant. Excursiones"};
+				final String[] columnas = {"N.Bol", "Edad", "Procedencia", "N.Celular"};
 				
 				 DefaultTableModel dlm = new DefaultTableModel(){
 					 @Override
