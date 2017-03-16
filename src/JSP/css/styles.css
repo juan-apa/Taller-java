@@ -352,6 +352,8 @@ header {
     z-index: 9999;
     min-height:10em;
     padding-top:1em;
+    top: 0;
+    background-color: pink;
 }
 
 header h1{
@@ -375,12 +377,31 @@ header figure a img{
   height: 100%;
 }
 
+main{
+  margin-top: 13em; 
+  height: 720px;
+}
 .div-tabla{
   width: 50%;
+  height: 100%;
+  background-color: green;
 }
+
+.div-tabla table{
+  margin: 1em 1em 1em 1em;
+  height: 450px;
+  border: none;
+  text-align: left;
+  padding: 8px;
+  background-color: black;
+  width: 300px;
+}
+
 
 .div-forms{
   width: 50%;
+  height: 100%;
+  background-color: blue;
 }
 
 .left{
@@ -402,7 +423,5 @@ section, article{
 /* footer */
 footer {
     min-height: 7.8em;
-    padding-bottom: 1.3em;
-    padding-top: 1.3em;
     background:#000;
 }

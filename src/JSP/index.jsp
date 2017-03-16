@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<!--
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:useBean id='resultados' scope='application' class='java.util.ArrayList' />
+
+ -->
+
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -20,15 +26,17 @@
       <main>
         <div class="div-tabla left">
           <table>
-            <thead>
+            <tr>
+      				<td><b> Autor </b></td>
+      				<td><b> Mensaje </b></td>
+      			</tr>
+            <c:forEach items="${resultados}" var="i" >
+      				<tr>
+      					<td> ${i.autor} </td>
+      					<td> ${i.mensaje} </td>
+      				</tr>
+      			</c:forEach>
 
-            </thead>
-            <tbody>
-
-            </tbody>
-            <tfoot>
-
-            </tfoot>
           </table>
         </div>
         <div class="div-forms right">
@@ -44,9 +52,6 @@
           </div>
         </div>
       </main>
-      <footer>
-
-      </footer>
     </div>
   </body>
 </html>
