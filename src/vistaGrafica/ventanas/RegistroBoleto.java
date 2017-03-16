@@ -31,6 +31,8 @@ import logica.Excepciones.objetos.Exc_Boleto;
 import logica.ValueObjects.VOBoleto;
 import logica.fachada.Fachada;
 import vistaGrafica.controladoras.Controladora;
+import vistaGrafica.controladoras.Controladora_RegistroBoleto;
+import vistaGrafica.controladoras.Controladora_RegistroBus;
 
 public class RegistroBoleto extends Ventana
 {
@@ -166,7 +168,6 @@ public class RegistroBoleto extends Ventana
 				int edad	 = Integer.parseInt(comboBox.getSelectedItem().toString());
 				String procedencia 	= textField_1.getText();
 				long celular = Long.parseLong(textField_2.getText());
-//				boolean checkeado = 
 				boolean especial = chckbxBoletoEspecial.isSelected();
 				double descuento 	= Double.parseDouble(textField_3.getText());
 				String tipoBoleto = "Comun";
@@ -174,22 +175,9 @@ public class RegistroBoleto extends Ventana
 					tipoBoleto = "Especial";
 				
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
-				VOBoleto voboleto = new VOBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
-				
-//				Fachada f = getFachada();
-				
-//				try {
-//					c.ventaBoleto(f, voboleto);
-//				} catch (RemoteException e) {
-//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-//				} catch (Exc_Boleto e) {
-//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-//				} catch (Exc_Boletos e) {
-//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-//				} catch (Exc_Excursiones e) {
-//					JOptionPane.showMessageDialog(null, e.toString().substring(e.toString().indexOf(':') + 2), "Error", JOptionPane.ERROR_MESSAGE);
-//				}
-				
+				Controladora_RegistroBoleto c;
+				c = new Controladora_RegistroBoleto(((RegistroBoleto) getVentanaAbierta()));
+				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);			
 			}
 		});
 		

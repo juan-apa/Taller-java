@@ -7,11 +7,13 @@ import java.rmi.RemoteException;
 import java.util.Date;
 
 import persistencia.Propiedades;
+import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Bus;
 import logica.Excepciones.objetos.Exc_Excursion;
 import logica.Excepciones.objetos.Exc_Persistencia;
+import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
@@ -29,16 +31,23 @@ public class Cliente {
 			IFachada fachada = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 			
 			try {
-				//Listo los buses ingresados en el servidor
-				String aux = "asd123";
-				if(aux.matches("[a-z]")){
-					System.out.println("entro");
-				}
-				
+				//Listo los Bus ingresados en el servidor	
 				Iterador<VOBusExc> itegenbus = fachada.listadoGeneralBuses();//f.listadoGeneralBuses();
 				while(itegenbus.hasNext()){
 					VOBusExc vobusexcaux = itegenbus.next();
 					System.out.println(vobusexcaux.toString());
+				}
+				//Listo los Boletos
+				Iterador<VOBoleto2> iter8 = null;
+				try {
+					iter8 = fachada.listadoBoletosExcursion("001", "Especial");
+				} catch (Exc_Boletos e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				while(iter8.hasNext()){
+					VOBoleto2 bo2 = iter8.next();
+					System.out.println(bo2.toString());
 				}
 
 			} catch (Exc_Buses e1) {

@@ -19,7 +19,6 @@ public class Controladora_RegistroBus {
 	
 	public Controladora_RegistroBus(RegistroDeBus ventana) {
 		try {
-//			ven = new RegistroDeBus();
 			ven = ventana;
 			Propiedades p = new Propiedades();
 			String puerto = p.buscar("Puerto");
