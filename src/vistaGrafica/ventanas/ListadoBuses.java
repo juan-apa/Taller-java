@@ -42,7 +42,7 @@ import vistaGrafica.controladoras.Controladora_ListaBus;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 
-import jdk.nashorn.internal.scripts.JS;
+//import jdk.nashorn.internal.scripts.JS;
 
 public class ListadoBuses extends Ventana
 {

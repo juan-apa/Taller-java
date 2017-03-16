@@ -1,16 +1,14 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-
+import vistaGrafica.controladoras.Controladora_RegistroExcursion;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -26,20 +24,20 @@ public class RegistroExcursion extends Ventana
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_4;
-	private JComboBox comboBox;
+	private JComboBox<Integer> comboBox;
 	private JLabel lblHora;
 	private JLabel lblMinutos;
-	private JComboBox comboBox_1;
-	private JComboBox comboBox_5;
+	private JComboBox<Integer> comboBox_1;
+	private JComboBox<Integer> comboBox_5;
 	private JLabel label;
-	private JComboBox comboBox_6;
+	private JComboBox<Integer> comboBox_6;
 	private JLabel label_1;
-	private JComboBox comboBox_7;
+	private JComboBox<Integer> comboBox_7;
 	private JLabel label_2;
 	private JLabel label_3;
-	private JComboBox comboBox_8;
+	private JComboBox<Integer> comboBox_8;
 	private JLabel label_4;
-	private JComboBox comboBox_9;
+	private JComboBox<Integer> comboBox_9;
 	private JButton btnIngresar;
 	private JButton btnVolver;
 	private JLabel lblFechaDeHoy;
@@ -51,7 +49,6 @@ public class RegistroExcursion extends Ventana
 	}
 
 	/* Inicializo los componentes de la ventana */
-	@SuppressWarnings("deprecation")
 	private void initialize() 
 	{
 		/* marco de la ventana secundaria */
@@ -108,7 +105,7 @@ public class RegistroExcursion extends Ventana
 		textField_4.setBounds(119, 252, 86, 20);
 		frame.getContentPane().add(textField_4);
 		
-		comboBox = new JComboBox();
+		comboBox = new JComboBox<Integer>();
 		comboBox.setBounds(45, 121, 56, 20);
 		frame.getContentPane().add(comboBox);
 		
@@ -120,11 +117,11 @@ public class RegistroExcursion extends Ventana
 		lblMinutos.setBounds(111, 124, 56, 14);
 		frame.getContentPane().add(lblMinutos);
 		
-		comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox<Integer>();
 		comboBox_1.setBounds(159, 121, 56, 20);
 		frame.getContentPane().add(comboBox_1);
 		
-		comboBox_5 = new JComboBox();
+		comboBox_5 = new JComboBox<Integer>();
 		comboBox_5.setBounds(258, 172, 56, 20);
 		frame.getContentPane().add(comboBox_5);
 		//carga de dias combobox	ver meses con 28 29 30 31 dias
@@ -138,7 +135,7 @@ public class RegistroExcursion extends Ventana
 		label.setBounds(225, 169, 23, 20);
 		frame.getContentPane().add(label);
 		
-		comboBox_6 = new JComboBox();
+		comboBox_6 = new JComboBox<Integer>();
 		comboBox_6.setBounds(159, 172, 56, 20);
 		frame.getContentPane().add(comboBox_6);
 		int mesInicial=1;
@@ -151,7 +148,7 @@ public class RegistroExcursion extends Ventana
 		label_1.setBounds(111, 172, 38, 20);
 		frame.getContentPane().add(label_1);
 		
-		comboBox_7 = new JComboBox();
+		comboBox_7 = new JComboBox<Integer>();
 		comboBox_7.setBounds(45, 175, 56, 20);
 		frame.getContentPane().add(comboBox_7);
 		//Carga de combobox años
@@ -170,7 +167,7 @@ public class RegistroExcursion extends Ventana
 		label_3.setBounds(10, 213, 34, 14);
 		frame.getContentPane().add(label_3);
 		
-		comboBox_8 = new JComboBox();
+		comboBox_8 = new JComboBox<Integer>();
 		comboBox_8.setBounds(45, 210, 56, 20);
 		frame.getContentPane().add(comboBox_8);
 		int horaInicial=00;
@@ -184,14 +181,24 @@ public class RegistroExcursion extends Ventana
 		label_4.setBounds(111, 213, 56, 14);
 		frame.getContentPane().add(label_4);
 		
-		comboBox_9 = new JComboBox();
+		comboBox_9 = new JComboBox<Integer>();
 		comboBox_9.setBounds(159, 210, 56, 20);
 		frame.getContentPane().add(comboBox_9);
 		
 		btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				//codigo de lo que hace el boton INGRESAR
+				String codigo = textField_1.getText();
+				String destino = textField_2.getText();
+				java.util.Date fecha = new Date();
+				Date hPartida = new Date(fecha.getYear(), fecha.getMonth(), fecha.getDay(), Integer.parseInt(comboBox.getSelectedItem().toString()), Integer.parseInt(comboBox_1.getSelectedItem().toString()));
+				Date hLlegada = new Date(Integer.parseInt(comboBox_7.getSelectedItem().toString()), Integer.parseInt(comboBox_6.getSelectedItem().toString()), Integer.parseInt(comboBox_5.getSelectedItem().toString()), Integer.parseInt(comboBox_8.getSelectedItem().toString()), Integer.parseInt(comboBox_9.getSelectedItem().toString())); 
+				double precioBase = Double.parseDouble(textField_4.getSelectedText().toString());
+				Controladora_RegistroExcursion c;
+				c = new Controladora_RegistroExcursion(((RegistroExcursion) getVentanaAbierta()));
+				c.registroExcursion(codigo, destino, hPartida, hLlegada, precioBase);
 			}
 		});
 		btnIngresar.setBounds(296, 213, 97, 27);

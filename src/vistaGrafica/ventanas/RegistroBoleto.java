@@ -1,14 +1,10 @@
 package vistaGrafica.ventanas;
-import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
@@ -18,21 +14,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
 import java.awt.Font;
-import java.rmi.RemoteException;
 
-import javax.swing.SwingConstants;
-
-import logica.Excepciones.colecciones.Exc_Boletos;
-import logica.Excepciones.colecciones.Exc_Excursiones;
-import logica.Excepciones.objetos.Exc_Boleto;
-import logica.ValueObjects.VOBoleto;
-import logica.fachada.Fachada;
-import vistaGrafica.controladoras.Controladora;
 import vistaGrafica.controladoras.Controladora_RegistroBoleto;
-import vistaGrafica.controladoras.Controladora_RegistroBus;
 
 public class RegistroBoleto extends Ventana
 {
@@ -90,7 +75,7 @@ public class RegistroBoleto extends Ventana
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		final JComboBox comboBox = new JComboBox();
+		final JComboBox<Integer> comboBox = new JComboBox<Integer>();
 		comboBox.setBounds(89, 83, 53, 20);
 		int edadInicial = 1;
 		int edadFinal = 100;
@@ -169,13 +154,15 @@ public class RegistroBoleto extends Ventana
 				String procedencia 	= textField_1.getText();
 				long celular = Long.parseLong(textField_2.getText());
 				boolean especial = chckbxBoletoEspecial.isSelected();
-				double descuento 	= Double.parseDouble(textField_3.getText());
+				//NO ENTIENDO POR QUE MIERDA PERO SE ACA ACA!!!!!! con la variable double
+				double descuento = new Double(textField_3.getSelectedText());
 				String tipoBoleto = "Comun";
 				if(especial)
 					tipoBoleto = "Especial";
 				
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
 				Controladora_RegistroBoleto c;
+				//Y SE CAGA CON EL CONTRUCTOR!!!!!!!!
 				c = new Controladora_RegistroBoleto(((RegistroBoleto) getVentanaAbierta()));
 				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);			
 			}

@@ -1,15 +1,10 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Dimension;
-import java.awt.Frame;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
@@ -17,16 +12,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 
 import javax.swing.JButton;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 
 import vistaGrafica.controladoras.Controladora_RegistroBus;
-import logica.Excepciones.objetos.Exc_Persistencia;
-import logica.fachada.Fachada;
 
 public class RegistroDeBus extends Ventana
 {
@@ -84,7 +73,7 @@ public class RegistroDeBus extends Ventana
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 		
-		final JComboBox comboBox = new JComboBox();
+		final JComboBox<Integer> comboBox = new JComboBox<Integer>();
 		comboBox.setBounds(105, 113, 53, 20);
 		int capacidadBus = 120;
 		for(int i=1; i<=capacidadBus; i++){
