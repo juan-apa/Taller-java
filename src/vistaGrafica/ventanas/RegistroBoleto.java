@@ -155,7 +155,8 @@ public class RegistroBoleto extends Ventana
 				long celular = Long.parseLong(textField_2.getText());
 				boolean especial = chckbxBoletoEspecial.isSelected();
 				//NO ENTIENDO POR QUE MIERDA PERO SE ACA ACA!!!!!! con la variable double
-				double descuento = new Double(textField_3.getSelectedText());
+				//double descuento = new Double(Double.parseDouble(textField_3.getSelectedText().toString()));
+				double descuento = 2.4;
 				String tipoBoleto = "Comun";
 				if(especial)
 					tipoBoleto = "Especial";
@@ -163,7 +164,7 @@ public class RegistroBoleto extends Ventana
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
 				Controladora_RegistroBoleto c;
 				//Y SE CAGA CON EL CONTRUCTOR!!!!!!!!
-				c = new Controladora_RegistroBoleto(((RegistroBoleto) getVentanaAbierta()));
+				c = new Controladora_RegistroBoleto((RegistroBoleto) getVentanaAbierta());
 				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);			
 			}
 		});
