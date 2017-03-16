@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -21,6 +22,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 import javax.swing.JList;
 
@@ -30,10 +32,15 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
+import logica.ValueObjects.VOExcursionListado;
+import logica.colecciones.Iterador;
+import vistaGrafica.controladoras.Controladora_ListadoExcursionesBus;
+import javax.swing.JScrollPane;
+
 public class ListadoExcursionesBus extends Ventana
 {
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField txt_Matricula;
 
 	public ListadoExcursionesBus() {
 		super();
@@ -79,14 +86,18 @@ public class ListadoExcursionesBus extends Ventana
 		btnVolver.setBounds(149, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
-		JList list = new JList();
-		list.setBounds(10, 83, 393, 165);
-		frame.getContentPane().add(list);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 83, 393, 165);
+		frame.getContentPane().add(scrollPane);
 		
-		textField = new JTextField();
-		textField.setBounds(93, 49, 95, 23);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		final JTable list = new JTable();
+		scrollPane.setViewportView(list);
+		list.enable(false);
+		
+		txt_Matricula = new JTextField();
+		txt_Matricula.setBounds(93, 49, 95, 23);
+		frame.getContentPane().add(txt_Matricula);
+		txt_Matricula.setColumns(10);
 		
 		JLabel lblMatricula = new JLabel("Matricula:");
 		lblMatricula.setBounds(10, 49, 89, 23);
@@ -94,15 +105,38 @@ public class ListadoExcursionesBus extends Ventana
 		
 		ButtonGroup grupo = new ButtonGroup();
 		
-		JButton btnIngresar = new JButton("Buscar");
+		final JButton btnIngresar = new JButton("Buscar");
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnIngresar.setText("Re-Buscar");
+				
+				String mat = txt_Matricula.getText();
+				final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
+				
+				 DefaultTableModel dlm = new DefaultTableModel(){
+					 @Override
+					 public int getColumnCount(){
+						 return columnas.length;
+					 }
+					 @Override 
+		            public String getColumnName(int index) { 
+		                return columnas[index]; 
+		            }
+				 }; 
+				Controladora_ListadoExcursionesBus c;
+				c= new Controladora_ListadoExcursionesBus((ListadoExcursionesBus)getVentanaAbierta());
+				Iterador<VOExcursionListado> ite = c.ListadoExcursionesBus(mat);
+				while (ite.hasNext()){
+					VOExcursionListado aux = ite.next();
+					dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(),String.valueOf(aux.gethPartida()),String.valueOf(aux.gethLlegada()),String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
+				}
+				 list.setModel(dlm);
+
+			}
+		});
 		btnIngresar.setBounds(314, 49, 89, 23);
 		frame.getContentPane().add(btnIngresar);
-		/*ACA AGREGO VALORES A LA LISTA
-		DefaultListModel model= new DefaultListModel();
-		model.addElement("HOLA");
-		model.addElement("ALOHA");
-		list.setModel(model);
-		*/
+	
 	}
 	
 	/* Indico si deseo que la ventana sea visible o no */
