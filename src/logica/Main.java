@@ -67,7 +67,7 @@ public class Main {
 		/*Test Requerimiento 3*/
 		System.out.println("\n\nTest Requerimiento 3.");
 		try{
-			Iterador<VOExcursionListado> itereq3 = c.listadoExcursionesDeBus(f, "aaa009");//f.listadoExcursionesDeBus("aaa009");
+			Iterador<VOExcursionListado> itereq3 = f.listadoExcursionesDeBus("aaa009");
 			while(itereq3.hasNext()){
 				System.out.println(itereq3.next().toString());
 			}
