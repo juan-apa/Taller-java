@@ -92,12 +92,15 @@ public class ListadoBuses extends Ventana
 		btnVolver.setBounds(230, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 52, 393, 196);
+		frame.getContentPane().add(scrollPane);
+		
 	
 
 		final JTable list = new JTable();
-		list.setBounds(10, 52, 393, 196);
-		frame.getContentPane().add(list);
-		list.enable(true);
+		scrollPane.setViewportView(list);
+		list.enable(false);
 		
 		
 		final JButton btnRecargar = new JButton("Cargar");
@@ -105,9 +108,6 @@ public class ListadoBuses extends Ventana
 			public void actionPerformed(ActionEvent arg0) {
 					btnRecargar.setText("Re-Cargar");
 					final String[] columnas = {"Matricula", "Marca", "Pasajeros", "Cant. Excursiones"};
-					
-					
-					
 					
 					 DefaultTableModel dlm = new DefaultTableModel(){
 						 @Override
@@ -118,12 +118,7 @@ public class ListadoBuses extends Ventana
 			            public String getColumnName(int index) { 
 			                return columnas[index]; 
 			            }
-					 };
-					 dlm.addColumn("Matricula");
-					 dlm.addColumn("Mrca");
-
-					 //dlm.setColumnIdentifiers(new String[] {"Matricula", "Marca"});
-					 
+					 }; 
 					 
 					Controladora_ListaBus c;
 					c= new Controladora_ListaBus((ListadoBuses) getVentanaAbierta());
@@ -141,12 +136,6 @@ public class ListadoBuses extends Ventana
 		});
 		btnRecargar.setBounds(100, 259, 89, 23);
 		frame.getContentPane().add(btnRecargar);
-		/*ACA AGREGO VALORES A LA LISTA
-		DefaultListModel model= new DefaultListModel();
-		model.addElement("HOLA");
-		model.addElement("ALOHA");
-		list.setModel(model);
-		*/
 	}
 	
 	/* Indico si deseo que la ventana sea visible o no */
