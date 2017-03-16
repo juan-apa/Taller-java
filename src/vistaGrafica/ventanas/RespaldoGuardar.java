@@ -1,34 +1,17 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-import javax.swing.JList;
-
 import java.awt.Font;
-
 import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
+import vistaGrafica.controladoras.Controladora_RespaldoGuardar;
 
 public class RespaldoGuardar extends Ventana
 {
@@ -80,9 +63,16 @@ public class RespaldoGuardar extends Ventana
 		btnVolver.setBounds(204, 95, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
-		ButtonGroup grupo = new ButtonGroup();
 		
 		final JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//codigo de lo que hace el boton Guardar
+				Controladora_RespaldoGuardar c;
+				c = new Controladora_RespaldoGuardar(((RespaldoGuardar) getVentanaAbierta()));
+				c.guardar();
+			}
+		});
 		btnGuardar.setBounds(97, 95, 89, 23);
 		frame.getContentPane().add(btnGuardar);
 		btnGuardar.setVisible(false);

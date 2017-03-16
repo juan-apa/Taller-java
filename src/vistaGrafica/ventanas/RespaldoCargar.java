@@ -1,34 +1,18 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
 
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
+import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-import javax.swing.JList;
-
 import java.awt.Font;
-
 import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
+import vistaGrafica.controladoras.Controladora_RespaldoCargar;
 
 public class RespaldoCargar extends Ventana
 {
@@ -79,9 +63,17 @@ public class RespaldoCargar extends Ventana
 		btnVolver.setBounds(204, 95, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
-		ButtonGroup grupo = new ButtonGroup();
+		//ButtonGroup grupo = new ButtonGroup();
 		
 		final JButton btnCargar = new JButton("Cargar");
+		btnCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//codigo de lo que hace el boton Cargar
+				Controladora_RespaldoCargar c;
+				c = new Controladora_RespaldoCargar(((RespaldoCargar) getVentanaAbierta()));
+				c.cargar();
+			}
+		});
 		btnCargar.setBounds(97, 95, 89, 23);
 		frame.getContentPane().add(btnCargar);
 		btnCargar.setVisible(false);
