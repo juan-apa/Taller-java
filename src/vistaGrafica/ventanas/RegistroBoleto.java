@@ -144,6 +144,10 @@ public class RegistroBoleto extends Ventana
 		chckbxBoletoEspecial.setBounds(10, 194, 306, 23);
 		frame.getContentPane().add(chckbxBoletoEspecial);
 		
+		JLabel label = new JLabel("%");
+		label.setBounds(138, 222, 69, 25);
+		frame.getContentPane().add(label);
+		
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//codigo de lo que hace el boton INGRESAR
@@ -154,17 +158,16 @@ public class RegistroBoleto extends Ventana
 				String procedencia 	= textField_1.getText();
 				long celular = Long.parseLong(textField_2.getText());
 				boolean especial = chckbxBoletoEspecial.isSelected();
-				//NO ENTIENDO POR QUE MIERDA PERO SE ACA ACA!!!!!! con la variable double
-				//double descuento = new Double(Double.parseDouble(textField_3.getSelectedText().toString()));
-				
-				double descuento = Double.parseDouble(textField_3.getText().toString());
+
+				double descuento = 0.0;
 				String tipoBoleto = "Comun";
-				if(especial)
+				if(especial){
 					tipoBoleto = "Especial";
-				
+					double auxDescuento = Double.parseDouble(textField_3.getText().toString());
+					descuento = auxDescuento / 100;
+				}
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
 				Controladora_RegistroBoleto c;
-				//Y SE CAGA CON EL CONTRUCTOR!!!!!!!!
 				c = new Controladora_RegistroBoleto((RegistroBoleto) getVentanaAbierta());
 				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);			
 			}

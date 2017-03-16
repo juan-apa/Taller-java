@@ -39,7 +39,7 @@ public class Controladora_RegistroBoleto {
 		if(entrada.getEdadPasajero() < 0){
 			ven.mostrarError("La edad del pasajero no puede ser menor a 0", 0);
 		}else{
-			if(entrada.getNroCelular()/10000000 < 0){
+			if(entrada.getNroCelular()/10000000 < 1){
 				ven.mostrarError("Al numero de telefono le faltan digitos", 0);
 			}else{
 				if(entrada.getDtoAdicional() < 0.0){

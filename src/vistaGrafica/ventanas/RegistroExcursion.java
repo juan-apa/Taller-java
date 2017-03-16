@@ -122,7 +122,7 @@ public class RegistroExcursion extends Ventana
 		frame.getContentPane().add(comboBox_1);
 		
 		comboBox_5 = new JComboBox<Integer>();
-		comboBox_5.setBounds(258, 172, 56, 20);
+		comboBox_5.setBounds(43, 175, 56, 20);
 		frame.getContentPane().add(comboBox_5);
 		//carga de dias combobox	ver meses con 28 29 30 31 dias
 		int diaInicial=1;
@@ -132,7 +132,7 @@ public class RegistroExcursion extends Ventana
 		}
 		
 		label = new JLabel("Dia:");
-		label.setBounds(225, 169, 23, 20);
+		label.setBounds(10, 172, 23, 20);
 		frame.getContentPane().add(label);
 		
 		comboBox_6 = new JComboBox<Integer>();
@@ -149,7 +149,7 @@ public class RegistroExcursion extends Ventana
 		frame.getContentPane().add(label_1);
 		
 		comboBox_7 = new JComboBox<Integer>();
-		comboBox_7.setBounds(45, 175, 56, 20);
+		comboBox_7.setBounds(268, 172, 56, 20);
 		frame.getContentPane().add(comboBox_7);
 		//Carga de combobox años
 		int añoInicial=2017;
@@ -160,7 +160,7 @@ public class RegistroExcursion extends Ventana
 		
 		
 		label_2 = new JLabel("A\u00F1o:");
-		label_2.setBounds(10, 175, 34, 20);
+		label_2.setBounds(233, 172, 34, 20);
 		frame.getContentPane().add(label_2);
 		
 		label_3 = new JLabel("Hora:");
@@ -190,12 +190,12 @@ public class RegistroExcursion extends Ventana
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				//codigo de lo que hace el boton INGRESAR
-				String codigo = textField_1.getText();
-				String destino = textField_2.getText();
+				String codigo = textField_1.getText().trim();
+				String destino = textField_2.getText().trim();
 				java.util.Date fecha = new Date();
 				Date hPartida = new Date(fecha.getYear(), fecha.getMonth(), fecha.getDay(), Integer.parseInt(comboBox.getSelectedItem().toString()), Integer.parseInt(comboBox_1.getSelectedItem().toString()));
 				Date hLlegada = new Date(Integer.parseInt(comboBox_7.getSelectedItem().toString()), Integer.parseInt(comboBox_6.getSelectedItem().toString()), Integer.parseInt(comboBox_5.getSelectedItem().toString()), Integer.parseInt(comboBox_8.getSelectedItem().toString()), Integer.parseInt(comboBox_9.getSelectedItem().toString())); 
-				double precioBase = Double.parseDouble(textField_4.getSelectedText().toString());
+				double precioBase = Double.parseDouble(textField_4.getText().toString());
 				Controladora_RegistroExcursion c;
 				c = new Controladora_RegistroExcursion(((RegistroExcursion) getVentanaAbierta()));
 				c.registroExcursion(codigo, destino, hPartida, hLlegada, precioBase);

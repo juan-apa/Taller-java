@@ -30,30 +30,56 @@ public class Cliente {
 			String ip = p.buscar("Ip");
 			IFachada fachada = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 			
-			try {
-				//Listo los Bus ingresados en el servidor	
-				Iterador<VOBusExc> itegenbus = fachada.listadoGeneralBuses();//f.listadoGeneralBuses();
-				while(itegenbus.hasNext()){
-					VOBusExc vobusexcaux = itegenbus.next();
-					System.out.println(vobusexcaux.toString());
+			
+//			VOExcursion entrada = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
+//			fachada.registroNuevaExcursion(entrada);
+			//Listo los Boletos
+			try{
+				Iterador<VOExcursionListado> itereq3 = fachada.listadoExcursionesDeBus("2");
+				while(itereq3.hasNext()){
+					System.out.println(itereq3.next().toString());
 				}
-				//Listo los Boletos
-				Iterador<VOBoleto2> iter8 = null;
-				try {
-					iter8 = fachada.listadoBoletosExcursion("001", "Especial");
-				} catch (Exc_Boletos e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				while(iter8.hasNext()){
-					VOBoleto2 bo2 = iter8.next();
-					System.out.println(bo2.toString());
-				}
-
-			} catch (Exc_Buses e1) {
-				System.out.println(e1.toString());
-				//e1.printStackTrace();
-			}					
+			}
+			catch(Exc_Bus ebus){
+				System.out.println(ebus.toString());
+			}
+			catch(Exc_Buses ebuses){
+				System.out.println(ebuses.toString());
+			}
+			catch(Exc_Excursiones eexcs){
+				System.out.println(eexcs.toString());
+			}
+			catch(RemoteException e){
+				System.out.println(e.toString());
+			}
+//			try {
+//				//Listo los Bus ingresados en el servidor	
+//
+//				Iterador<VOBusExc> itegenbus = fachada.listadoGeneralBuses();//f.listadoGeneralBuses();
+//				while(itegenbus.hasNext()){
+//					VOBusExc vobusexcaux = itegenbus.next();
+//					System.out.println(vobusexcaux.toString());
+//				}
+//				//Listo los Boletos
+//				Iterador<VOBoleto2> iter8 = null;
+//				try {
+//					iter8 = fachada.listadoBoletosExcursion("001", "Especial");
+//				} catch (Exc_Boletos e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				while(iter8.hasNext()){
+//					VOBoleto2 bo2 = iter8.next();
+//					System.out.println(bo2.toString());
+//				}
+//
+//			} catch (Exc_Buses e1) {
+//				System.out.println(e1.toString());
+//				//e1.printStackTrace();
+//			} catch (Exc_Excursion e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}					
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();

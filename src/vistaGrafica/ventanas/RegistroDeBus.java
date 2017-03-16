@@ -87,7 +87,7 @@ public class RegistroDeBus extends Ventana
 				//codigo de lo que hace el boton INGRESAR
 				Controladora_RegistroBus c;
 				c = new Controladora_RegistroBus(((RegistroDeBus) getVentanaAbierta()));
-				c.registroBus(textField.getText(), textField_1.getText(), Integer.parseInt(comboBox.getSelectedItem().toString()));				
+				c.registroBus(textField.getText().trim(), textField_1.getText().trim(), Integer.parseInt(comboBox.getSelectedItem().toString()));				
 			}
 		});
 		btnIngresar.setBounds(101, 176, 89, 23);
