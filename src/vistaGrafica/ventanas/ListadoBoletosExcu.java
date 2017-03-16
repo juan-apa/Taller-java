@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JCheckBox;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -21,6 +22,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 import javax.swing.JList;
 
@@ -30,10 +32,16 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
+import logica.ValueObjects.VOBoleto;
+import logica.ValueObjects.VOBoleto2;
+import logica.ValueObjects.VOBusExc;
+import logica.colecciones.Iterador;
+import vistaGrafica.controladoras.Controladora_ListadoBoletosExcu;
+
 public class ListadoBoletosExcu extends Ventana
 {
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField cod_exc;
 
 	public ListadoBoletosExcu() {
 		super();
@@ -80,20 +88,20 @@ public class ListadoBoletosExcu extends Ventana
 		btnVolver.setBounds(109, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
-		JList list = new JList();
+		final JTable list = new JTable();
 		list.setBounds(134, 52, 269, 196);
 		frame.getContentPane().add(list);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 86, 114, 23);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		cod_exc = new JTextField();
+		cod_exc.setBounds(10, 86, 114, 23);
+		frame.getContentPane().add(cod_exc);
+		cod_exc.setColumns(10);
 		
 		JLabel lblCodigoDeExcursion = new JLabel("Codigo de Excursion:");
 		lblCodigoDeExcursion.setBounds(10, 58, 114, 23);
 		frame.getContentPane().add(lblCodigoDeExcursion);
 		
-		JRadioButton rdbtnComun = new JRadioButton("Comun");
+		final JRadioButton rdbtnComun = new JRadioButton("Comun");
 		rdbtnComun.setBounds(10, 145, 122, 23);
 		frame.getContentPane().add(rdbtnComun);
 		rdbtnComun.setSelected(true);
@@ -111,7 +119,42 @@ public class ListadoBoletosExcu extends Ventana
 		lblTipoDeBoleto.setBounds(10, 124, 114, 14);
 		frame.getContentPane().add(lblTipoDeBoleto);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		final JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnBuscar.setText("Re-Buscar");
+				String cod = cod_exc.getText().trim();
+				String tipo;
+				if (rdbtnComun.isSelected()){
+					tipo = "Comun";
+				}else{
+					tipo = "Especial";
+				}
+				
+				final String[] columnas = {"Matricula", "Marca", "Pasajeros", "Cant. Excursiones"};
+				
+				 DefaultTableModel dlm = new DefaultTableModel(){
+					 @Override
+					 public int getColumnCount(){
+						 return columnas.length;
+					 }
+					 @Override 
+		            public String getColumnName(int index) { 
+		                return columnas[index]; 
+		            }
+				 }; 
+
+				Controladora_ListadoBoletosExcu c;
+				c=new Controladora_ListadoBoletosExcu((ListadoBoletosExcu) getVentanaAbierta());
+				Iterador<VOBoleto2> ite = c.ListadoBoletosExc(cod, tipo);
+				while (ite.hasNext()){
+					VOBoleto2 aux = ite.next();
+					dlm.addRow(new String[] {String.valueOf(aux.getNumero()), String.valueOf(aux.getEdad()) ,aux.getLugarProcedencia(), String.valueOf(aux.getNroCelular())});
+				}
+				list.setModel(dlm);
+				
+			}
+		});
 		btnBuscar.setBounds(10, 259, 89, 23);
 		frame.getContentPane().add(btnBuscar);
 		/*ACA AGREGO VALORES A LA LISTA
