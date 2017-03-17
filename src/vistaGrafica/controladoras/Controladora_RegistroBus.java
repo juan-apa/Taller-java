@@ -34,14 +34,13 @@ public class Controladora_RegistroBus {
 	
 	public void registroBus(String matricula, String marca, int capPasajeros) {
 		VOBus entrada = new VOBus(matricula, marca, capPasajeros);
-		if((entrada.getMatricula() == null) || (entrada.getMatricula() == "")){
+		if((entrada.getMatricula() == null) || (entrada.getMatricula().equals(""))){
 			ven.mostrarError("El Bus a registrar no cuenta con una Matricula", 0);
 		}else{
-			//no esta funcionando esta prueba
 			if((matricula.matches(".*[a-zA-Z].*"))&&(matricula.matches("[0-9]"))){
 				ven.mostrarError("La matricula ingresada no es Alfanumerica", 0);
 			}else{
-				if(marca.isEmpty()){
+				if((entrada.getMarca() == null) || (entrada.getMarca().equals(""))){
 					ven.mostrarError("El Bus a registrar no cuenta con una Marca", 0);
 				}else{
 					if(entrada.getCapPasajeros() <= 0){

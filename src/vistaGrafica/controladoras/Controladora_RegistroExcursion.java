@@ -37,25 +37,33 @@ public class Controladora_RegistroExcursion {
 	public void registroExcursion(String codigo, String destino, Date hPartida, Date hLlegada, double precioBase){
 		VOExcursion entrada = new VOExcursion(codigo, destino, hPartida, hLlegada, precioBase);
 		try {
-			if(f.getBuses().empty()){
-				ven.mostrarError("No hay buses registrados en el sistema", 0);
-			}else{
-				if(entrada.getPrecioBase() <= 0){
-					ven.mostrarError("El precio base debe ser mayor a 0", 0);
-				}else{
-					if((entrada.gethLlegada().before(entrada.gethPartida())) || (entrada.gethPartida().equals(entrada.gethLlegada()))){
-						ven.mostrarError("La hora de partida debe ser menor a la hora de llegada", 0);
+			if((entrada.getDestino() == null) || (entrada.getDestino().equals(""))){
+				if((entrada.getCodigo() == null) || (entrada.getCodigo().equals(""))){
+					if(f.getBuses().empty()){
+						ven.mostrarError("No hay buses registrados en el sistema", 0);
 					}else{
-						if(f.getExcursiones().exists(entrada.getCodigo())){
-							ven.mostrarError("Existe una excursion con el mismo codigo", 0);
+						if(entrada.getPrecioBase() <= 0){
+							ven.mostrarError("El precio base debe ser mayor a 0", 0);
 						}else{
-							f.registroNuevaExcursion(entrada);
-							ven.mostrarCorrecto("Ingreso con Exito!");
-							ven.setVentanaAbierta(null);
-							ven.setVisible(false);
+							if((entrada.gethLlegada().before(entrada.gethPartida())) || (entrada.gethPartida().equals(entrada.gethLlegada()))){
+								ven.mostrarError("La hora de partida debe ser menor a la hora de llegada", 0);
+							}else{
+								if(f.getExcursiones().exists(entrada.getCodigo())){
+									ven.mostrarError("Existe una excursion con el mismo codigo", 0);
+								}else{
+									f.registroNuevaExcursion(entrada);
+									ven.mostrarCorrecto("Ingreso con Exito!");
+									ven.setVentanaAbierta(null);
+									ven.setVisible(false);
+								}
+							}
 						}
 					}
+				}else{
+					ven.mostrarError("La excursion ha ingresar no cuenta con un Destino", 0);
 				}
+			}else{
+				ven.mostrarError("La excursion ha ingresar no cuenta con un Codigo", 0);
 			}
 		} catch (RemoteException | Exc_Excursiones | Exc_Buses | Exc_Excursion e) {
 			// TODO Auto-generated catch block
