@@ -54,6 +54,8 @@ public class Controladora_RegistroBus {
 								try {
 									f.registroNuevoBus(entrada);
 									ven.mostrarCorrecto("Ingreso con Exito!");
+									ven.setVentanaAbierta(null);
+									ven.setVisible(false);
 								} catch (RemoteException | Exc_Bus | Exc_Buses e) {
 									// TODO Auto-generated catch block
 									ven.mostrarError(e.toString(), 0);

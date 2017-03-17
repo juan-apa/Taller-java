@@ -1,22 +1,17 @@
 package vistaGrafica.ventanas;
 
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
-
 import java.awt.Font;
-
 import vistaGrafica.controladoras.Controladora_RegistroBoleto;
 
 public class RegistroBoleto extends Ventana
@@ -126,27 +121,31 @@ public class RegistroBoleto extends Ventana
 		textField_3.setBounds(89, 224, 37, 20);
 		frame.getContentPane().add(textField_3);
 		
+		final JLabel lblPorcentaje = new JLabel("%");
+		lblPorcentaje.setBounds(138, 222, 69, 25);
+		frame.getContentPane().add(lblPorcentaje);
+		
 		//JCheckBox 
 		final JCheckBox chckbxBoletoEspecial = new JCheckBox("Boleto Especial?");
 		lblDescuento.setVisible(false);
 		textField_3.setVisible(false);
+		lblPorcentaje.setVisible(false);
+		
 		chckbxBoletoEspecial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (chckbxBoletoEspecial.isSelected()){
 					lblDescuento.setVisible(true);
 					textField_3.setVisible(true);
+					lblPorcentaje.setVisible(true);
 				}else{
 					lblDescuento.setVisible(false);
 					textField_3.setVisible(false);
+					lblPorcentaje.setVisible(false);
 				}
 			}
 		});
 		chckbxBoletoEspecial.setBounds(10, 194, 306, 23);
 		frame.getContentPane().add(chckbxBoletoEspecial);
-		
-		JLabel label = new JLabel("%");
-		label.setBounds(138, 222, 69, 25);
-		frame.getContentPane().add(label);
 		
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -158,7 +157,6 @@ public class RegistroBoleto extends Ventana
 				String procedencia 	= textField_1.getText();
 				long celular = Long.parseLong(textField_2.getText());
 				boolean especial = chckbxBoletoEspecial.isSelected();
-
 				double descuento = 0.0;
 				String tipoBoleto = "Comun";
 				if(especial){
@@ -169,7 +167,7 @@ public class RegistroBoleto extends Ventana
 				//Se los mando a la controladora para que me revise que los valores sean correctos.
 				Controladora_RegistroBoleto c;
 				c = new Controladora_RegistroBoleto((RegistroBoleto) getVentanaAbierta());
-				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);			
+				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
 			}
 		});
 		

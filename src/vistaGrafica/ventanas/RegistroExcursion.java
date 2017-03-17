@@ -198,7 +198,7 @@ public class RegistroExcursion extends Ventana
 				double precioBase = Double.parseDouble(textField_4.getText().toString());
 				Controladora_RegistroExcursion c;
 				c = new Controladora_RegistroExcursion(((RegistroExcursion) getVentanaAbierta()));
-				c.registroExcursion(codigo, destino, hPartida, hLlegada, precioBase);
+				c.registroExcursion(codigo, destino, hPartida, hLlegada, precioBase);	
 			}
 		});
 		btnIngresar.setBounds(296, 213, 97, 27);

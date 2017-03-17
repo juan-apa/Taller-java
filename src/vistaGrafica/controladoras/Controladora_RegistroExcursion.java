@@ -51,6 +51,8 @@ public class Controladora_RegistroExcursion {
 						}else{
 							f.registroNuevaExcursion(entrada);
 							ven.mostrarCorrecto("Ingreso con Exito!");
+							ven.setVentanaAbierta(null);
+							ven.setVisible(false);
 						}
 					}
 				}

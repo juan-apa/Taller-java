@@ -32,6 +32,8 @@ public class Controladora_RespaldoCargar {
 		try {
 			f.recuperar();
 			ven.mostrarCorrecto("Recuperado Correctamente");
+			ven.setVentanaAbierta(null);
+			ven.setVisible(false);
 		}catch (Exc_Persistencia e) {
 			// TODO Auto-generated catch block
 			ven.mostrarError(e.toString(), 0);

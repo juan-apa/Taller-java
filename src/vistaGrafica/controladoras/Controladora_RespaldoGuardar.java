@@ -33,6 +33,8 @@ public class Controladora_RespaldoGuardar {
 		try {
 			f.respaldar();
 			ven.mostrarCorrecto("Guardado Correctamente");
+			ven.setVentanaAbierta(null);
+			ven.setVisible(false);
 		}catch (Exc_Persistencia e) {
 			// TODO Auto-generated catch block
 			ven.mostrarError(e.toString(), 0);

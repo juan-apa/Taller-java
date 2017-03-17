@@ -54,6 +54,8 @@ public class Controladora_RegistroBoleto {
 							}else{
 								f.ventaBoleto(entrada);
 								ven.mostrarCorrecto("Boleto Vendido Correctamente");
+								ven.setVentanaAbierta(null);
+								ven.setVisible(false);
 							}
 						}
 					} catch (RemoteException e) {
