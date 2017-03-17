@@ -175,7 +175,7 @@ public class Main {
 		try {
 			System.out.println("\nTest Requerimiento 8.");
 			double total;
-			total = c.recaudadoEnExcursion(f, "001"); //f.recaudadoEnExcursion("001");
+			total = f.recaudadoEnExcursion("001");
 			System.out.println("\nEl total recaudado es: "+total);
 			
 		} catch (Exception e) {
