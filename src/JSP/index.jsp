@@ -32,8 +32,12 @@
       			</tr>
             <c:forEach items="${resultados}" var="i" >
       				<tr>
-      					<td> ${i.autor} </td>
-      					<td> ${i.mensaje} </td>
+      					<td> ${i.codigo} </td>
+      					<td> ${i.destino} </td>
+      					<td> ${i.hPartida} </td>
+      					<td> ${i.hLlegada} </td>
+      					<td> ${i.precioBase} </td>
+      					<td> ${i.asientosDisp} </td>
       				</tr>
       			</c:forEach>
 

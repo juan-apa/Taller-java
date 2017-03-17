@@ -35,4 +35,8 @@ public class Iterador<T> implements Serializable{
 		return (contenido.size() == 0);
 	}
 	
+	public ArrayList<T> toArray(){
+		return (ArrayList<T>) this.contenido;
+	}
+	
 }
