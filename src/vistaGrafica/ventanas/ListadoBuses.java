@@ -123,13 +123,13 @@ public class ListadoBuses extends Ventana
 					Controladora_ListaBus c;
 					c= new Controladora_ListaBus((ListadoBuses) getVentanaAbierta());
 					Iterador<VOBusExc> ite = c.ListadoBuses();
-					while (ite.hasNext()){
-						VOBusExc aux = ite.next();
-						dlm.addRow(new String[] {aux.getMatricula(), aux.getMarca(), String.valueOf(aux.getCapPasajeros()),String.valueOf(aux.getExcursionesAsignadas())});
-					}
-					
-					 list.setModel(dlm);
-					 
+					if(!ite.empty()){
+						while (ite.hasNext()){
+							VOBusExc aux = ite.next();
+							dlm.addRow(new String[] {aux.getMatricula(), aux.getMarca(), String.valueOf(aux.getCapPasajeros()),String.valueOf(aux.getExcursionesAsignadas())});
+						}
+						list.setModel(dlm);
+					} 
 					
 			}	
 				

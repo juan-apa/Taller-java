@@ -36,14 +36,18 @@ public class Controladora_ListaBus {
 		Iterador<VOBusExc> ret = new Iterador<VOBusExc>();
 		try {
 			ret=f.listadoGeneralBuses();
+			return ret;
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ven.mostrarError(e.toString(), 0);
+			ret = null;
+			return ret;
 		} catch (Exc_Buses e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ven.mostrarError(e.toString(), 0);
+			ret = null;
+			return ret;
 		}
-		return ret;
 	}
 	
 	
