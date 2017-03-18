@@ -1,28 +1,14 @@
 package vistaGrafica.ventanas;
+
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.rmi.Naming;
-
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
-
-import logica.fachada.Fachada;
-import logica.fachada.IFachada;
-import persistencia.Propiedades;
-import vistaGrafica.controladoras.Controladora;
 
 
 public class VentanaPrincipal extends Ventana
@@ -300,6 +286,16 @@ public class VentanaPrincipal extends Ventana
 		});
 		B_respaldo.add(menuItem);
 		
+		//Levanto los datos del archivo en el servior
+//		try{
+//			Controladora_RespaldoCargar c;
+//			c = new Controladora_RespaldoCargar(((RespaldoCargar) getVentanaAbierta()));
+//			c.cargar();
+//		} catch (Exc_Persistencia e) {
+//			mostrarError("Error al cargar el archivo .properties", 0);
+//		} catch(MalformedURLException | RemoteException | NotBoundException e){
+//			mostrarError("Error de conexion con el servidor, recuerde levantar los datos previo a comenzar",0);
+//		}
 		
 	}
 

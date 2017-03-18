@@ -1,20 +1,12 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
 
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,19 +15,19 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-import javax.swing.JList;
 
 import java.awt.Font;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 
-import logica.ValueObjects.VOBoleto2;
+import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
 import vistaGrafica.controladoras.Controladora_ListadoExcuDestino;
+
 import javax.swing.JScrollPane;
 
 public class ListadoExcuDestino extends Ventana
@@ -52,6 +44,7 @@ public class ListadoExcuDestino extends Ventana
 	
 	
 	/* Inicializo los componentes de la ventana */
+	@SuppressWarnings("deprecation")
 	private void initialize() 
 	{
 		/* marco de la ventana secundaria */
@@ -104,7 +97,7 @@ public class ListadoExcuDestino extends Ventana
 		lblDestino.setBounds(10, 49, 114, 23);
 		frame.getContentPane().add(lblDestino);
 		
-		ButtonGroup grupo = new ButtonGroup();
+		//ButtonGroup grupo = new ButtonGroup();
 		
 		final JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
@@ -115,7 +108,11 @@ public class ListadoExcuDestino extends Ventana
 				final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
 				
 				 DefaultTableModel dlm = new DefaultTableModel(){
-					 @Override
+					 /**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					@Override
 					 public int getColumnCount(){
 						 return columnas.length;
 					 }
@@ -124,16 +121,21 @@ public class ListadoExcuDestino extends Ventana
 		                return columnas[index]; 
 		            }
 				 }; 
-				
-				Controladora_ListadoExcuDestino c;
-				c= new Controladora_ListadoExcuDestino((ListadoExcuDestino)getVentanaAbierta());
-				Iterador<VOExcursionListado> ite = c.ListadoExcuDestino(dest);
-				while (ite.hasNext()){
-					VOExcursionListado aux = ite.next();
-					dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(),String.valueOf(aux.gethPartida()),String.valueOf(aux.gethLlegada()),String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
-				}
-				
-				 list.setModel(dlm);
+				try{
+					Controladora_ListadoExcuDestino c;
+					c= new Controladora_ListadoExcuDestino((ListadoExcuDestino)getVentanaAbierta());
+					Iterador<VOExcursionListado> ite = c.ListadoExcuDestino(dest);
+					while (ite.hasNext()){
+						VOExcursionListado aux = ite.next();
+						dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(),String.valueOf(aux.gethPartida()),String.valueOf(aux.gethLlegada()),String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
+					}
+					
+					 list.setModel(dlm);
+				} catch (Exc_Persistencia e2) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e3){
+					mostrarError("Error de conexion",0);
+				}	
 			}
 		});
 		btnBuscar.setBounds(213, 49, 89, 23);

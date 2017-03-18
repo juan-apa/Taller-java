@@ -27,14 +27,19 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 import javax.swing.JList;
 
 import java.awt.Font;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
+import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
 import vistaGrafica.controladoras.Controladora_ListadoExcursionesBus;
+
 import javax.swing.JScrollPane;
 
 public class ListadoExcursionesBus extends Ventana
@@ -108,30 +113,35 @@ public class ListadoExcursionesBus extends Ventana
 		final JButton btnIngresar = new JButton("Buscar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnIngresar.setText("Re-Buscar");
-				
-				String mat = txt_Matricula.getText();
-				final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
-				
-				 DefaultTableModel dlm = new DefaultTableModel(){
-					 @Override
-					 public int getColumnCount(){
-						 return columnas.length;
-					 }
-					 @Override 
-		            public String getColumnName(int index) { 
-		                return columnas[index]; 
-		            }
-				 }; 
-				Controladora_ListadoExcursionesBus c;
-				c= new Controladora_ListadoExcursionesBus((ListadoExcursionesBus)getVentanaAbierta());
-				Iterador<VOExcursionListado> ite = c.ListadoExcursionesBus(mat);
-				while (ite.hasNext()){
-					VOExcursionListado aux = ite.next();
-					dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(),String.valueOf(aux.gethPartida()),String.valueOf(aux.gethLlegada()),String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
+				try{
+					btnIngresar.setText("Re-Buscar");
+					
+					String mat = txt_Matricula.getText();
+					final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
+					
+					 DefaultTableModel dlm = new DefaultTableModel(){
+						 @Override
+						 public int getColumnCount(){
+							 return columnas.length;
+						 }
+						 @Override 
+			            public String getColumnName(int index) { 
+			                return columnas[index]; 
+			            }
+					 }; 
+					Controladora_ListadoExcursionesBus c;
+					c= new Controladora_ListadoExcursionesBus((ListadoExcursionesBus)getVentanaAbierta());
+					Iterador<VOExcursionListado> ite = c.ListadoExcursionesBus(mat);
+					while (ite.hasNext()){
+						VOExcursionListado aux = ite.next();
+						dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(),String.valueOf(aux.gethPartida()),String.valueOf(aux.gethLlegada()),String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
+					}
+					 list.setModel(dlm);
+				} catch (Exc_Persistencia e2) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e3){
+					mostrarError("Error de conexion",0);
 				}
-				 list.setModel(dlm);
-
 			}
 		});
 		btnIngresar.setBounds(314, 49, 89, 23);

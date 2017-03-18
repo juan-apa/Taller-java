@@ -15,7 +15,7 @@ public class Controladora_ReasignacionExcursion {
 	private IFachada f;
 	private ReasignacionExcursion ven;
 	
-	public Controladora_ReasignacionExcursion(ReasignacionExcursion ventana) {
+	public Controladora_ReasignacionExcursion(ReasignacionExcursion ventana) throws Exc_Persistencia, MalformedURLException,  RemoteException,  NotBoundException {
 		try {
 			ven = ventana;
 			Propiedades p = new Propiedades();
@@ -23,10 +23,9 @@ public class Controladora_ReasignacionExcursion {
 			String ip = p.buscar("Ip");
 			f = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 		}catch (MalformedURLException | RemoteException | NotBoundException e) {
-			ven.mostrarError(e.toString(), 0);
+			throw e;
 		} catch (Exc_Persistencia e2) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e2.toString(), 0);
+			throw e2;
 		}
 	}
 	

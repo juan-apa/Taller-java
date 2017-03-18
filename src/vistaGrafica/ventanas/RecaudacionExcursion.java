@@ -14,9 +14,13 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
 
+import logica.Excepciones.objetos.Exc_Persistencia;
 import vistaGrafica.controladoras.Controladora_RecaudacionExcursion;
 
 public class RecaudacionExcursion extends Ventana
@@ -81,10 +85,16 @@ public class RecaudacionExcursion extends Ventana
 		JButton btnIngresar = new JButton("Calcular");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String codigo = textField.getText().toString();
-				Controladora_RecaudacionExcursion c;
-				c = new Controladora_RecaudacionExcursion((RecaudacionExcursion) getVentanaAbierta());
-				c.recaudadoEnExcursion(codigo);
+				try{
+					String codigo = textField.getText().toString();
+					Controladora_RecaudacionExcursion c;
+					c = new Controladora_RecaudacionExcursion((RecaudacionExcursion) getVentanaAbierta());
+					c.recaudadoEnExcursion(codigo);
+				} catch (Exc_Persistencia e2) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e3){
+					mostrarError("Error de conexion",0);
+				}
 			}
 		});
 		btnIngresar.setBounds(280, 49, 89, 23);

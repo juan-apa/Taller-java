@@ -27,16 +27,21 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
 import javax.swing.JList;
 
 import java.awt.Font;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 
+import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBusExc;
 import logica.colecciones.Iterador;
 import vistaGrafica.controladoras.Controladora_ListadoBoletosExcu;
+
 import javax.swing.JScrollPane;
 
 public class ListadoBoletosExcu extends Ventana
@@ -149,16 +154,20 @@ public class ListadoBoletosExcu extends Ventana
 		                return columnas[index]; 
 		            }
 				 }; 
-
-				Controladora_ListadoBoletosExcu c;
-				c=new Controladora_ListadoBoletosExcu((ListadoBoletosExcu) getVentanaAbierta());
-				Iterador<VOBoleto2> ite = c.ListadoBoletosExc(cod, tipo);
-				while (ite.hasNext()){
-					VOBoleto2 aux = ite.next();
-					dlm.addRow(new String[] {String.valueOf(aux.getNumero()), String.valueOf(aux.getEdad()) ,aux.getLugarProcedencia(), String.valueOf(aux.getNroCelular())});
+				try{
+					Controladora_ListadoBoletosExcu c;
+					c=new Controladora_ListadoBoletosExcu((ListadoBoletosExcu) getVentanaAbierta());
+					Iterador<VOBoleto2> ite = c.ListadoBoletosExc(cod, tipo);
+					while (ite.hasNext()){
+						VOBoleto2 aux = ite.next();
+						dlm.addRow(new String[] {String.valueOf(aux.getNumero()), String.valueOf(aux.getEdad()) ,aux.getLugarProcedencia(), String.valueOf(aux.getNroCelular())});
+					}
+					list.setModel(dlm);
+				} catch (Exc_Persistencia e2) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e3){
+					mostrarError("Error de conexion",0);
 				}
-				list.setModel(dlm);
-				
 			}
 		});
 		btnBuscar.setBounds(10, 259, 89, 23);

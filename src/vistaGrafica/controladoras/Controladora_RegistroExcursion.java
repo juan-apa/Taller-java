@@ -19,7 +19,7 @@ public class Controladora_RegistroExcursion {
 	private IFachada f;
 	private RegistroExcursion ven;
 	
-	public Controladora_RegistroExcursion(RegistroExcursion ventana) {
+	public Controladora_RegistroExcursion(RegistroExcursion ventana) throws MalformedURLException, RemoteException, NotBoundException, Exc_Persistencia {
 		try {
 			ven = ventana;
 			Propiedades p = new Propiedades();
@@ -27,18 +27,17 @@ public class Controladora_RegistroExcursion {
 			String ip = p.buscar("Ip");
 			f = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 		}catch (MalformedURLException | RemoteException | NotBoundException e) {
-			ven.mostrarError(e.toString(), 0);
+			throw e;
 		} catch (Exc_Persistencia e2) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e2.toString(), 0);
+			throw e2;
 		}
 	}
 	
 	public void registroExcursion(String codigo, String destino, Date hPartida, Date hLlegada, double precioBase){
 		VOExcursion entrada = new VOExcursion(codigo, destino, hPartida, hLlegada, precioBase);
 		try {
-			if((entrada.getDestino() == null) || (entrada.getDestino().equals(""))){
-				if((entrada.getCodigo() == null) || (entrada.getCodigo().equals(""))){
+			if(!entrada.getDestino().isEmpty()){
+				if(!entrada.getCodigo().isEmpty()){
 					if(f.getBuses().empty()){
 						ven.mostrarError("No hay buses registrados en el sistema", 0);
 					}else{
@@ -60,10 +59,10 @@ public class Controladora_RegistroExcursion {
 						}
 					}
 				}else{
-					ven.mostrarError("La excursion ha ingresar no cuenta con un Destino", 0);
+					ven.mostrarError("La excursion ha ingresar no cuenta con un Codigo", 0);
 				}
 			}else{
-				ven.mostrarError("La excursion ha ingresar no cuenta con un Codigo", 0);
+				ven.mostrarError("La excursion ha ingresar no cuenta con un Destino", 0);
 			}
 		} catch (RemoteException | Exc_Excursiones | Exc_Buses | Exc_Excursion e) {
 			// TODO Auto-generated catch block

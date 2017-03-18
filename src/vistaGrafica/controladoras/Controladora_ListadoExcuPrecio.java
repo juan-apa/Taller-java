@@ -11,14 +11,13 @@ import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
 import logica.fachada.IFachada;
 import persistencia.Propiedades;
-import vistaGrafica.ventanas.ListadoExcuDestino;
 import vistaGrafica.ventanas.ListadoExcuPrecio;
 
 public class Controladora_ListadoExcuPrecio {
 	private IFachada f;
 	private ListadoExcuPrecio ven;
 	
-	public Controladora_ListadoExcuPrecio(ListadoExcuPrecio ventana){
+	public Controladora_ListadoExcuPrecio(ListadoExcuPrecio ventana) throws Exc_Persistencia, MalformedURLException,  RemoteException,  NotBoundException{
 		try{
 			ven=ventana;
 			Propiedades p = new Propiedades();
@@ -26,10 +25,9 @@ public class Controladora_ListadoExcuPrecio {
 			String ip = p.buscar("Ip");
 			f = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 		}catch (MalformedURLException | RemoteException | NotBoundException e) {
-			ven.mostrarError(e.toString(), 0);
+			throw e;
 		} catch (Exc_Persistencia e2) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e2.toString(), 0);
+			throw e2;
 		}
 	}
 	

@@ -4,13 +4,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-
 import persistencia.Propiedades;
 import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBoleto2;
-import logica.ValueObjects.VOExcBol;
 import logica.colecciones.Iterador;
 import logica.fachada.IFachada;
 import vistaGrafica.ventanas.ListadoBoletosExcu;
@@ -19,7 +17,7 @@ public class Controladora_ListadoBoletosExcu {
 	private IFachada f;
 	private ListadoBoletosExcu ven;
 	
-	public Controladora_ListadoBoletosExcu(ListadoBoletosExcu ventana){
+	public Controladora_ListadoBoletosExcu(ListadoBoletosExcu ventana)throws Exc_Persistencia, MalformedURLException,  RemoteException,  NotBoundException{
 		try{
 			ven=ventana;
 			Propiedades p = new Propiedades();
@@ -27,10 +25,9 @@ public class Controladora_ListadoBoletosExcu {
 			String ip = p.buscar("Ip");
 			f = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 		}catch (MalformedURLException | RemoteException | NotBoundException e) {
-			ven.mostrarError(e.toString(), 0);
+			throw e;
 		} catch (Exc_Persistencia e2) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e2.toString(), 0);
+			throw e2;
 		}
 	}
 	

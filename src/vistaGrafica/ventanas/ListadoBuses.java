@@ -35,12 +35,16 @@ import javax.swing.SwingConstants;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
+import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBusExc;
 import logica.colecciones.Iterador;
 import vistaGrafica.controladoras.Controladora_ListaBus;
 
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 //import jdk.nashorn.internal.scripts.JS;
 
@@ -119,17 +123,22 @@ public class ListadoBuses extends Ventana
 			                return columnas[index]; 
 			            }
 					 }; 
-					 
-					Controladora_ListaBus c;
-					c= new Controladora_ListaBus((ListadoBuses) getVentanaAbierta());
-					Iterador<VOBusExc> ite = c.ListadoBuses();
-					if(!ite.empty()){
-						while (ite.hasNext()){
-							VOBusExc aux = ite.next();
-							dlm.addRow(new String[] {aux.getMatricula(), aux.getMarca(), String.valueOf(aux.getCapPasajeros()),String.valueOf(aux.getExcursionesAsignadas())});
+					 try{
+						Controladora_ListaBus c;
+						c= new Controladora_ListaBus((ListadoBuses) getVentanaAbierta());
+						Iterador<VOBusExc> ite = c.ListadoBuses();
+						if(!ite.empty()){
+							while (ite.hasNext()){
+								VOBusExc aux = ite.next();
+								dlm.addRow(new String[] {aux.getMatricula(), aux.getMarca(), String.valueOf(aux.getCapPasajeros()),String.valueOf(aux.getExcursionesAsignadas())});
+							}
+							list.setModel(dlm);
 						}
-						list.setModel(dlm);
-					} 
+					} catch (Exc_Persistencia e2) {
+						mostrarError("Error al cargar el archivo .properties", 0);
+					} catch(MalformedURLException | RemoteException | NotBoundException e3){
+						mostrarError("Error de conexion",0);
+					}
 					
 			}	
 				

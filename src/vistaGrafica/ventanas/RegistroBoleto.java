@@ -1,18 +1,29 @@
 package vistaGrafica.ventanas;
 
 import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
+
 import java.awt.Font;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
+import logica.Excepciones.objetos.Exc_Persistencia;
 import vistaGrafica.controladoras.Controladora_RegistroBoleto;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class RegistroBoleto extends Ventana
 {
@@ -108,6 +119,16 @@ public class RegistroBoleto extends Ventana
 		frame.getContentPane().add(lblCelular);
 		
 		textField_2 = new JTextField();
+		textField_2.addKeyListener(new KeyAdapter() {
+			@Override
+		//Controlo que en el campo Celular solo me ingresen numeros enteros
+			public void keyTyped(KeyEvent arg0) {
+				char ch = arg0.getKeyChar();
+				if (!esEntero(ch)){
+					arg0.consume();
+				}
+			}
+		});
 		textField_2.setColumns(10);
 		textField_2.setBounds(89, 155, 86, 20);
 		frame.getContentPane().add(textField_2);
@@ -116,7 +137,18 @@ public class RegistroBoleto extends Ventana
 		lblDescuento.setBounds(10, 222, 69, 25);
 		frame.getContentPane().add(lblDescuento);
 		
+		
 		textField_3 = new JTextField();
+		textField_3.addKeyListener(new KeyAdapter() {
+			@Override
+		//Controlo que en el campo descuento solo me ingresen numeros reales
+			public void keyTyped(KeyEvent e) {
+				char ch = e.getKeyChar();
+				if (!esNumerico(ch)){
+					e.consume();
+				}
+			}
+		});
 		textField_3.setColumns(10);
 		textField_3.setBounds(89, 224, 37, 20);
 		frame.getContentPane().add(textField_3);
@@ -150,24 +182,34 @@ public class RegistroBoleto extends Ventana
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//codigo de lo que hace el boton INGRESAR
-				
-				//Obtengo los datos de la pantalla.
-				String codigoExcursion = textField.getText();
-				int edad	 = Integer.parseInt(comboBox.getSelectedItem().toString());
-				String procedencia 	= textField_1.getText();
-				long celular = Long.parseLong(textField_2.getText());
-				boolean especial = chckbxBoletoEspecial.isSelected();
-				double descuento = 0.0;
-				String tipoBoleto = "Comun";
-				if(especial){
-					tipoBoleto = "Especial";
-					double auxDescuento = Double.parseDouble(textField_3.getText().toString());
-					descuento = auxDescuento / 100;
+				try{
+					//Obtengo los datos de la pantalla.
+					String codigoExcursion = textField.getText();
+					int edad	 = Integer.parseInt(comboBox.getSelectedItem().toString());
+					String procedencia 	= textField_1.getText();
+					if(!textField_2.getText().isEmpty()){
+						long celular = Long.parseLong(textField_2.getText());
+						boolean especial = chckbxBoletoEspecial.isSelected();
+						double descuento = 0.0;
+						String tipoBoleto = "Comun";
+						if(especial){
+							tipoBoleto = "Especial";
+							double auxDescuento = Double.parseDouble(textField_3.getText().toString());
+							descuento = auxDescuento / 100;
+		
+						//Se los mando a la controladora para que me revise que los valores sean correctos.
+						Controladora_RegistroBoleto c;
+						c = new Controladora_RegistroBoleto((RegistroBoleto) getVentanaAbierta());
+						c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
+						}
+					}else{
+						mostrarError("El Boleto no cuenta con el celular del cliente",0);
+					}
+				} catch (Exc_Persistencia e) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e){
+					mostrarError("Error de conexion",0);
 				}
-				//Se los mando a la controladora para que me revise que los valores sean correctos.
-				Controladora_RegistroBoleto c;
-				c = new Controladora_RegistroBoleto((RegistroBoleto) getVentanaAbierta());
-				c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
 			}
 		});
 		

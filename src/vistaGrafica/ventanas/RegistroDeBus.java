@@ -12,9 +12,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 
+import logica.Excepciones.objetos.Exc_Persistencia;
 import vistaGrafica.controladoras.Controladora_RegistroBus;
 
 public class RegistroDeBus extends Ventana
@@ -84,10 +88,16 @@ public class RegistroDeBus extends Ventana
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//codigo de lo que hace el boton INGRESAR
-				Controladora_RegistroBus c;
-				c = new Controladora_RegistroBus(((RegistroDeBus) getVentanaAbierta()));
-				c.registroBus(textField.getText().trim(), textField_1.getText().trim(), Integer.parseInt(comboBox.getSelectedItem().toString()));				
+				try{
+					//codigo de lo que hace el boton INGRESAR
+					Controladora_RegistroBus c;
+					c = new Controladora_RegistroBus(((RegistroDeBus) getVentanaAbierta()));
+					c.registroBus(textField.getText().trim(), textField_1.getText().trim(), Integer.parseInt(comboBox.getSelectedItem().toString()));				
+				} catch (Exc_Persistencia e) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e){
+					mostrarError("Error de conexion",0);
+				}
 			}
 		});
 		btnIngresar.setBounds(101, 176, 89, 23);

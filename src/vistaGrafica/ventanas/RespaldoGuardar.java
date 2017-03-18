@@ -1,16 +1,26 @@
 package vistaGrafica.ventanas;
 
 import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
+
 import java.awt.Font;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+
 import javax.swing.SwingConstants;
+
+import logica.Excepciones.objetos.Exc_Persistencia;
 import vistaGrafica.controladoras.Controladora_RespaldoGuardar;
 
 public class RespaldoGuardar extends Ventana
@@ -68,9 +78,15 @@ public class RespaldoGuardar extends Ventana
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//codigo de lo que hace el boton Guardar
-				Controladora_RespaldoGuardar c;
-				c = new Controladora_RespaldoGuardar(((RespaldoGuardar) getVentanaAbierta()));
-				c.guardar();
+				try{
+					Controladora_RespaldoGuardar c;
+					c = new Controladora_RespaldoGuardar(((RespaldoGuardar) getVentanaAbierta()));
+					c.guardar();
+				} catch (Exc_Persistencia e1) {
+					mostrarError("Error al cargar el archivo .properties", 0);
+				} catch(MalformedURLException | RemoteException | NotBoundException e2){
+					mostrarError("Error de conexion",0);
+				}
 			}
 		});
 		btnGuardar.setBounds(97, 95, 89, 23);

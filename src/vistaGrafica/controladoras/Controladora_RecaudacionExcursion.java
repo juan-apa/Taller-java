@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
 import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Excursiones;
 import logica.Excepciones.objetos.Exc_Persistencia;
@@ -15,7 +16,7 @@ public class Controladora_RecaudacionExcursion {
 	private IFachada f;
 	private RecaudacionExcursion ven;
 	
-	public Controladora_RecaudacionExcursion(RecaudacionExcursion ventana) {
+	public Controladora_RecaudacionExcursion(RecaudacionExcursion ventana) throws Exc_Persistencia, MalformedURLException,  RemoteException,  NotBoundException  {
 		try {
 			ven = ventana;
 			Propiedades p = new Propiedades();
@@ -23,10 +24,9 @@ public class Controladora_RecaudacionExcursion {
 			String ip = p.buscar("Ip");
 			f = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 		}catch (MalformedURLException | RemoteException | NotBoundException e) {
-			ven.mostrarError(e.toString(), 0);
+			throw e;
 		} catch (Exc_Persistencia e2) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e2.toString(), 0);
+			throw e2;
 		}
 	}
 	

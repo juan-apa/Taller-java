@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.fachada.IFachada;
 import persistencia.Propiedades;
@@ -13,7 +14,7 @@ public class Controladora_RespaldoCargar {
 	private IFachada f;
 	private RespaldoCargar ven;
 	
-	public Controladora_RespaldoCargar(RespaldoCargar ventana) {
+	public Controladora_RespaldoCargar(RespaldoCargar ventana) throws  MalformedURLException, RemoteException, NotBoundException, Exc_Persistencia {
 		try {
 			ven = ventana;
 			Propiedades p = new Propiedades();
@@ -21,10 +22,9 @@ public class Controladora_RespaldoCargar {
 			String ip = p.buscar("Ip");
 			f = (IFachada) Naming.lookup("//"+ip+":"+puerto+"/fachada");
 		}catch (MalformedURLException | RemoteException | NotBoundException e) {
-			ven.mostrarError(e.toString(), 0);
+			throw e;
 		} catch (Exc_Persistencia e2) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e2.toString(), 0);
+			throw e2;
 		}
 	}
 	
