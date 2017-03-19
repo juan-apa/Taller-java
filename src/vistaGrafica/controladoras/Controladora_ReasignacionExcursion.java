@@ -36,6 +36,8 @@ public class Controladora_ReasignacionExcursion {
 			}else{
 				f.reasignacionExcursion(codigo);
 				ven.mostrarCorrecto("Reasignada Correctamente!");
+				ven.setVentanaAbierta(null);
+				ven.setVisible(false);
 			}
 		} catch (RemoteException | Exc_Buses | Exc_Excursiones e) {
 			// TODO Auto-generated catch block
