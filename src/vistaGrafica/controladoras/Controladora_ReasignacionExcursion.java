@@ -30,18 +30,24 @@ public class Controladora_ReasignacionExcursion {
 	}
 	
 	public void reasignacionExcursion(String codigo){
-		try {
-			if(!f.getExcursiones().exists(codigo)){
-				ven.mostrarError("No existe una Excursion con el codigo", 1);
-			}else{
-				f.reasignacionExcursion(codigo);
-				ven.mostrarCorrecto("Reasignada Correctamente!");
-				ven.setVentanaAbierta(null);
-				ven.setVisible(false);
+		if (codigo.isEmpty()){
+			ven.mostrarError("El codigo esta vacio", 1);
+		}else{
+			try {
+				if(!f.getExcursiones().exists(codigo.trim().toUpperCase())){
+					ven.mostrarError("No existe una Excursion con el codigo", 1);
+				}else{
+					f.reasignacionExcursion(codigo.trim().toUpperCase());
+					ven.mostrarCorrecto("Reasignada Correctamente!");
+					ven.setVentanaAbierta(null);
+					ven.setVisible(false);
+				}
+			} catch (RemoteException | Exc_Buses | Exc_Excursiones e) {
+				// TODO Auto-generated catch block
+				ven.mostrarError(e.toString(), 0);
 			}
-		} catch (RemoteException | Exc_Buses | Exc_Excursiones e) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e.toString(), 0);
 		}
+			
+		
 	}
 }
