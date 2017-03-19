@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+    
+	<description>Primer ejemplo de una aplicación web</description>
+	<display-name>Hola Mundo web</display-name>
+	
+	<servlet>
+		<servlet-name>ListadoDestino</servlet-name>
+		<servlet-class>servlet.servlets.Servlet_Listado</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ListadoDestino</servlet-name>
+		<url-pattern>/ListadoDestino</url-pattern>
+	</servlet-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
