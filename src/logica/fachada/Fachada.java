@@ -1,6 +1,5 @@
 package logica.fachada;
 
-import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Iterator;
@@ -15,6 +14,10 @@ import persistencia.*;
  
 
 public class Fachada extends UnicastRemoteObject implements IFachada{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Datos datos;
 	private static Fachada instancia;
 	private Monitor monitor;

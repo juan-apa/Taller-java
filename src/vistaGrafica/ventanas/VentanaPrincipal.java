@@ -289,12 +289,14 @@ public class VentanaPrincipal extends Ventana
 		//Levanto los datos del archivo en el servior
 //		try{
 //			Controladora_RespaldoCargar c;
-//			c = new Controladora_RespaldoCargar(((RespaldoCargar) getVentanaAbierta()));
-//			c.cargar();
+//			RespaldoCargar r = new RespaldoCargar();
+//			c = new Controladora_RespaldoCargar(r);
+//			boolean primeraVez = true;
+//			c.cargar(primeraVez);
 //		} catch (Exc_Persistencia e) {
 //			mostrarError("Error al cargar el archivo .properties", 0);
 //		} catch(MalformedURLException | RemoteException | NotBoundException e){
-//			mostrarError("Error de conexion con el servidor, recuerde levantar los datos previo a comenzar",0);
+//			mostrarError("Error de conexion",0);
 //		}
 		
 	}
