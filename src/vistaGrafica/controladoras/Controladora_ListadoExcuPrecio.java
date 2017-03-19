@@ -34,28 +34,26 @@ public class Controladora_ListadoExcuPrecio {
 	public Iterador<VOExcursionListado> ListadoExcuPrecio(String desde, String hasta){
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		if (desde.isEmpty()){
-			ven.mostrarError("El precio desde esta vacio", 0);
+			ven.mostrarError("El precio inicial esta vacio", 1);
 		}else{
 			if (hasta.isEmpty()){
-				ven.mostrarError("El precio hasta esta vacio", 0);
+				ven.mostrarError("El precio final esta vacio", 1);
 			}else{
 				double des=Double.parseDouble(desde);
 				double has=Double.parseDouble(hasta);
-				try{
-					ret=f.listadoExcursionesPrecio(des,has);
-				} catch (RemoteException e) {
-					ven.mostrarError(e.toString(), 0);
-				}catch (Exc_Excursiones e) {
-					ven.mostrarError(e.toString(), 0);
-				}
-				
-				
-				
-				
+				if (des>has){
+					ven.mostrarError("El precio inicial, debe de ser menor que el precio final", 1);
+				}else{
+					try{
+						ret=f.listadoExcursionesPrecio(des,has);
+					} catch (RemoteException e) {
+						ven.mostrarError(e.toString(), 0);
+					}catch (Exc_Excursiones e) {
+						ven.mostrarError(e.toString(), 0);
+					}
+				}	
 			}
 		}
-		
-		
 		return ret;
 	}
 	

@@ -34,7 +34,7 @@ public class Controladora_RegistroBoleto {
 	}
 	
 	public void ventaBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular, String tipoBoleto, double dtoAdicioal){
-		VOBoleto entrada = new VOBoleto(codExcursion, lugarPrecedencia, edadPasajero, nroCelular, tipoBoleto, dtoAdicioal);
+		VOBoleto entrada = new VOBoleto(codExcursion.trim().toUpperCase(), lugarPrecedencia.trim().toUpperCase(), edadPasajero, nroCelular, tipoBoleto, dtoAdicioal);
 		if(!entrada.getCodExcursion().isEmpty()){	
 			if(!entrada.getLugarPrecedencia().isEmpty()){
 				if(entrada.getEdadPasajero() < 0){

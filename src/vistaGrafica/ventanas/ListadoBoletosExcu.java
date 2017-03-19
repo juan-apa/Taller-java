@@ -134,7 +134,7 @@ public class ListadoBoletosExcu extends Ventana
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnBuscar.setText("Refrescar");
-				String cod = cod_exc.getText().trim();
+				String cod = cod_exc.getText().trim().toUpperCase();
 				String tipo;
 				if (rdbtnComun.isSelected()){
 					tipo = "Comun";

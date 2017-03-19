@@ -34,7 +34,7 @@ public class Controladora_RegistroExcursion {
 	}
 	
 	public void registroExcursion(String codigo, String destino, Date hPartida, Date hLlegada, double precioBase){
-		VOExcursion entrada = new VOExcursion(codigo, destino, hPartida, hLlegada, precioBase);
+		VOExcursion entrada = new VOExcursion(codigo.trim().toUpperCase(), destino.trim().toUpperCase(), hPartida, hLlegada, precioBase);
 		try {
 			if(!entrada.getDestino().isEmpty()){
 				if(!entrada.getCodigo().isEmpty()){

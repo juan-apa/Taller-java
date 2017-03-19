@@ -184,7 +184,7 @@ public class RegistroBoleto extends Ventana
 				//codigo de lo que hace el boton INGRESAR
 				try{
 					//Obtengo los datos de la pantalla.
-					String codigoExcursion = textField.getText();
+					String codigoExcursion = textField.getText().trim();
 					int edad	 = Integer.parseInt(comboBox.getSelectedItem().toString());
 					String procedencia 	= textField_1.getText();
 					if(!textField_2.getText().isEmpty()){

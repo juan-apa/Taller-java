@@ -71,8 +71,8 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
 		/*Es alfanumerico*/
-		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
-		 												  *solo tiene minusculas y numeros.*/
+		if(entrada.getMatricula().matches("[A-Z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
+		 												 // *solo tiene minusculas y numeros.*/
 			
 			monitor.startRead();
 			if(! this.datos.buses().exists(entrada.getMatricula())){/*Si no hay un bus ingresado en el sistema con la matricula ingresada*/
@@ -127,7 +127,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	public Iterador<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>(); /*Creo un Iterador donde voy a guardar los VO que voy a devolver*/
 		
-		if(matricula.matches("[a-z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
+		if(matricula.matches("[A-Z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
 			monitor.startRead();
 			if(this.datos.buses().exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
 				monitor.endRead();
@@ -356,7 +356,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			}
 			else{
 				monitor.endRead();
-				throw new Exc_Boletos("Advertencia: no hay boletos vendidos para esta excursion.");
+				throw new Exc_Boletos("Advertencia: No hay boletos vendidos para esta excursion.");
 			}
 			monitor.endRead();
 		}

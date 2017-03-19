@@ -97,13 +97,12 @@ public class ListadoExcuDestino extends Ventana
 		lblDestino.setBounds(10, 49, 114, 23);
 		frame.getContentPane().add(lblDestino);
 		
-		//ButtonGroup grupo = new ButtonGroup();
 		
 		final JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnBuscar.setText("Refrescar");
-				String dest = Destino.getText();
+				String dest = Destino.getText().trim().toUpperCase();
 				
 				final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
 				

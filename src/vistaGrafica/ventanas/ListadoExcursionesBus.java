@@ -116,7 +116,7 @@ public class ListadoExcursionesBus extends Ventana
 				try{
 					btnIngresar.setText("Refrescar");
 					
-					String mat = txt_Matricula.getText();
+					String mat = txt_Matricula.getText().trim().toUpperCase();
 					final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
 					
 					 DefaultTableModel dlm = new DefaultTableModel(){

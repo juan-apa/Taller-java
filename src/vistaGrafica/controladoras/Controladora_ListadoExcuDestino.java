@@ -34,14 +34,14 @@ public class Controladora_ListadoExcuDestino {
 	public Iterador <VOExcursionListado> ListadoExcuDestino (String destino){
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		if (destino.isEmpty()){
-			ven.mostrarError("El destino esta vacio", 0);
+			ven.mostrarError("El destino esta vacio", 1);
 		}else{
 			try{
 				ret=f.listadoExcursionesDestino(destino);
 			} catch (RemoteException e) {
 				ven.mostrarError(e.toString(), 0);
 			}catch (Exc_Excursiones e) {
-				ven.mostrarError(e.toString(), 0);
+				ven.mostrarError(e.toString(), 1);
 			}
 			
 			
