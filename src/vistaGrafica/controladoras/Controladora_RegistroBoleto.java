@@ -48,7 +48,7 @@ public class Controladora_RegistroBoleto {
 						}else{
 							try {
 								if(!f.getExcursiones().exists(entrada.getCodExcursion())){
-									ven.mostrarError("No existe una excursion con este codigo", 0);
+									ven.mostrarError("No existe una excursion con este codigo", 1);
 								}else{
 									if(f.getExcursiones().find(entrada.getCodExcursion()).getBoletos().full()){
 										ven.mostrarError("Todos los boletos para esta excursion ya estan vendidos", 0);

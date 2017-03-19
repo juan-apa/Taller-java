@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-
 import persistencia.Propiedades;
 import vistaGrafica.ventanas.ListadoBuses;
 import logica.Excepciones.colecciones.Exc_Buses;

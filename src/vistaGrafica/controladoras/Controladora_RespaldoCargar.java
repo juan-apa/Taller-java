@@ -37,8 +37,11 @@ public class Controladora_RespaldoCargar {
 			ven.setVentanaAbierta(null);
 			ven.setVisible(false);
 		}catch (Exc_Persistencia e) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e.toString(), 0);
+			if(e.getMessage().contains("informacion")){
+				ven.mostrarError("Error, el archivo no existe. Guarde para generar el archivo", 0);
+			}else{
+				ven.mostrarError("Error al cargar el archivo .properties", 0);
+			}
 		}catch (RemoteException e1){
 			ven.mostrarError(e1.toString(), 0);
 		}
