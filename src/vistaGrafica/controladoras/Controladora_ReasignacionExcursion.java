@@ -32,9 +32,10 @@ public class Controladora_ReasignacionExcursion {
 	public void reasignacionExcursion(String codigo){
 		try {
 			if(!f.getExcursiones().exists(codigo)){
-				ven.mostrarError("No existe una Excursion con el codigo: "+codigo+".", 0);
+				ven.mostrarError("No existe una Excursion con el codigo", 0);
 			}else{
 				f.reasignacionExcursion(codigo);
+				ven.mostrarCorrecto("Reasignada Correctamente!");
 			}
 		} catch (RemoteException | Exc_Buses | Exc_Excursiones e) {
 			// TODO Auto-generated catch block

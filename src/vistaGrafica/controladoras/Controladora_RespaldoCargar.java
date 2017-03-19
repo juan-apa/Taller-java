@@ -28,10 +28,12 @@ public class Controladora_RespaldoCargar {
 		}
 	}
 	
-	public void cargar(){
+	public void cargar(boolean primera){
 		try {
 			f.recuperar();
-			ven.mostrarCorrecto("Recuperado Correctamente");
+			if(!primera){
+				ven.mostrarCorrecto("Recuperado Correctamente");
+			}
 			ven.setVentanaAbierta(null);
 			ven.setVisible(false);
 		}catch (Exc_Persistencia e) {

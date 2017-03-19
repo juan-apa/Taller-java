@@ -82,7 +82,7 @@ public class RespaldoCargar extends Ventana
 				try{
 					Controladora_RespaldoCargar c;
 					c = new Controladora_RespaldoCargar(((RespaldoCargar) getVentanaAbierta()));
-					c.cargar();
+					c.cargar(false);
 				} catch (Exc_Persistencia e) {
 					mostrarError("Error al cargar el archivo .properties", 0);
 				} catch(MalformedURLException | RemoteException | NotBoundException e){
