@@ -2,6 +2,7 @@ package vistaGrafica.ventanas;
 
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.awt.Font;
 
 import logica.Excepciones.objetos.Exc_Persistencia;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -58,6 +60,7 @@ public class RegistroExcursion extends Ventana
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(415, 322));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
 		frame.setTitle("Registro de Excursion");
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */

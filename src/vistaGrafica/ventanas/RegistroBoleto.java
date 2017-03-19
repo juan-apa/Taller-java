@@ -1,6 +1,7 @@
 package vistaGrafica.ventanas;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +23,7 @@ import java.rmi.RemoteException;
 
 import logica.Excepciones.objetos.Exc_Persistencia;
 import vistaGrafica.controladoras.Controladora_RegistroBoleto;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -47,6 +49,7 @@ public class RegistroBoleto extends Ventana
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(419, 322));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
 		frame.setTitle("Registro de Boleto");
 		
 
