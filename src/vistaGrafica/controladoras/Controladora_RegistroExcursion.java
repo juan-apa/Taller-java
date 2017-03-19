@@ -39,7 +39,7 @@ public class Controladora_RegistroExcursion {
 			if(!entrada.getDestino().isEmpty()){
 				if(!entrada.getCodigo().isEmpty()){
 					if(f.getBuses().empty()){
-						ven.mostrarError("No hay buses registrados en el sistema", 0);
+						ven.mostrarError("No hay buses registrados en el sistema", 1);
 					}else{
 						if(entrada.getPrecioBase() <= 0){
 							ven.mostrarError("El precio base debe ser mayor a 0", 0);
@@ -59,10 +59,10 @@ public class Controladora_RegistroExcursion {
 						}
 					}
 				}else{
-					ven.mostrarError("La excursion ha ingresar no cuenta con un Codigo", 0);
+					ven.mostrarError("La excursion ha ingresar no cuenta con un Codigo", 1);
 				}
 			}else{
-				ven.mostrarError("La excursion ha ingresar no cuenta con un Destino", 0);
+				ven.mostrarError("La excursion ha ingresar no cuenta con un Destino", 1);
 			}
 		} catch (RemoteException | Exc_Excursiones | Exc_Buses | Exc_Excursion e) {
 			// TODO Auto-generated catch block

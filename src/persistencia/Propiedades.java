@@ -23,12 +23,12 @@ public class Propiedades {
 				String archivo = p.getProperty("Puerto");
 				return archivo;
 			}else{
-			throw new Exc_Persistencia("No se encuentra los datos en la Properti");
+			throw new Exc_Persistencia("No se encuentra los datos en la Properties");
 			}
 		}
 		catch (IOException e){ 
 			e.printStackTrace();
-		throw new Exc_Persistencia("Hubo un error al buscar la propertin");
+		throw new Exc_Persistencia("Hubo un error al buscar la properties");
 		}	
 	}
 }

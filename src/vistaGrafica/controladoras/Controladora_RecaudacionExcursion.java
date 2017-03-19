@@ -33,10 +33,10 @@ public class Controladora_RecaudacionExcursion {
 	public void recaudadoEnExcursion(String codigo){
 		try {
 			if(!f.getExcursiones().exists(codigo)){
-				ven.mostrarError("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.", 0);
+				ven.mostrarError("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.", 1);
 			}else{
 				if(f.getExcursiones().find(codigo).getBoletos().empty()){
-					ven.mostrarError("No hay boletos vendidos para la excursion con el codigo "+codigo+".", 0);
+					ven.mostrarError("No hay boletos vendidos para la excursion con el codigo "+codigo+".", 1);
 				}else{
 					double total;
 					try {

@@ -22,8 +22,7 @@ public class Persistencia {
 			Arch.close();
 		}
 		catch (IOException e){ 
-			e.printStackTrace();
-		throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
+			throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
 		}	
 	}
 	
@@ -37,7 +36,6 @@ public class Persistencia {
 			return d;	
 		}
 		catch (IOException e){ 
-			e.printStackTrace();
 			throw new Exc_Persistencia("Hubo un error al recuperar la informacion");
 		}
 	}
