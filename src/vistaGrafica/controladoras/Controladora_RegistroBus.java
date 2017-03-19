@@ -43,7 +43,7 @@ public class Controladora_RegistroBus {
 					ven.mostrarError("El Bus a registrar no cuenta con una Marca", 1);
 				}else{
 					if(entrada.getCapPasajeros() <= 0){
-						ven.mostrarError("La cantidad de asientos '" + capPasajeros + "' no es valida. La cantidad de pasajeros tiene que ser mayor a '0'.", 0);
+						ven.mostrarError("La cantidad de asientos '" + capPasajeros + "' no es valida.La cantidad de pasajeros tiene que ser mayor a '0'.", 0);
 					}else{
 						try {
 							if(f.getBuses().exists(matricula)){
