@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.Toolkit;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -64,6 +65,7 @@ public class ListadoBoletosExcu extends Ventana
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(665, 322));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
 		frame.setTitle("Listado de boletos para excursion");
 		
 		

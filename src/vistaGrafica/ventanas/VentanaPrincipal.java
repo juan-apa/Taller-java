@@ -9,6 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+
 
 
 public class VentanaPrincipal extends Ventana
@@ -45,6 +47,7 @@ public class VentanaPrincipal extends Ventana
 	{	
 		/* marco de la ventana principal */
 		frame = new JFrame();
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.getContentPane().setLayout(null);
@@ -53,6 +56,7 @@ public class VentanaPrincipal extends Ventana
 		
 		/* cuando intenten cerrarme, termino toda la aplicación */
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		
 		/* creo el panel con la imagen de fondo y se lo cargo al frame */
 		fondo = new ImagenFondo();
@@ -60,8 +64,7 @@ public class VentanaPrincipal extends Ventana
 		fondo.setBackground(new Color(165,250,142));
 		fondo.setLayout(null);
 		frame.getContentPane().add(fondo);
-		
-		
+ 
 		
 		/* barra de menu que contiene un menu */
 		menuBar = new JMenuBar();

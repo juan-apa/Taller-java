@@ -1,27 +1,37 @@
 package vistaGrafica.ventanas;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
+
 import vistaGrafica.controladoras.Controladora_ListadoExcuPrecio;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
+
 import javax.swing.JScrollPane;
 
 public class ListadoExcuPrecio extends Ventana
@@ -45,6 +55,7 @@ public class ListadoExcuPrecio extends Ventana
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(634, 322));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
 		frame.setTitle("Listado de excursiones por precio");
 		
 		
