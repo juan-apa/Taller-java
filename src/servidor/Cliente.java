@@ -10,9 +10,11 @@ import persistencia.Propiedades;
 import logica.Excepciones.colecciones.Exc_Boletos;
 import logica.Excepciones.colecciones.Exc_Buses;
 import logica.Excepciones.colecciones.Exc_Excursiones;
+import logica.Excepciones.objetos.Exc_Boleto;
 import logica.Excepciones.objetos.Exc_Bus;
 import logica.Excepciones.objetos.Exc_Excursion;
 import logica.Excepciones.objetos.Exc_Persistencia;
+import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBus;
 import logica.ValueObjects.VOBusExc;
@@ -23,7 +25,7 @@ import logica.fachada.IFachada;
 
 public class Cliente {
 
-	public static void main(String[] args) throws Exc_Excursiones {
+	public static void main(String[] args) {
 		try {
 			Propiedades p = new Propiedades();
 			String puerto = p.buscar("Puerto");
@@ -34,24 +36,24 @@ public class Cliente {
 //			VOExcursion entrada = new VOExcursion("001", "Montevideo", new Date(2017, 2, 19, 10, 10), new Date(2017, 2, 19, 10, 50), 200);
 //			fachada.registroNuevaExcursion(entrada);
 			//Listo los Boletos
-			try{
-				Iterador<VOExcursionListado> itereq3 = fachada.listadoExcursionesDeBus("2");
-				while(itereq3.hasNext()){
-					System.out.println(itereq3.next().toString());
-				}
-			}
-			catch(Exc_Bus ebus){
-				System.out.println(ebus.toString());
-			}
-			catch(Exc_Buses ebuses){
-				System.out.println(ebuses.toString());
-			}
-			catch(Exc_Excursiones eexcs){
-				System.out.println(eexcs.toString());
-			}
-			catch(RemoteException e){
-				System.out.println(e.toString());
-			}
+//			try{
+//				Iterador<VOExcursionListado> itereq3 = fachada.listadoExcursionesDeBus("2");
+//				while(itereq3.hasNext()){
+//					System.out.println(itereq3.next().toString());
+//				}
+//			}
+//			catch(Exc_Bus ebus){
+//				System.out.println(ebus.toString());
+//			}
+//			catch(Exc_Buses ebuses){
+//				System.out.println(ebuses.toString());
+//			}
+//			catch(Exc_Excursiones eexcs){
+//				System.out.println(eexcs.toString());
+//			}
+//			catch(RemoteException e){
+//				System.out.println(e.toString());
+//			}
 //			try {
 //				//Listo los Bus ingresados en el servidor	
 //
@@ -81,13 +83,41 @@ public class Cliente {
 //				e1.printStackTrace();
 //			}					
 			
+			fachada.registroNuevoBus(new VOBus("aaa001", "asd", 4));
+			fachada.registroNuevoBus(new VOBus("aaa002", "asddasd", 5));
+			fachada.registroNuevaExcursion(new VOExcursion("ch001", "monte", new Date(2017, 10, 10, 10, 10), new Date(2017, 10, 10, 10, 20), 200.0));
+			fachada.ventaBoleto(new VOBoleto("ch001", "monte", 15, 91281074, "Comun", 0.0));
+			fachada.reasignacionExcursion("ch001");
+			Iterador<VOBoleto2> ite = fachada.listadoBoletosExcursion("ch001", "Comun");
+			
+			while(ite.hasNext()){
+				System.out.println(ite.next().toString());
+			}
+			
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
 		} catch (Exc_Persistencia e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
+		} catch (Exc_Bus e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Buses e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Boleto e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Boletos e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Excursiones e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exc_Excursion e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-					
 
 	}
 }

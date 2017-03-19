@@ -35,16 +35,23 @@ public class Controladora_Servlet {
 		}*/
 	}
 
-	public ArrayList<VOExcursionListado> listadoExcuDestino (String destino){
+	public ArrayList<VOExcursionListado> listadoExcuDestino(String destino){
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		if(!destino.isEmpty()){
 			try {
-				ret=f.listadoExcursionesDestino(destino);
+				ret=f.listadoExcursionesDestino(destino.toUpperCase());
 			} catch (RemoteException e) {
 				this.servlet.setMensajeError("Error al conectarse con el servidor");
 				this.servlet.setError("true");
 			} catch (Exc_Excursiones e) {
-				this.servlet.setMensajeError("No hay excursiones ingresadas en el sistema");
+				if(e.getMessage() != null){
+					if(e.getMessage().contains("destino")){
+						this.servlet.setMensajeError("No hay excursiones ingresadas en el sistema con ese destino");
+					}
+				}
+				else{
+					this.servlet.setMensajeError("No hay excursiones ingresadas en el sistema");
+				}
 				this.servlet.setAdvertencia("true");
 			}
 		}
