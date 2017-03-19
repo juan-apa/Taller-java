@@ -44,7 +44,7 @@ public class ListadoExcuPrecio extends Ventana
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setSize(new Dimension(419, 322));
+		frame.setSize(new Dimension(634, 322));
 		frame.setTitle("Listado de excursiones por precio");
 		
 		
@@ -75,7 +75,7 @@ public class ListadoExcuPrecio extends Ventana
 		frame.getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 83, 393, 165);
+		scrollPane.setBounds(10, 83, 608, 165);
 		frame.getContentPane().add(scrollPane);
 		
 		final JTable list = new JTable();
@@ -105,7 +105,7 @@ public class ListadoExcuPrecio extends Ventana
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					btnBuscar.setText("Re-Buscar");
+					btnBuscar.setText("Refrescar");
 					String desde,hasta;
 					desde = precioIni.getText();
 					hasta = precioFin.getText();
@@ -148,7 +148,7 @@ public class ListadoExcuPrecio extends Ventana
 				}				
 			}
 		});
-		btnBuscar.setBounds(314, 49, 89, 23);
+		btnBuscar.setBounds(430, 49, 115, 23);
 		frame.getContentPane().add(btnBuscar);
 		
 		JLabel lblPrecioFinal = new JLabel("Precio final:");

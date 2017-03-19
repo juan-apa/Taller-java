@@ -50,7 +50,7 @@ public class ListadoExcuDestino extends Ventana
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setSize(new Dimension(419, 322));
+		frame.setSize(new Dimension(569, 322));
 		frame.setTitle("Listado de excursiones por destino");
 		
 		
@@ -67,7 +67,7 @@ public class ListadoExcuDestino extends Ventana
 		JLabel lblTitulo = new JLabel("Listado de excursiones por destino");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTitulo.setBounds(10, 11, 393, 36);
+		lblTitulo.setBounds(83, 11, 393, 36);
 		frame.getContentPane().add(lblTitulo);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -77,11 +77,11 @@ public class ListadoExcuDestino extends Ventana
 				setVentanaAbierta(null);
 			}
 		});
-		btnVolver.setBounds(155, 259, 89, 23);
+		btnVolver.setBounds(213, 259, 103, 23);
 		frame.getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 83, 393, 165);
+		scrollPane.setBounds(10, 83, 543, 165);
 		frame.getContentPane().add(scrollPane);
 		
 		final JTable list = new JTable();
@@ -89,7 +89,7 @@ public class ListadoExcuDestino extends Ventana
 		list.enable(false);
 		
 		Destino = new JTextField();
-		Destino.setBounds(55, 49, 114, 23);
+		Destino.setBounds(69, 49, 114, 23);
 		frame.getContentPane().add(Destino);
 		Destino.setColumns(10);
 		
@@ -102,7 +102,7 @@ public class ListadoExcuDestino extends Ventana
 		final JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnBuscar.setText("Re-Buscar");
+				btnBuscar.setText("Refrescar");
 				String dest = Destino.getText();
 				
 				final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
@@ -138,7 +138,7 @@ public class ListadoExcuDestino extends Ventana
 				}	
 			}
 		});
-		btnBuscar.setBounds(213, 49, 89, 23);
+		btnBuscar.setBounds(213, 49, 103, 23);
 		frame.getContentPane().add(btnBuscar);
 		
 	}

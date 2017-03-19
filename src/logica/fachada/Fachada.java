@@ -342,7 +342,11 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				while(ite.hasNext()){
 					Boleto bolAux = ite.next();
 					if(bolAux.getTipo().equals(tipo)){
-						ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular()));
+						if (tipo.equals("Especial")){
+							ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular(),((Especial) bolAux).getDtoAdicional()));
+						}else{
+							ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular()));
+						}
 					}
 					nroBoleto++;
 				}
@@ -362,29 +366,34 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	
 
 	public Iterador<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
+		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		if (destino.equals("")){
 			throw new Exc_Excursiones("Destino vacio");
 		}else{
-			Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 			monitor.startRead();
-			if(! this.datos.excursiones().empty()){
-				Iterator<Excursion> ite = this.datos.excursiones().iterator();
-				while(ite.hasNext()){
-					Excursion excAux = ite.next();
-					if(excAux.getDestino().equals(destino)){
-						//System.out.println("AODSNODAN");
-						int asientosDisp = 0;
-						Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
-						asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
-						ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+			if (this.datos.excursiones().excursionMismoDestino(destino)){
+				if(! this.datos.excursiones().empty()){
+					Iterator<Excursion> ite = this.datos.excursiones().iterator();
+					while(ite.hasNext()){
+						Excursion excAux = ite.next();
+						if(excAux.getDestino().equals(destino)){
+							int asientosDisp = 0;
+							Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
+							asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
+							ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+						}
 					}
+					monitor.endRead();
 				}
+				else{
+					monitor.endRead();
+					throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+				}
+			}else{
 				monitor.endRead();
+				throw new Exc_Excursiones("No hay excursiones para ese destino.");
 			}
-			else{
-				monitor.endRead();
-				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
-			}
+			
 			return ret;
 		}
 	}

@@ -66,7 +66,7 @@ public class ListadoBuses extends Ventana
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setSize(new Dimension(419, 322));
+		frame.setSize(new Dimension(571, 322));
 		frame.setTitle("Listado de Buses");
 		
 		
@@ -83,7 +83,7 @@ public class ListadoBuses extends Ventana
 		JLabel lblMatricula = new JLabel("Listado de buses");
 		lblMatricula.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMatricula.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblMatricula.setBounds(82, 11, 223, 36);
+		lblMatricula.setBounds(191, 11, 223, 36);
 		frame.getContentPane().add(lblMatricula);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -93,11 +93,11 @@ public class ListadoBuses extends Ventana
 				setVentanaAbierta(null);
 			}
 		});
-		btnVolver.setBounds(230, 259, 89, 23);
+		btnVolver.setBounds(324, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 52, 393, 196);
+		scrollPane.setBounds(10, 52, 545, 196);
 		frame.getContentPane().add(scrollPane);
 		
 	
@@ -110,7 +110,7 @@ public class ListadoBuses extends Ventana
 		final JButton btnRecargar = new JButton("Cargar");
 		btnRecargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-					btnRecargar.setText("Re-Cargar");
+					btnRecargar.setText("Refrescar");
 					final String[] columnas = {"Matricula", "Marca", "Pasajeros", "Cant. Excursiones"};
 					
 					 DefaultTableModel dlm = new DefaultTableModel(){
@@ -143,7 +143,7 @@ public class ListadoBuses extends Ventana
 			}	
 				
 		});
-		btnRecargar.setBounds(100, 259, 89, 23);
+		btnRecargar.setBounds(169, 259, 111, 23);
 		frame.getContentPane().add(btnRecargar);
 	}
 	

@@ -61,7 +61,7 @@ public class ListadoExcursionesBus extends Ventana
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setSize(new Dimension(419, 322));
+		frame.setSize(new Dimension(598, 322));
 		frame.setTitle("Listado de excursiones por bus");
 		
 		
@@ -78,7 +78,7 @@ public class ListadoExcursionesBus extends Ventana
 		JLabel lblTitulo = new JLabel("Listado de excuriones de bus");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTitulo.setBounds(10, 11, 393, 36);
+		lblTitulo.setBounds(102, 11, 393, 36);
 		frame.getContentPane().add(lblTitulo);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -88,11 +88,11 @@ public class ListadoExcursionesBus extends Ventana
 				setVentanaAbierta(null);
 			}
 		});
-		btnVolver.setBounds(149, 259, 89, 23);
+		btnVolver.setBounds(314, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 83, 393, 165);
+		scrollPane.setBounds(10, 83, 572, 165);
 		frame.getContentPane().add(scrollPane);
 		
 		final JTable list = new JTable();
@@ -114,7 +114,7 @@ public class ListadoExcursionesBus extends Ventana
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					btnIngresar.setText("Re-Buscar");
+					btnIngresar.setText("Refrescar");
 					
 					String mat = txt_Matricula.getText();
 					final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
@@ -144,7 +144,7 @@ public class ListadoExcursionesBus extends Ventana
 				}
 			}
 		});
-		btnIngresar.setBounds(314, 49, 89, 23);
+		btnIngresar.setBounds(314, 49, 109, 23);
 		frame.getContentPane().add(btnIngresar);
 	
 	}

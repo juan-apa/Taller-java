@@ -63,7 +63,7 @@ public class ListadoBoletosExcu extends Ventana
 		/* marco de la ventana secundaria */
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setSize(new Dimension(419, 322));
+		frame.setSize(new Dimension(665, 322));
 		frame.setTitle("Listado de boletos para excursion");
 		
 		
@@ -81,7 +81,7 @@ public class ListadoBoletosExcu extends Ventana
 		JLabel lblTitulo = new JLabel("Listado de boletos vendidos para excursion");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTitulo.setBounds(10, 11, 393, 36);
+		lblTitulo.setBounds(107, 11, 393, 36);
 		frame.getContentPane().add(lblTitulo);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -91,11 +91,11 @@ public class ListadoBoletosExcu extends Ventana
 				setVentanaAbierta(null);
 			}
 		});
-		btnVolver.setBounds(109, 259, 89, 23);
+		btnVolver.setBounds(126, 259, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(134, 52, 269, 196);
+		scrollPane.setBounds(134, 52, 505, 196);
 		frame.getContentPane().add(scrollPane);
 		
 		final JTable list = new JTable();
@@ -109,7 +109,7 @@ public class ListadoBoletosExcu extends Ventana
 		
 		
 		JLabel lblCodigoDeExcursion = new JLabel("Codigo de Excursion:");
-		lblCodigoDeExcursion.setBounds(10, 58, 114, 23);
+		lblCodigoDeExcursion.setBounds(10, 58, 140, 23);
 		frame.getContentPane().add(lblCodigoDeExcursion);
 		
 		final JRadioButton rdbtnComun = new JRadioButton("Comun");
@@ -133,7 +133,7 @@ public class ListadoBoletosExcu extends Ventana
 		final JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnBuscar.setText("Re-Buscar");
+				btnBuscar.setText("Refrescar");
 				String cod = cod_exc.getText().trim();
 				String tipo;
 				if (rdbtnComun.isSelected()){
@@ -142,42 +142,66 @@ public class ListadoBoletosExcu extends Ventana
 					tipo = "Especial";
 				}
 				
-				final String[] columnas = {"N.Bol", "Edad", "Procedencia", "N.Celular"};
-				
-				 DefaultTableModel dlm = new DefaultTableModel(){
-					 @Override
-					 public int getColumnCount(){
-						 return columnas.length;
-					 }
-					 @Override 
-		            public String getColumnName(int index) { 
-		                return columnas[index]; 
-		            }
-				 }; 
-				try{
-					Controladora_ListadoBoletosExcu c;
-					c=new Controladora_ListadoBoletosExcu((ListadoBoletosExcu) getVentanaAbierta());
-					Iterador<VOBoleto2> ite = c.ListadoBoletosExc(cod, tipo);
-					while (ite.hasNext()){
-						VOBoleto2 aux = ite.next();
-						dlm.addRow(new String[] {String.valueOf(aux.getNumero()), String.valueOf(aux.getEdad()) ,aux.getLugarProcedencia(), String.valueOf(aux.getNroCelular())});
+				if (tipo=="Comun"){
+					 final String[] columnas = {"N.Bol", "Edad", "Procedencia", "N.Celular"};
+					 DefaultTableModel dlm = new DefaultTableModel(){
+						 @Override
+						 public int getColumnCount(){
+							 return columnas.length;
+						 }
+						 @Override 
+			            public String getColumnName(int index) { 
+			                return columnas[index]; 
+			            }
+					 }; 
+					try{
+						Controladora_ListadoBoletosExcu c;
+						c=new Controladora_ListadoBoletosExcu((ListadoBoletosExcu) getVentanaAbierta());
+						Iterador<VOBoleto2> ite = c.ListadoBoletosExc(cod, tipo);
+						while (ite.hasNext()){
+							VOBoleto2 aux = ite.next();
+							dlm.addRow(new String[] {String.valueOf(aux.getNumero()), String.valueOf(aux.getEdad()) ,aux.getLugarProcedencia(), String.valueOf(aux.getNroCelular())});
+						}
+						list.setModel(dlm);
+					} catch (Exc_Persistencia e2) {
+						mostrarError("Error al cargar el archivo .properties", 0);
+					} catch(MalformedURLException | RemoteException | NotBoundException e3){
+						mostrarError("Error de conexion",0);
 					}
-					list.setModel(dlm);
-				} catch (Exc_Persistencia e2) {
-					mostrarError("Error al cargar el archivo .properties", 0);
-				} catch(MalformedURLException | RemoteException | NotBoundException e3){
-					mostrarError("Error de conexion",0);
+				}else{
+					final String[] columnas = {"N.Bol", "Edad", "Procedencia", "N.Celular" ,"Dto (%)"};
+					 DefaultTableModel dlm = new DefaultTableModel(){
+						 @Override
+						 public int getColumnCount(){
+							 return columnas.length;
+						 }
+						 @Override 
+			            public String getColumnName(int index) { 
+			                return columnas[index]; 
+			            }
+					 }; 
+					try{
+						Controladora_ListadoBoletosExcu c;
+						c=new Controladora_ListadoBoletosExcu((ListadoBoletosExcu) getVentanaAbierta());
+						Iterador<VOBoleto2> ite = c.ListadoBoletosExc(cod, tipo);
+						while (ite.hasNext()){
+							VOBoleto2 aux = ite.next();
+							dlm.addRow(new String[] {String.valueOf(aux.getNumero()), String.valueOf(aux.getEdad()) ,aux.getLugarProcedencia(), String.valueOf(aux.getNroCelular()),String.valueOf(aux.getDtoAdicional()*100)});
+						}
+						list.setModel(dlm);
+					} catch (Exc_Persistencia e2) {
+						mostrarError("Error al cargar el archivo .properties", 0);
+					} catch(MalformedURLException | RemoteException | NotBoundException e3){
+						mostrarError("Error de conexion",0);
+					}
+					
+					
+					
 				}
 			}
 		});
-		btnBuscar.setBounds(10, 259, 89, 23);
+		btnBuscar.setBounds(10, 259, 106, 23);
 		frame.getContentPane().add(btnBuscar);
-		/*ACA AGREGO VALORES A LA LISTA
-		DefaultListModel model= new DefaultListModel();
-		model.addElement("HOLA");
-		model.addElement("ALOHA");
-		list.setModel(model);
-		*/
 	}
 	
 	/* Indico si deseo que la ventana sea visible o no */

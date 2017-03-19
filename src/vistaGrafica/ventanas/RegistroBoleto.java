@@ -196,12 +196,11 @@ public class RegistroBoleto extends Ventana
 							tipoBoleto = "Especial";
 							double auxDescuento = Double.parseDouble(textField_3.getText().toString());
 							descuento = auxDescuento / 100;
-		
+						}
 						//Se los mando a la controladora para que me revise que los valores sean correctos.
 						Controladora_RegistroBoleto c;
 						c = new Controladora_RegistroBoleto((RegistroBoleto) getVentanaAbierta());
 						c.ventaBoleto(codigoExcursion, procedencia, edad, celular, tipoBoleto, descuento);
-						}
 					}else{
 						mostrarError("El Boleto no cuenta con el celular del cliente",0);
 					}
