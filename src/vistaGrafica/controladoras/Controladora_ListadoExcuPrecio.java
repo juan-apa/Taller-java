@@ -49,7 +49,7 @@ public class Controladora_ListadoExcuPrecio {
 					} catch (RemoteException e) {
 						ven.mostrarError(e.toString(), 0);
 					}catch (Exc_Excursiones e) {
-						ven.mostrarError(e.toString(), 0);
+						ven.mostrarError(e.toString(), 1);
 					}
 				}	
 			}

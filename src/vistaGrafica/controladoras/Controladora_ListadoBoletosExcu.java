@@ -43,7 +43,7 @@ public class Controladora_ListadoBoletosExcu {
 			} catch (Exc_Boletos e) {
 				ven.mostrarError(e.toString(), 0);
 			} catch (Exc_Excursiones e) {
-				ven.mostrarError(e.toString(), 0);
+				ven.mostrarError(e.toString(), 1);
 			}
 		}
 	return ret;

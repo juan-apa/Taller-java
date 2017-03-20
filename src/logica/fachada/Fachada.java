@@ -121,38 +121,46 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	public Iterador<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>(); /*Creo un Iterador donde voy a guardar los VO que voy a devolver*/
 		
-		if(matricula.matches("[A-Z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
-			monitor.startRead();
-			if(this.datos.buses().exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
-				monitor.endRead();
-				Bus aux;
+		monitor.startRead();
+		if(this.datos.buses().empty()){
+			monitor.endRead();
+			if(matricula.matches("[A-Z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
 				monitor.startRead();
-				aux = (Bus) this.datos.buses().find(matricula); /*Obtengo el bus con la matricula ingresada del diccionario buses*/
-				if(! aux.getExcuBus().empty()){ /*Si las excursiones del bus obtenido no esta vacio.*/
-					Excursiones excs;
-					Iterator<Excursion> iteExc;
-					excs = aux.getExcuBus();
-					iteExc = excs.iterator(); /*Obtengo las excursiones del bus y las convierto a un iterador.*/
-					while(iteExc.hasNext()){/*Recorro las excursiones del iterador y las convierto a VO y las inserto en la lista que voy a devolver*/
-						Excursion excursionAux = iteExc.next();
-						VOExcursionListado voexclist = new VOExcursionListado(excursionAux.getCodigo(), excursionAux.getDestino(), excursionAux.getHpartida(), excursionAux.getHllegada(), excursionAux.getPrecioBase(), aux.asientosDisponiblesParaExcursion(excursionAux.getCodigo()));
-						ret.add(voexclist);
-					}
+				if(this.datos.buses().exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
 					monitor.endRead();
+					Bus aux;
+					monitor.startRead();
+					aux = (Bus) this.datos.buses().find(matricula); /*Obtengo el bus con la matricula ingresada del diccionario buses*/
+					if(! aux.getExcuBus().empty()){ /*Si las excursiones del bus obtenido no esta vacio.*/
+						Excursiones excs;
+						Iterator<Excursion> iteExc;
+						excs = aux.getExcuBus();
+						iteExc = excs.iterator(); /*Obtengo las excursiones del bus y las convierto a un iterador.*/
+						while(iteExc.hasNext()){/*Recorro las excursiones del iterador y las convierto a VO y las inserto en la lista que voy a devolver*/
+							Excursion excursionAux = iteExc.next();
+							VOExcursionListado voexclist = new VOExcursionListado(excursionAux.getCodigo(), excursionAux.getDestino(), excursionAux.getHpartida(), excursionAux.getHllegada(), excursionAux.getPrecioBase(), aux.asientosDisponiblesParaExcursion(excursionAux.getCodigo()));
+							ret.add(voexclist);
+						}
+						monitor.endRead();
+					}
+					else{
+						monitor.endRead();
+						throw new Exc_Excursiones("No hay ninguna excursion registrada para el bus con la matricula "+ matricula+".");
+					}
 				}
 				else{
 					monitor.endRead();
-					throw new Exc_Excursiones("No hay ninguna excursion registrada para el bus con la matricula "+ matricula+".");
+					throw new Exc_Buses("El bus con la matricula " + matricula + " no se encuentra registrado en el sistema.");
 				}
 			}
 			else{
-				monitor.endRead();
-				throw new Exc_Buses("El bus con la matricula " + matricula + " no se encuentra registrado en el sistema.");
+				throw new Exc_Bus("La matricula " + matricula + " no tiene un formato alfanumerico.");
 			}
 		}
 		else{
-			throw new Exc_Bus("La matricula " + matricula + " no tiene un formato alfanumerico.");
-		}
+			monitor.endRead();
+			throw new Exc_Buses("No hay buses registrados en el sistema.");
+		}		
 		return ret; /*Convierto la lista a un iterador y la devuelvo.*/
 	}
 	
@@ -269,40 +277,51 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	}
 	
 
-	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{
+	public void ventaBoleto(VOBoleto entrada) throws Exc_Boleto, Exc_Boletos, Exc_Excursiones, RemoteException{	
 		monitor.startRead();
-		if(this.datos.excursiones().exists(entrada.getCodExcursion())){
+		if(!datos.excursiones().empty()){
+			System.out.println("NO vacio");
 			monitor.endRead();
-			if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() < 0.0)){
-				throw new Exc_Boleto("Alguno de los datos del psajero ingresados no es valido.");
-			}
-			else{
-				monitor.startRead();
-				Excursion excAux = this.datos.excursiones().find(entrada.getCodExcursion());
-				Boletos boletosAux = excAux.getBoletos();
-				if(!boletosAux.full()){
-					monitor.endRead();
-					Boleto insertar = null;
-					if(entrada.getDtoAdicional() != 0.0){
-						insertar = new Especial(entrada.getLugarPrecedencia(), entrada.getEdadPasajero(), entrada.getNroCelular(), entrada.getDtoAdicional());
-					}
-					else{
-						insertar = new Boleto(entrada.getLugarPrecedencia(), entrada.getEdadPasajero(), entrada.getNroCelular());
-					}
-					monitor.startWrite();
-					boletosAux.insert(insertar);
-					monitor.endWrite();
+			monitor.startRead();
+			if(this.datos.excursiones().exists(entrada.getCodExcursion())){
+				monitor.endRead();
+				if((entrada.getEdadPasajero() <= 0) || (entrada.getNroCelular()/10000000 < 0) || (entrada.getDtoAdicional() < 0.0)){
+					throw new Exc_Boleto("Alguno de los datos del psajero ingresados no es valido.");
 				}
 				else{
-					monitor.endRead();
-					throw new Exc_Boletos("Todos los boletos para esta excursion ya estan vendidos.");
+					monitor.startRead();
+					Excursion excAux = this.datos.excursiones().find(entrada.getCodExcursion());
+					Boletos boletosAux = excAux.getBoletos();
+					if(!boletosAux.full()){
+						monitor.endRead();
+						Boleto insertar = null;
+						if(entrada.getDtoAdicional() != 0.0){
+							insertar = new Especial(entrada.getLugarPrecedencia(), entrada.getEdadPasajero(), entrada.getNroCelular(), entrada.getDtoAdicional());
+						}
+						else{
+							insertar = new Boleto(entrada.getLugarPrecedencia(), entrada.getEdadPasajero(), entrada.getNroCelular());
+						}
+						monitor.startWrite();
+						boletosAux.insert(insertar);
+						monitor.endWrite();
+					}
+					else{
+						monitor.endRead();
+						throw new Exc_Boletos("Todos los boletos para esta excursion ya estan vendidos.");
+					}
 				}
+			}
+			else{
+				monitor.endRead();
+				throw new Exc_Excursiones("La excursion con el codigo " + entrada.getCodExcursion() + " no se encuentra ingresada en el sistema.");
 			}
 		}
 		else{
 			monitor.endRead();
-			throw new Exc_Excursiones("La excursion con el codigo " + entrada.getCodExcursion() + " no se encuentra ingresada en el sistema.");
+			throw new Exc_Excursiones("No hay excursiones registradas en el sistema.");
 		}
+		
+		
 	}
 	
 	
@@ -316,7 +335,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 				ret = bolsAux.recaudado(excAux.getPrecioBase());
 			}
 			else{
-				throw new Exc_Boletos("No hay boletos vendidos para la excursion con el codigo "+codigo);
+				throw new Exc_Boletos("No hay boletos vendidos para la excursion con el codigo "+codigo+".");
 			}
 			monitor.endWrite();
 		}
@@ -331,32 +350,37 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 	public Iterador<VOBoleto2> listadoBoletosExcursion(String codigo, String tipo) throws Exc_Boletos, Exc_Excursiones, RemoteException{
 		Iterador<VOBoleto2> ret = new Iterador<VOBoleto2>();
 		monitor.startRead();
-		if(this.datos.excursiones().exists(codigo)){			
-			Excursion excAux = this.datos.excursiones().find(codigo);
-			if(! excAux.getBoletos().empty()){
-				Iterator<Boleto> ite = excAux.getBoletos().iterator();
-				int nroBoleto = 1;
-				while(ite.hasNext()){
-					Boleto bolAux = ite.next();
-					if(bolAux.getTipo().equals(tipo)){
-						if (tipo.equals("Especial")){
-							ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular(),((Especial) bolAux).getDtoAdicional()));
-						}else{
-							ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular()));
+		if(!this.datos.excursiones().empty()){
+			if(this.datos.excursiones().exists(codigo)){			
+				Excursion excAux = this.datos.excursiones().find(codigo);
+				if(! excAux.getBoletos().empty()){
+					Iterator<Boleto> ite = excAux.getBoletos().iterator();
+					int nroBoleto = 1;
+					while(ite.hasNext()){
+						Boleto bolAux = ite.next();
+						if(bolAux.getTipo().equals(tipo)){
+							if (tipo.equals("Especial")){
+								ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular(),((Especial) bolAux).getDtoAdicional()));
+							}else{
+								ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular()));
+							}
 						}
+						nroBoleto++;
 					}
-					nroBoleto++;
 				}
+				else{
+					monitor.endRead();
+					throw new Exc_Boletos("Advertencia: No hay boletos vendidos para esta excursion.");
+				}
+				monitor.endRead();
 			}
 			else{
 				monitor.endRead();
-				throw new Exc_Boletos("Advertencia: No hay boletos vendidos para esta excursion.");
+				throw new Exc_Excursiones("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.");
 			}
+		}else{
 			monitor.endRead();
-		}
-		else{
-			monitor.endRead();
-			throw new Exc_Excursiones("La excursion con el codigo" + codigo + " no se encuentra ingresada en el sistema.");
+			throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
 		}
 		return ret;
 	}
@@ -368,29 +392,34 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			throw new Exc_Excursiones("Destino vacio");
 		}else{
 			monitor.startRead();
-			if (this.datos.excursiones().excursionMismoDestino(destino)){
-				if(! this.datos.excursiones().empty()){
-					Iterator<Excursion> ite = this.datos.excursiones().iterator();
-					while(ite.hasNext()){
-						Excursion excAux = ite.next();
-						if(excAux.getDestino().equals(destino)){
-							int asientosDisp = 0;
-							Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
-							asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
-							ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+			if(!this.datos.excursiones().empty()){
+			
+				if (this.datos.excursiones().excursionMismoDestino(destino)){
+					if(! this.datos.excursiones().empty()){
+						Iterator<Excursion> ite = this.datos.excursiones().iterator();
+						while(ite.hasNext()){
+							Excursion excAux = ite.next();
+							if(excAux.getDestino().equals(destino)){
+								int asientosDisp = 0;
+								Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
+								asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
+								ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+							}
 						}
+						monitor.endRead();
 					}
+					else{
+						monitor.endRead();
+						throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+					}
+				}else{
 					monitor.endRead();
-				}
-				else{
-					monitor.endRead();
-					throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+					throw new Exc_Excursiones("No hay excursiones para ese destino.");
 				}
 			}else{
 				monitor.endRead();
-				throw new Exc_Excursiones("No hay excursiones para ese destino.");
+				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
 			}
-			
 			return ret;
 		}
 	}

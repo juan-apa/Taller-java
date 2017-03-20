@@ -35,24 +35,14 @@ public class Controladora_RecaudacionExcursion {
 			ven.mostrarError("El campo del codigo esta vacio.", 1);
 		}else{
 			try {
-				if(!f.getExcursiones().exists(codigo.trim().toUpperCase())){
-					ven.mostrarError("La excursion con el codigo " + codigo + " no se encuentra ingresada en el sistema.", 1);
-				}else{
-					if(f.getExcursiones().find(codigo.trim().toUpperCase()).getBoletos().empty()){
-						ven.mostrarError("No hay boletos vendidos para la excursion con el codigo "+codigo+".", 1);
-					}else{
-						double total;
-						try {
-							total = f.recaudadoEnExcursion(codigo.trim().toUpperCase());
-							ven.mostrarCorrecto("El total recaudado para "+codigo+" es "+total+".");
-						} catch (RemoteException | Exc_Boletos | Exc_Excursiones e) {
-							// TODO Auto-generated catch block
-							ven.mostrarError(e.toString(), 0);
-						}
-					}
-				}
+				double total;
+				total = f.recaudadoEnExcursion(codigo.trim().toUpperCase());
+				ven.mostrarCorrecto("El total recaudado para "+codigo+" es "+total+".");
 			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
+				ven.mostrarError(e.toString(), 0);
+			} catch (Exc_Boletos e) {
+				ven.mostrarError(e.toString(), 0);
+			} catch (Exc_Excursiones e) {
 				ven.mostrarError(e.toString(), 0);
 			}
 		}
