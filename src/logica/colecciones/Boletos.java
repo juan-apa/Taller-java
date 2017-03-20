@@ -86,7 +86,12 @@ public class Boletos implements Serializable{
 				ret = ret + (precioBase*(1-(((Especial) arreglo[i]).getDtoAdicional())));
 			}
 			else
-				ret = ret + precioBase;
+				if(arreglo[i].getEdadPasajero() < 13){
+					ret = ret + precioBase * 0.8;
+				}
+				else{
+					ret = ret + precioBase;
+				}
 		}
 		return ret;
 	}

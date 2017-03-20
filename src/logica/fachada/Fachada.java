@@ -122,7 +122,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>(); /*Creo un Iterador donde voy a guardar los VO que voy a devolver*/
 		
 		monitor.startRead();
-		if(this.datos.buses().empty()){
+		if(! this.datos.buses().empty()){
 			monitor.endRead();
 			if(matricula.matches("[A-Z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
 				monitor.startRead();
@@ -161,7 +161,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 			monitor.endRead();
 			throw new Exc_Buses("No hay buses registrados en el sistema.");
 		}		
-		return ret; /*Convierto la lista a un iterador y la devuelvo.*/
+		return ret;
 	}
 	
 	
