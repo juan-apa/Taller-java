@@ -31,5 +31,21 @@ public class Especial extends Boleto{
 		return "Especial [dtoAdicional=" + dtoAdicional + ", tipo="+this.getTipo() +"]";
 	}
 	
-
+	@Override
+	public boolean equals(Object obj) {
+		boolean iguales = true;
+		if(this.getEdadPasajero() != ((Especial) obj).getEdadPasajero()){
+			iguales = false;
+		}
+		if(!this.getLugarPrecedencia().equals(((Especial) obj).getEdadPasajero())){
+			iguales = false;
+		}
+		if(this.getNroCelular() != ((Especial) obj).getNroCelular()){
+			iguales = false;
+		}
+		if(this.dtoAdicional != ((Especial) obj).getDtoAdicional()){
+			iguales = false;
+		}
+		return iguales;
+	}
 }

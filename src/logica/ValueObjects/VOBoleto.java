@@ -22,7 +22,7 @@ public class VOBoleto implements Serializable{
 		this.dtoAdicional = 0.0;
 	}
 	
-	public VOBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular, String tipoBoleto, double dtoAdicioal) {
+	public VOBoleto(String codExcursion, String lugarPrecedencia, int edadPasajero, long nroCelular, double dtoAdicioal) {
 		super();
 		this.codExcursion = codExcursion;
 		this.lugarPrecedencia = lugarPrecedencia;

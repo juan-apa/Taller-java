@@ -24,8 +24,8 @@ public class Req_11 {
 		try {
 			f.registroNuevoBus(new VOBus("aaa001", "Marca x", 25));
 			f.registroNuevaExcursion(new VOExcursion("001", "Chuy", new Date(2017, 12, 21, 10, 10), new Date(2017, 12, 21, 10, 50), 50.00));
-			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Comun", 0.0));
-			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, "Especial", 0.10));
+			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, 0.0));
+			f.ventaBoleto(new VOBoleto("001", "Montevideo", 20, 20000000, 0.10));
 			Iterador<VOExcursionListado> iter10 = f.listadoExcursionesPrecio(10, 50);
 			while(iter10.hasNext()){	
 				VOExcursionListado exLi1 = iter10.next();
