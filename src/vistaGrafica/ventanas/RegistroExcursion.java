@@ -60,7 +60,7 @@ public class RegistroExcursion extends Ventana
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(415, 322));
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagenes\\icon.png"));
 		frame.setTitle("Registro de Excursion");
 		
 		/* cuando intenten cerrarme, solamente me cierro yo */

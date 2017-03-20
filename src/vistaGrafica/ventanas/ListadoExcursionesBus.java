@@ -50,7 +50,7 @@ public class ListadoExcursionesBus extends Ventana
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setSize(new Dimension(598, 322));
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagenes\\icon.png"));
 		frame.setTitle("Listado de excursiones por bus");
 		
 		

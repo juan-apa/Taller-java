@@ -47,7 +47,7 @@ public class VentanaPrincipal extends Ventana
 	{	
 		/* marco de la ventana principal */
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\guill\\Documents\\GitHub\\Taller-java\\Imagenes\\icon.png"));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("Imagenes\\icon.png"));
 		frame.setResizable(false);
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.getContentPane().setLayout(null);
