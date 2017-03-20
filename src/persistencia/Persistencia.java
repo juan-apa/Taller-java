@@ -5,20 +5,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
+import persistencia.Propiedades;
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.colecciones.Datos;
-
-import java.util.Properties;
 
 public class Persistencia {
 	
 	public void respaldar (Datos d) throws Exc_Persistencia{ 
 		try{
-			Properties properties = new Properties();
-			String nombreProperties = ".settings/datos.properties";
-			properties.load(new FileInputStream(nombreProperties));
-			String archivo = properties.getProperty("rutaArchivo");
+			Propiedades p = new Propiedades();
+			String archivo = p.buscar("Archivo");
 			FileOutputStream Arch = new FileOutputStream(archivo);
 			ObjectOutputStream flujo = new ObjectOutputStream(Arch);
 			flujo.writeObject(d);
@@ -26,8 +22,7 @@ public class Persistencia {
 			Arch.close();
 		}
 		catch (IOException e){ 
-			e.printStackTrace();
-		throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
+			throw new Exc_Persistencia("Hubo un error al respaldar la informacion");
 		}	
 	}
 	
@@ -41,7 +36,6 @@ public class Persistencia {
 			return d;	
 		}
 		catch (IOException e){ 
-			e.printStackTrace();
 			throw new Exc_Persistencia("Hubo un error al recuperar la informacion");
 		}
 	}

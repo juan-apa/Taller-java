@@ -53,7 +53,7 @@ public class Excursiones implements Diccionario, Serializable{
 		ite = this.listarOrden();
 		while(ite.hasNext() && !hayExcursionConDestino){
 			Excursion aux = ite.next();
-			if(aux.getDestino() == destino){
+			if(aux.getDestino().equals(destino)){
 				hayExcursionConDestino = true;
 			}
 		}

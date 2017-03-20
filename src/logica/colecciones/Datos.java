@@ -19,10 +19,6 @@ public class Datos implements Serializable{
 		_excursiones = new Excursiones();
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public Buses buses() {
 		return _buses;
 	}

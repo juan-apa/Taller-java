@@ -1,6 +1,5 @@
 package logica.fachada;
 
-import java.io.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Iterator;
@@ -14,7 +13,7 @@ import logica.ValueObjects.*;
 import persistencia.*;
  
 
-public class Fachada extends UnicastRemoteObject implements Serializable, IFachada{
+public class Fachada extends UnicastRemoteObject implements IFachada{
 	/**
 	 * 
 	 */
@@ -65,16 +64,10 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 		this.datos = datos;
 	}
 
-	public static void setInstancia(Fachada instancia) throws RemoteException{
-		Fachada.instancia = instancia;
-	}
-
 	
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
 		/*Es alfanumerico*/
-		if(entrada.getMatricula().matches("[a-z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
-		 												  *solo tiene minusculas y numeros.*/
-			
+		if(entrada.getMatricula().matches("[A-Z0-9]+")){
 			monitor.startRead();
 			if(! this.datos.buses().exists(entrada.getMatricula())){/*Si no hay un bus ingresado en el sistema con la matricula ingresada*/
 				monitor.endRead();
@@ -128,7 +121,7 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	public Iterador<VOExcursionListado> listadoExcursionesDeBus(String matricula) throws Exc_Bus, Exc_Buses, Exc_Excursiones, RemoteException{
 		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>(); /*Creo un Iterador donde voy a guardar los VO que voy a devolver*/
 		
-		if(matricula.matches("[a-z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
+		if(matricula.matches("[A-Z0-9]+")){ /*Si la matricula tiene un formato alfanumerico.*/
 			monitor.startRead();
 			if(this.datos.buses().exists(matricula)){ /*Si existe un bus con la matricula en el sistema.*/
 				monitor.endRead();
@@ -346,14 +339,18 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 				while(ite.hasNext()){
 					Boleto bolAux = ite.next();
 					if(bolAux.getTipo().equals(tipo)){
-						ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular()));
+						if (tipo.equals("Especial")){
+							ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular(),((Especial) bolAux).getDtoAdicional()));
+						}else{
+							ret.add(new VOBoleto2(nroBoleto, bolAux.getEdadPasajero(), bolAux.getLugarPrecedencia(), bolAux.getNroCelular()));
+						}
 					}
 					nroBoleto++;
 				}
 			}
 			else{
 				monitor.endRead();
-				throw new Exc_Boletos("Advertencia: no hay boletos vendidos para esta excursion.");
+				throw new Exc_Boletos("Advertencia: No hay boletos vendidos para esta excursion.");
 			}
 			monitor.endRead();
 		}
@@ -366,29 +363,34 @@ public class Fachada extends UnicastRemoteObject implements Serializable, IFacha
 	
 
 	public Iterador<VOExcursionListado> listadoExcursionesDestino(String destino) throws Exc_Excursiones, RemoteException{
+		Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 		if (destino.equals("")){
 			throw new Exc_Excursiones("Destino vacio");
 		}else{
-			Iterador<VOExcursionListado> ret = new Iterador<VOExcursionListado>();
 			monitor.startRead();
-			if(! this.datos.excursiones().empty()){
-				Iterator<Excursion> ite = this.datos.excursiones().iterator();
-				while(ite.hasNext()){
-					Excursion excAux = ite.next();
-					if(excAux.getDestino().equals(destino)){
-						//System.out.println("AODSNODAN");
-						int asientosDisp = 0;
-						Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
-						asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
-						ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+			if (this.datos.excursiones().excursionMismoDestino(destino)){
+				if(! this.datos.excursiones().empty()){
+					Iterator<Excursion> ite = this.datos.excursiones().iterator();
+					while(ite.hasNext()){
+						Excursion excAux = ite.next();
+						if(excAux.getDestino().equals(destino)){
+							int asientosDisp = 0;
+							Bus busAux = this.datos.buses().obtenerBusConExcursion(excAux.getCodigo());
+							asientosDisp = busAux.asientosDisponiblesParaExcursion(excAux.getCodigo());
+							ret.add(new VOExcursionListado(excAux.getCodigo(), excAux.getDestino(), excAux.getHpartida(), excAux.getHllegada(), excAux.getPrecioBase(), asientosDisp));
+						}
 					}
+					monitor.endRead();
 				}
+				else{
+					monitor.endRead();
+					throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
+				}
+			}else{
 				monitor.endRead();
+				throw new Exc_Excursiones("No hay excursiones para ese destino.");
 			}
-			else{
-				monitor.endRead();
-				throw new Exc_Excursiones("No hay excursiones ingresadas en el sistema.");
-			}
+			
 			return ret;
 		}
 	}

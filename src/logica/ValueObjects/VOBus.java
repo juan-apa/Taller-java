@@ -12,6 +12,12 @@ public class VOBus implements Serializable{
 	private String marca;
 	private int capPasajeros;
 	
+	public VOBus(){
+		this.matricula = "000";
+		this.marca = "generico";
+		this.capPasajeros = 0;
+	}
+	
 	public VOBus(String matricula, String marca, int capPasajeros) {
 		super();
 		this.matricula = matricula;
