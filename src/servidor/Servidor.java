@@ -1,7 +1,9 @@
 package servidor;
 
+import java.io.File;
 import java.rmi.Naming; 
 import java.rmi.registry.LocateRegistry;
+
 import persistencia.Propiedades;
 import logica.fachada.Fachada;
 
@@ -18,6 +20,11 @@ public class Servidor {
 			System.out.println("Antes de publicarlo");
 			Naming.rebind("//"+ip+":"+puerto+"/fachada", fachada);
 			System.out.println("Luego de publicarlo");
+			String sFichero = p.buscar("Archivo");
+			File fichero = new File(sFichero);
+			if(fichero.exists()){
+				fachada.recuperar();
+			}
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}

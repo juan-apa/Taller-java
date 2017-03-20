@@ -1,21 +1,11 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Toolkit;
-
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,8 +14,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-import javax.swing.JList;
 
 import java.awt.Font;
 import java.net.MalformedURLException;
@@ -33,8 +21,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 
 import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOExcursionListado;
@@ -57,6 +43,7 @@ public class ListadoExcursionesBus extends Ventana
 	
 	
 	/* Inicializo los componentes de la ventana */
+	@SuppressWarnings("deprecation")
 	private void initialize() 
 	{
 		/* marco de la ventana secundaria */
@@ -110,7 +97,7 @@ public class ListadoExcursionesBus extends Ventana
 		lblMatricula.setBounds(10, 49, 89, 23);
 		frame.getContentPane().add(lblMatricula);
 		
-		ButtonGroup grupo = new ButtonGroup();
+		//ButtonGroup grupo = new ButtonGroup();
 		
 		final JButton btnIngresar = new JButton("Buscar");
 		btnIngresar.addActionListener(new ActionListener() {
@@ -122,7 +109,11 @@ public class ListadoExcursionesBus extends Ventana
 					final String[] columnas = {"Codigo", "Destino", "H.Partida", "H.Regreso", "Precio","Asientos Disponibles"};
 					
 					 DefaultTableModel dlm = new DefaultTableModel(){
-						 @Override
+						 /**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+						@Override
 						 public int getColumnCount(){
 							 return columnas.length;
 						 }

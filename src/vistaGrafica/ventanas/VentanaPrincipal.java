@@ -289,18 +289,6 @@ public class VentanaPrincipal extends Ventana
 		});
 		B_respaldo.add(menuItem);
 		
-		//Levanto los datos del archivo en el servior
-//		try{
-//			Controladora_RespaldoCargar c;
-//			RespaldoCargar r = new RespaldoCargar();
-//			c = new Controladora_RespaldoCargar(r);
-//			boolean primeraVez = true;
-//			c.cargar(primeraVez);
-//		} catch (Exc_Persistencia e) {
-//			mostrarError("Error al cargar el archivo .properties", 0);
-//		} catch(MalformedURLException | RemoteException | NotBoundException e){
-//			mostrarError("Error de conexion",0);
-//		}
 		
 	}
 

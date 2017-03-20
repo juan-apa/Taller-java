@@ -5,7 +5,6 @@ import java.util.Date;
 
 import logica.colecciones.*;
 import logica.Excepciones.colecciones.*;
-import logica.Excepciones.objetos.*;
 import logica.fachada.Fachada;
 import logica.objetos.*;
 import vistaGrafica.controladoras.Controladora;
@@ -15,6 +14,7 @@ import logica.ValueObjects.*;
 
 public class Main {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		Fachada fachada = Fachada.getInstancia();
 		
@@ -251,6 +251,7 @@ public class Main {
 //		}
 	}
 
+	@SuppressWarnings("unused")
 	private static Controladora Controladora() {
 		// TODO Auto-generated method stub
 		return null;

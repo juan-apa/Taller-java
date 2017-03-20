@@ -2,7 +2,6 @@ package logica.ValueObjects;
 
 import java.io.Serializable;
 
-import logica.colecciones.Excursiones;
 
 public class VOBusExc implements Serializable{
 	private static final long serialVersionUID = 1L;

@@ -1,21 +1,13 @@
 package vistaGrafica.ventanas;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Toolkit;
 
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,8 +16,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction;
-import javax.swing.JList;
 
 import java.awt.Font;
 import java.net.MalformedURLException;
@@ -34,12 +24,9 @@ import java.rmi.RemoteException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 
 import logica.Excepciones.objetos.Exc_Persistencia;
-import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBoleto2;
-import logica.ValueObjects.VOBusExc;
 import logica.colecciones.Iterador;
 import vistaGrafica.controladoras.Controladora_ListadoBoletosExcu;
 
@@ -59,6 +46,7 @@ public class ListadoBoletosExcu extends Ventana
 	
 	
 	/* Inicializo los componentes de la ventana */
+	@SuppressWarnings("deprecation")
 	private void initialize() 
 	{
 		/* marco de la ventana secundaria */
@@ -147,7 +135,11 @@ public class ListadoBoletosExcu extends Ventana
 				if (tipo=="Comun"){
 					 final String[] columnas = {"N.Bol", "Edad", "Procedencia", "N.Celular"};
 					 DefaultTableModel dlm = new DefaultTableModel(){
-						 @Override
+						 /**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+						@Override
 						 public int getColumnCount(){
 							 return columnas.length;
 						 }
@@ -173,7 +165,11 @@ public class ListadoBoletosExcu extends Ventana
 				}else{
 					final String[] columnas = {"N.Bol", "Edad", "Procedencia", "N.Celular" ,"Dto (%)"};
 					 DefaultTableModel dlm = new DefaultTableModel(){
-						 @Override
+						 /**
+						 * 
+						 */
+						private static final long serialVersionUID = 1L;
+						@Override
 						 public int getColumnCount(){
 							 return columnas.length;
 						 }

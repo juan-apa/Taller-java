@@ -17,14 +17,13 @@ import logica.Excepciones.objetos.Exc_Persistencia;
 import logica.ValueObjects.VOBoleto;
 import logica.ValueObjects.VOBoleto2;
 import logica.ValueObjects.VOBus;
-import logica.ValueObjects.VOBusExc;
 import logica.ValueObjects.VOExcursion;
-import logica.ValueObjects.VOExcursionListado;
 import logica.colecciones.Iterador;
 import logica.fachada.IFachada;
 
 public class Cliente {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		try {
 			Propiedades p = new Propiedades();
