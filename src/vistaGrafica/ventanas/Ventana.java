@@ -1,5 +1,7 @@
 package vistaGrafica.ventanas;
 
+import java.awt.event.KeyEvent;
+
 import javax.swing.JOptionPane;
 
 
@@ -87,6 +89,19 @@ public class Ventana {
 		}
 		
 		return valida;
+	}
+	
+	public void escribirNumericoConPunto(String texto, KeyEvent e){
+		if(texto.contains(".")){
+			if(e.getKeyChar() == '.'){
+				e.consume();
+			}
+		}
+		else{
+			if(! esNumerico(e.getKeyChar())){
+				e.consume();
+			}
+		}
 	}
 	
 	public void toFront(){

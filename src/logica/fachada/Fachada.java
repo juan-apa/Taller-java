@@ -64,16 +64,10 @@ public class Fachada extends UnicastRemoteObject implements IFachada{
 		this.datos = datos;
 	}
 
-	public static void setInstancia(Fachada instancia) throws RemoteException{
-		Fachada.instancia = instancia;
-	}
-
 	
 	public void registroNuevoBus(VOBus entrada) throws Exc_Bus, Exc_Buses, RemoteException{
 		/*Es alfanumerico*/
-		if(entrada.getMatricula().matches("[A-Z0-9]+")){ /*Uso una expresion regular para verificar si la matricula
-		 												 // *solo tiene minusculas y numeros.*/
-			
+		if(entrada.getMatricula().matches("[A-Z0-9]+")){
 			monitor.startRead();
 			if(! this.datos.buses().exists(entrada.getMatricula())){/*Si no hay un bus ingresado en el sistema con la matricula ingresada*/
 				monitor.endRead();

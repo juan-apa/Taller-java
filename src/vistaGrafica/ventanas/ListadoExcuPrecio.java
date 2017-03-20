@@ -96,10 +96,7 @@ public class ListadoExcuPrecio extends Ventana
 		precioIni.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				char ch = arg0.getKeyChar();
-				if (!esNumerico(ch)){
-					arg0.consume();
-				}
+				escribirNumericoConPunto(precioIni.getText(), arg0);
 			}
 		});
 		precioIni.setBounds(93, 49, 59, 23);
@@ -173,10 +170,7 @@ public class ListadoExcuPrecio extends Ventana
 		precioFin.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
-				char ch = arg0.getKeyChar();
-				if (!esNumerico(ch)){
-					arg0.consume();
-				}
+				escribirNumericoConPunto(precioFin.getText(), arg0);
 			}
 		});
 		precioFin.setColumns(10);

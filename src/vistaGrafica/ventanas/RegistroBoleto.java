@@ -146,10 +146,7 @@ public class RegistroBoleto extends Ventana
 			@Override
 		//Controlo que en el campo descuento solo me ingresen numeros reales
 			public void keyTyped(KeyEvent e) {
-				char ch = e.getKeyChar();
-				if (!esNumerico(ch)){
-					e.consume();
-				}
+				escribirNumericoConPunto(textField_3.getText(), e);
 			}
 		});
 		textField_3.setColumns(10);

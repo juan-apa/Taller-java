@@ -111,10 +111,7 @@ public class RegistroExcursion extends Ventana
 			@Override
 		//Controlo que en el campo Precio solo pueda ingresar numeros enteros
 			public void keyTyped(KeyEvent arg0) {
-				char ch = arg0.getKeyChar();
-				if (! esEntero(ch)){
-					arg0.consume();
-				}
+				escribirNumericoConPunto(textField_4.getText(), arg0);
 			}
 		});
 		textField_4.setColumns(10);
