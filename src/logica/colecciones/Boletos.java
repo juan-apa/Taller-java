@@ -110,7 +110,6 @@ public class Boletos implements Serializable{
 			else{
 				nuevoArr[i] = new Especial(arreglo[i]);
 			}
-			this.arreglo[i] = null;
 		}
 		this.setArreglo(nuevoArr);
 		this.tope = topeViejo;
