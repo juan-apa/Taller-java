@@ -85,7 +85,7 @@ public class Cliente {
 			fachada.registroNuevoBus(new VOBus("aaa001", "asd", 4));
 			fachada.registroNuevoBus(new VOBus("aaa002", "asddasd", 5));
 			fachada.registroNuevaExcursion(new VOExcursion("ch001", "monte", new Date(2017, 10, 10, 10, 10), new Date(2017, 10, 10, 10, 20), 200.0));
-			fachada.ventaBoleto(new VOBoleto("ch001", "monte", 15, 91281074, "Comun", 0.0));
+			fachada.ventaBoleto(new VOBoleto("ch001", "monte", 15, 91281074, 0.0));
 			fachada.reasignacionExcursion("ch001");
 			Iterador<VOBoleto2> ite = fachada.listadoBoletosExcursion("ch001", "Comun");
 			
