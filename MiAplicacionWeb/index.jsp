@@ -1,5 +1,3 @@
-
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id='resultados' scope='application' class='java.util.ArrayList' />
 <jsp:useBean id='mensaje' scope='application' class='java.lang.String' />
@@ -29,30 +27,6 @@
         </figure>
       </header>
       <main>
-        <div class="div-tabla left">
-          <table class="table_clientes" id="table_clientes">
-               <thead>
-                 <tr>
-                   <th>Codigo</th>
-                   <th>Destino</th>
-                   <th>H. Partida</th>
-                   <th>H. Llegada</th>
-                   <th>Precio Base</th>
-                   <th>Asientos Disp.</th>
-                 </tr>
-               </thead>
-               <c:forEach items="${resultados}" var="i" >
-         				<tr>
-         					<td> ${i.codigo} </td>
-         					<td> ${i.destino} </td>
-         					<td> ${i.hPartida} </td>
-         					<td> ${i.hLlegada} </td>
-         					<td> ${i.precioBase} </td>
-         					<td> ${i.asientosDisp} </td>
-         				</tr>
-         			</c:forEach>
-          </table>
-        </div>
         <div class="div-forms right">
           <div class="div-form">
             <form class="form-destino" action="ListadoDestino" method="POST">
@@ -79,6 +53,30 @@
               </div>
             </form>
           </div>
+        </div>
+        <div class="div-tabla left">
+          <table class="table_clientes" id="table_clientes">
+               <thead>
+                 <tr>
+                   <th>Codigo</th>
+                   <th>Destino</th>
+                   <th>H. Partida</th>
+                   <th>H. Llegada</th>
+                   <th>Precio Base</th>
+                   <th>Asientos Disp.</th>
+                 </tr>
+               </thead>
+               <c:forEach items="${resultados}" var="i" >
+         				<tr>
+         					<td> ${i.codigo} </td>
+         					<td> ${i.destino} </td>
+         					<td> ${i.hPartida.hours}:${i.hPartida.minutes} </td>
+         					<td> ${i.hLlegada.hours}:${i.hLlegada.minutes} </td>
+         					<td> ${i.precioBase} </td>
+         					<td> ${i.asientosDisp} </td>
+         				</tr>
+         			</c:forEach>
+          </table>
         </div>
         <c:if test="${error == 'true'}">
         <div class="div-mensaje">
