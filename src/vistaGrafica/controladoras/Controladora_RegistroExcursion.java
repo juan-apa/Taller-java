@@ -47,14 +47,10 @@ public class Controladora_RegistroExcursion {
 							if((entrada.gethLlegada().before(entrada.gethPartida())) || (entrada.gethPartida().equals(entrada.gethLlegada()))){
 								ven.mostrarError("La hora de partida debe ser menor a la hora de llegada", 0);
 							}else{
-								if(f.getExcursiones().exists(entrada.getCodigo())){
-									ven.mostrarError("Existe una excursion con el mismo codigo", 0);
-								}else{
-									f.registroNuevaExcursion(entrada);
-									ven.mostrarCorrecto("Ingreso con Exito!");
-									ven.setVentanaAbierta(null);
-									ven.setVisible(false);
-								}
+								f.registroNuevaExcursion(entrada);
+								ven.mostrarCorrecto("Ingreso con Exito!");
+								ven.setVentanaAbierta(null);
+								ven.setVisible(false);
 							}
 						}
 					}
@@ -65,8 +61,7 @@ public class Controladora_RegistroExcursion {
 				ven.mostrarError("La excursion ha ingresar no cuenta con un Destino", 1);
 			}
 		} catch (RemoteException | Exc_Excursiones | Exc_Buses | Exc_Excursion e) {
-			// TODO Auto-generated catch block
-			ven.mostrarError(e.toString(), 0);;
+			ven.mostrarError(e.toString(), 0);
 		}
 	}
 }

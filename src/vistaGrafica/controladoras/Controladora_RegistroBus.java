@@ -46,20 +46,15 @@ public class Controladora_RegistroBus {
 						ven.mostrarError("La cantidad de asientos '" + capPasajeros + "' no es valida.La cantidad de pasajeros tiene que ser mayor a '0'.", 0);
 					}else{
 						try {
-							if(f.getBuses().exists(matricula)){
-								ven.mostrarError("Ya existe un Bus con la misma Matricula", 0);
-							}else{
-								try {
-									f.registroNuevoBus(entrada);
-									ven.mostrarCorrecto("Ingreso con Exito!");
-									ven.setVentanaAbierta(null);
-									ven.setVisible(false);
-								} catch (RemoteException | Exc_Bus | Exc_Buses e) {
-									// TODO Auto-generated catch block
-									ven.mostrarError(e.toString(), 0);
-								}
-							}
+							f.registroNuevoBus(entrada);
+							ven.mostrarCorrecto("Ingreso con Exito!");
+							ven.setVentanaAbierta(null);
+							ven.setVisible(false);
 						} catch (RemoteException e) {
+							ven.mostrarError(e.toString(), 0);
+						} catch (Exc_Bus e) {
+							ven.mostrarError(e.toString(), 0);
+						} catch (Exc_Buses e) {
 							ven.mostrarError(e.toString(), 0);
 						}
 					}

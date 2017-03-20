@@ -46,30 +46,18 @@ public class Controladora_RegistroBoleto {
 						if(entrada.getDtoAdicional() < 0.0){
 							ven.mostrarError("El descuento no puede ser menor a 0", 0);
 						}else{
-							try {
-								if(!f.getExcursiones().exists(entrada.getCodExcursion())){
-									ven.mostrarError("No existe una excursion con este codigo", 1);
-								}else{
-									if(f.getExcursiones().find(entrada.getCodExcursion()).getBoletos().full()){
-										ven.mostrarError("Todos los boletos para esta excursion ya estan vendidos", 0);
-									}else{
-										f.ventaBoleto(entrada);
-										ven.mostrarCorrecto("Boleto Vendido Correctamente");
-										ven.setVentanaAbierta(null);
-										ven.setVisible(false);
-									}
-								}
+							try {	
+								f.ventaBoleto(entrada);
+								ven.mostrarCorrecto("Boleto Vendido Correctamente");
+								ven.setVentanaAbierta(null);
+								ven.setVisible(false);
 							} catch (RemoteException e) {
-								// TODO Auto-generated catch block
 								ven.mostrarError(e.toString(), 0);
 							} catch (Exc_Boleto e) {
-								// TODO Auto-generated catch block
 								ven.mostrarError(e.toString(), 0);
 							} catch (Exc_Boletos e) {
-								// TODO Auto-generated catch block
 								ven.mostrarError(e.toString(), 0);
 							} catch (Exc_Excursiones e) {
-								// TODO Auto-generated catch block
 								ven.mostrarError(e.toString(), 0);
 							}
 						}
