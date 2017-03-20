@@ -19,7 +19,7 @@ public class Controladora_ListadoExcursionesBus {
 	private IFachada f;
 	private ListadoExcursionesBus ven;
 	
-	public Controladora_ListadoExcursionesBus(ListadoExcursionesBus ventana)throws Exc_Persistencia, MalformedURLException,  RemoteException,  NotBoundException{
+	public Controladora_ListadoExcursionesBus(ListadoExcursionesBus ventana) throws Exc_Persistencia, MalformedURLException,  RemoteException,  NotBoundException{
 		try{
 			ven=ventana;
 			Propiedades p = new Propiedades();
@@ -51,7 +51,7 @@ public class Controladora_ListadoExcursionesBus {
 				ven.mostrarError(e.toString(), 0);
 			} catch (Exc_Excursiones e) {
 				// TODO Auto-generated catch block
-				ven.mostrarError(e.toString(), 0);
+				ven.mostrarError(e.toString(), 1);
 			}
 		}
 		return ret;

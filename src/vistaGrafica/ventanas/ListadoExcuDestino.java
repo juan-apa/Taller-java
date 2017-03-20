@@ -128,7 +128,9 @@ public class ListadoExcuDestino extends Ventana
 					Iterador<VOExcursionListado> ite = c.ListadoExcuDestino(dest);
 					while (ite.hasNext()){
 						VOExcursionListado aux = ite.next();
-						dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(),String.valueOf(aux.gethPartida()),String.valueOf(aux.gethLlegada()),String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
+						String hpartida = aux.gethPartida().getHours() + ":" + aux.gethPartida().getMinutes();
+						String hllegada = aux.gethLlegada().getHours() + ":" + aux.gethLlegada().getMinutes();
+						dlm.addRow(new String[] {aux.getCodigo(),aux.getDestino(), hpartida/*String.valueOf(aux.gethPartida())*/, hllegada/*String.valueOf(aux.gethLlegada())*/,String.valueOf(aux.getPrecioBase()),String.valueOf(aux.getAsientosDisp())});
 					}
 					
 					 list.setModel(dlm);
