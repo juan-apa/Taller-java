@@ -83,7 +83,6 @@ public class Boletos implements Serializable{
 		double ret = 0.0;
 		for(int i = 0; i < this.tope; i++){
 			if(arreglo[i].getTipo() == "Especial"){
-				
 				ret = ret + (precioBase*(1-(((Especial) arreglo[i]).getDtoAdicional())));
 			}
 			else
@@ -104,12 +103,13 @@ public class Boletos implements Serializable{
 		Boleto[] nuevoArr = new Boleto[nuevaCap];
 		int i;
 		for(i= 0; i < topeViejo; i++){
-			if(this.arreglo[i].getTipo() == "Comun"){
-				nuevoArr[i] = new Boleto(arreglo[i]);
-			}
-			else{
-				nuevoArr[i] = new Especial(arreglo[i]);
-			}
+//			if(this.arreglo[i].getTipo() == "Comun"){
+//				nuevoArr[i] = new Boleto(arreglo[i]);
+//			}
+//			else{
+//				nuevoArr[i] = new Especial(arreglo[i]);
+//			}
+			nuevoArr[i] = this.arreglo[i];
 		}
 		this.setArreglo(nuevoArr);
 		this.tope = topeViejo;
