@@ -4,8 +4,8 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
     
-	<description>Primer ejemplo de una aplicación web</description>
-	<display-name>Hola Mundo web</display-name>
+	<description>Listados de excursiones</description>
+	<display-name>Listados</display-name>
 	
 	<servlet>
 		<servlet-name>ListadoDestino</servlet-name>
