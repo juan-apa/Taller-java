@@ -48,6 +48,9 @@ public class Controladora_Servlet {
 					if(e.getMessage().contains("destino")){
 						this.servlet.setMensajeError("No hay excursiones ingresadas en el sistema con ese destino");
 					}
+					else{
+						this.servlet.setMensajeError("No hay excursiones ingresadas en el sistema.");
+					}
 				}
 				else{
 					this.servlet.setMensajeError("No hay excursiones ingresadas en el sistema");

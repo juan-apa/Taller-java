@@ -59,7 +59,7 @@ public class Servlet_Listado extends HttpServlet{
 		ArrayList<VOExcursionListado> arr = new ArrayList<VOExcursionListado>();
 		error = new String("false");
 		advertencia = new String("false");
-		info = new String("error generico");
+		info = new String("Error");
 		
 		
 		if(seleccion.equals("destino")){
@@ -91,7 +91,6 @@ public class Servlet_Listado extends HttpServlet{
 				context.setAttribute("error", error1);
 				context.setAttribute("advertencia", advertencia1);
 		}
-		
 		
 		RequestDispatcher rd;
 		rd = req.getRequestDispatcher("index.jsp");
